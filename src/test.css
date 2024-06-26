@@ -1,0 +1,136 @@
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #ffffff; 
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #f7f7f7;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo img {
+    height: 100px;
+    margin-right: 50px;
+}
+
+.nav-links {
+    display: flex;
+    gap: 20px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #333333;
+    background-color: #e0eaf1;
+    padding: 10px 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.nav-links a:hover {
+    background-color: #d0d8e1;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.user-info a {
+    text-decoration: none;
+    color: #333333;
+    background-color: #e0eaf1;
+    padding: 10px 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.user-info a:hover {
+    background-color: #d0d8e1;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.image-container {
+    text-align: center;
+    padding: 20px 0;
+}
+
+.image-container img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.image-caption {
+    margin-top: 10px;
+    font-size: 20px;
+    color: #333333;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0;
+}
+
+.x-xVFiyl {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 20px;
+    margin-left: 270px;
+}
+
+.api-xVFiyl {
+    display: block;
+    margin: 20px auto; /* 위쪽과 아래쪽 간격을 추가하고, 자동으로 좌우 정렬 */
+    text-align: center; /* div 내부의 콘텐츠를 가운데 정렬 */
+    width: fit-content; /* div가 콘텐츠의 너비만큼만 차지하도록 설정 */
+}
+
+.image-xVFiyl {
+    display: block;
+    margin: 0 auto 20px auto; /* 중앙에 배치하고 아래쪽에 간격 추가 */
+    max-width: 750px; /* x-JryXyc 이미지와 동일한 너비로 설정 (원하는 크기로 조정) */
+    height: auto; /* 비율을 유지하여 높이 자동 설정 */
+    
+}
+
+.rectangle-123-YBkXDP {
+    display: block;
+    width: 110%;
+    height: auto;
+}
+
+.x-YBkXDP {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #333333;
+    font-size: 15px;
+    font-weight: normal;
+    text-align: center;
+    white-space: nowrap; /* 텍스트 줄 바꿈 방지 */
+}
+
+
+.content {
+    padding: 20px;
+}
