@@ -1,0 +1,44 @@
+.gnb-container {
+  background-color: #f8f9fa;
+  padding: 10px 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.gnb-brand {
+  display: flex;
+  align-items: center;
+}
+
+.gnb-logo {
+  height: 40px;
+  margin-right: 10px;
+}
+
+.gnb-links,
+.gnb-auth-links {
+  display: flex;
+  align-items: center;
+}
+
+.gnb-link {
+  background-color: #d5e6f5;
+  border-radius: 5px;
+  padding: 10px 20px;
+  margin: 0 5px;
+  color: #000;
+  font-weight: bold;
+  text-align: center;
+  white-space: nowrap;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+  min-width: 150px; /* 박스 크기를 일정하게 유지하기 위해 최소 너비 설정 */
+}
+
+.gnb-link:hover {
+  background-color: #ced4da;
+  color: #0056b3;
+}
+
+.gnb-divider {
+  color: #000;
+  margin: 0 5px;
+}
