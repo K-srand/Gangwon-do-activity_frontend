@@ -1,10 +1,10 @@
 import React from 'react';
 import { Nav } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
-import '../../assets/styles/login.css';
+import '../../assets/styles/logindet.css';
 
 function login() {
-    return (<form name="join" method="post" action="">
+    return (<form name="join" method="post" action="/Join">
     <div className="login-container">
       < div className="logo">
         <h1>강원액티비 로고</h1>
@@ -28,15 +28,6 @@ function login() {
        <button className="login-button" class="submit">로그인하기</button>
       </div>
       <div className="link-container">
-      `  <LinkContainer to="/SignUp">
-                <Nav.Link>회원가입</Nav.Link>
-        </LinkContainer>
-        <LinkContainer to="/FindId">
-                <Nav.Link>아이디찾기</Nav.Link>
-        </LinkContainer>
-        <LinkContainer to="/FindPwd">
-                <Nav.Link>비밀번호 찾기</Nav.Link>
-        </LinkContainer>`
       </div>
     </div></form>
     );

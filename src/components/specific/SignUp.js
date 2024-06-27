@@ -42,7 +42,7 @@ function Signup() {
             <input type="text" class="custom-input" placeholder="닉네임을 입력해주세요" name="userid"></input>
             <button type="button" class="custom-button">중복확인</button>
         </div>
-        <button type="button" class="submit" onclick="sign">가입하기</button>
+        <button type="submit" class="custom-button" onclick="sign">가입하기</button>
         </div>
         <div className="link-container">
         
