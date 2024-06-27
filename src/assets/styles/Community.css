@@ -1,0 +1,92 @@
+.community-container {
+    width: 80%;
+    margin: 50px auto;
+    text-align: center;
+  }
+  
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .header h1 {
+    font-size: 24px;
+  }
+  
+  .write-button {
+    padding: 10px 20px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .write-button:hover {
+    background-color: #555;
+  }
+  
+  .post-list {
+    border-top: 2px solid #333;
+    border-bottom: 2px solid #333;
+  }
+  
+  .post-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .post-item.notice {
+    background-color: #f2f2f2;
+  }
+  
+  .post-avatar {
+    width: 50px;
+    height: 50px;
+    background-color: #ccc;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+  
+  .post-content {
+    flex-grow: 1;
+    text-align: left;
+  }
+  
+  .post-author {
+    font-weight: bold;
+  }
+  
+  .post-best {
+    display: inline-block;
+    padding: 5px 10px;
+    background-color: red;
+    color: #fff;
+    margin-left: 10px;
+    border-radius: 5px;
+  }
+  
+  .post-text {
+    display: block;
+    margin-top: 5px;
+  }
+  
+  .post-date {
+    margin-left: auto;
+  }
+  
+  .pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  .page-number, .next-page {
+    margin: 0 5px;
+    cursor: pointer;
+  }
+  

@@ -1,0 +1,97 @@
+.signup-container {
+    text-align: center;
+    padding: 40px;
+    border: 2px solid #ccc;
+    border-radius: 20px;
+    width: 450px;
+    margin: 100px auto;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .logo h1 {
+    background-color: #ccc;
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .tagline {
+    background-color: skyblue; /* 배경색을 하늘색으로 설정 */
+    margin-bottom: 10px;
+    height: auto; /* 높이를 자동으로 설정 */
+  }
+  
+  .tagline h2 {
+    color: #070707;
+    margin-bottom: 20px;
+  }
+  
+  .tagline p {
+    color: blue; /* p 태그의 글자색을 파랑색으로 설정 */
+  }
+  
+  .signup-button-container {
+    margin-bottom: 20px;
+  }
+  
+  .signup-button {
+    padding: 10px 20px;
+    border: 1px solid #007bff;
+    background-color: white;
+    color: #007bff;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .signup-button:hover {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  .link-container {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .link {
+    color: gray;
+    text-decoration: none;
+    margin: 0 10px;
+  }
+  
+  .link:hover {
+    text-decoration: underline;
+  }
+
+  .input-container {
+    margin-bottom: 15px; /* 입력 컨테이너 간의 간격 조정 */
+    display: flex; /* 자식 요소들을 가로로 나열 */
+    align-items: center; /* 세로로 항목들을 가운데 정렬 */
+    text-align: left; /* 입력 필드와 버튼을 가운데 정렬 */
+}
+
+.input-label {
+    flex: 1; /* 라벨이 차지할 공간 설정 */
+    text-align: left; /* 라벨 텍스트를 오른쪽 정렬 */
+    margin-right: 10px; /* 라벨과 입력 사이의 간격 설정 */
+    min-width: 140px; /* 최소 너비 설정 */
+}
+
+.custom-input {
+    flex: 2; /* 입력 필드가 차지할 공간 설정 */
+    border: none;
+    border-bottom: 2px solid rgb(151, 151, 151);
+    outline: none;
+    padding: 5px; /* 입력 필드 내 여백 추가 */
+    margin-right: 10px; /* 입력 필드와 버튼 사이의 간격 설정 */
+    text-align: left; /* 입력 필드의 텍스트를 왼쪽 정렬 */
+}
+
+.custom-button {
+    padding: 8px 15px; /* 버튼 내 여백 조정 */
+    border: 1px solid #007bff;
+    background-color: white;
+    color: #007bff;
+    border-radius: 5px;
+    cursor: pointer;
+}
+  
