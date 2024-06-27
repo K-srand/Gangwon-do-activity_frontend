@@ -4,7 +4,7 @@ import Navbar from './components/common/MyNavbar';
 import MainPage from './components/common/MainPage';
 import Footer from './components/common/Footer';
 import Login from './components/specific/login';
-import Community from './components/specific/community';
+import Community from './components/specific/Community';
 import Post from './components/specific/post';
 import './App.css';
 
@@ -17,7 +17,7 @@ function App() {
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/" element={<MainPage />} />
-          <Route path="/community" element={<Community />} />
+          <Route path="/Community" element={<Community />} />
           <Route path="/post" element={<Post />} />
         </Routes>
         <Footer />
