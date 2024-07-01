@@ -24,6 +24,9 @@ const LoginDetail = () => {
         });
     }
 
+
+
+    
     // 얘는 추후에 우리가 로그인 user의 기능에 필요함.
     const getUser = () => {
         const token = localStorage.getItem('token'); // 저장된 토큰 가져오기
