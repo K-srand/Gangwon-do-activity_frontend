@@ -1,5 +1,6 @@
 .community-container {
     width: 60%;
+    max-width: 1440px;
     margin: 50px auto;
     text-align: center;
   }
