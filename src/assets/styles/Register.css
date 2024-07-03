@@ -1,0 +1,187 @@
+/* body {
+    font-family: Arial, sans-serif;
+} */
+
+.register-modal-main {
+    background-color: white;
+    padding: 10px;
+    width: 30%;
+    max-width: 1440px;
+    min-height: 10%;
+    height: 900px;
+    margin: 0 auto;
+    box-shadow: 0.2px 2px 10px 0.5px #0097FF; 
+    border: #b1c7f0;
+    border-radius: 30px;
+    gap: 24px;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 15%;
+    left: 35%;
+}
+
+.register-modal-logo {
+    height: 100px;
+    background-color: rgb(231, 231, 231);
+    width: 134px;
+    margin: auto;
+    margin-top: 40px;
+    display: flex;
+    border-radius: 5px;
+}
+
+.register-modal-logo .img {
+    height: 100%;
+    width: 100%;
+}
+
+.register-modal-welcome {
+    background-color: #D5E6F5;
+    height: 80px;
+    width: 50%;
+    margin: 20px auto;
+    align-items: center; 
+    justify-content: center;
+    line-height: 2;
+}
+
+.register-modal-welcome .bold {
+    font-family: 'BMHANNAPro', sans-serif;
+    font-size: 18px;
+}
+
+.register-modal-welcome .detail {
+    font-family: 'BMHANNAAir', sans-serif;
+    color: #0097FF;
+    font-size: 15px;
+}
+
+.register-modal-receive {
+    width: 85%;
+    margin: 0 auto;
+}
+
+form {
+    width: 100%;
+    margin-left : 40px;
+    text-align: left;
+    align-content: start;
+}
+
+.form-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.form-group label {
+    width: 25%;
+    font-weight: bold;
+    color: #888;
+    text-align: left;
+    padding-right: 10px;
+}
+
+.form-group input {
+    width: 40%;
+    padding: 10px;
+    border: none;
+    border-bottom: 1px solid #ccc;
+    box-sizing: border-box;
+    font-size: 12px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-bottom: 1px solid #000;
+}
+
+.form-group button {
+    width: 15%;
+    padding: 10px;
+    margin-bottom: 20px;
+    margin-top: 0px;
+    margin-left: 10px;
+    text-align: center;
+    background-color: white;
+    border: 1px solid #00f;
+    font-size: 14px;
+    cursor: pointer;
+    display: flex; 
+    align-items: center; /* 수직 가운데 정렬 */
+    justify-content: center; /* 수평 가운데 정렬 */
+}
+.form-group button:hover {
+    background-color: #f0f0f0;
+}
+
+button[type="submit"] {
+    width: 30%;
+    padding: 15px;
+    background-color: white;
+    border: 1px solid #00f;
+    font-size: 18px;
+    font-weight: bold;
+    color: black;
+    cursor: pointer;
+    margin-top: 20px;
+    position: absolute;
+    bottom: 3%;
+    left : 35%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+button[type="submit"]:hover {
+    background-color: #f0f0f0;
+}
+
+.links {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.links a {
+    color: #888;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.links a:hover {
+    text-decoration: underline;
+}
+
+.valid-feedback {
+    position: absolute;
+    bottom: 50%;
+    left : 70%;
+    color: green;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.invalid-feedback {
+    position: absolute;
+    bottom: 50%;
+    left : 70%;
+    color: red;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+/* .invalid-feedback .small-text {
+    color: black;
+    font-size: 8px;
+} */
+
+.password-helper {
+    width: 40%;
+    height: 20px;
+    display: flex;
+    align-items: center;
+}

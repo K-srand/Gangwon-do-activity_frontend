@@ -2,10 +2,13 @@
 import {React, useEffect, useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
-import MainPage from './components/specific/MainPage';
+//Test상태인 녀석들 -> 아직 components에서 바로 가져다 쓰는녀석들
 import LoginDetail from './components/specific/LoginDetail';
+import Register from './components/specific/Register';
 
-import CommunityListPage from './pages/CommunityListPage'; // CommunityPage 경로에 맞게 수정
+//Page 단위 구성까지 끝난 녀석들 -> pages에서 끌어오기.
+import MainPage from './pages/MainPage';
+import CommunityListPage from './pages/CommunityListPage'; 
 import './App.css';
 
 function App() {
@@ -20,7 +23,11 @@ function App() {
             <Route path= "logindetail" element={<LoginDetail />}/>
             <Route path="/" element={<MainPage />} />
             <Route path="/community" element={<CommunityListPage/>}/>
+            <Route path="/register" element={<Register/>}/>
           </Routes>
+
+
+
 
         </Router>
     </div>
