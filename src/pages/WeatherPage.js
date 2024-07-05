@@ -1,11 +1,10 @@
 import React from 'react';
-import Calendar from '../components/specific/Calendar';
-import '../App.css';
+import Calendar from '../components/specific/Calendar.js';
 
 const WeatherPage = () => {
   return (
-    <div className="WeatherPage">
-      <h1>Weather Calendar</h1>
+    <div className="weather-page">
+      <h1>열흘의 날씨!</h1>
       <Calendar />
     </div>
   );

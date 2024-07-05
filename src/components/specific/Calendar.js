@@ -9,31 +9,33 @@ const Calendar = () => {
   useEffect(() => {
     const fetchWeatherData = async () => {
       try {
-        const response = await fetch('/api/weather');
+        const response = await fetch('http://localhost:4040/api/v1/weather/data'); // 백엔드 서버 URL과 포트를 명시
         const data = await response.json();
-        setWeatherData(data);
+        if (Array.isArray(data)) {
+          setWeatherData(data);
+        } else {
+          console.error('Fetched data is not an array:', data);
+          setWeatherData([]);
+        }
       } catch (error) {
         console.error('Error fetching weather data:', error);
+        setWeatherData([]); // 에러가 발생한 경우 빈 배열로 초기화
       }
     };
     fetchWeatherData();
-  }, [currentDate]);
+  }, []);
 
-  const getDaysInMonth = (date) => {
-    const year = date.getFullYear();
-    const month = date.getMonth();
-    return Array.from({ length: new Date(year, month + 1, 0).getDate() }, (_, i) => new Date(year, month, i + 1));
+  const getMonthName = (date) => {
+    const monthNames = ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"];
+    return monthNames[date.getMonth()];
   };
-
-  const days = getDaysInMonth(currentDate);
 
   return (
     <div>
-      <button onClick={() => setCurrentDate(new Date(currentDate.setMonth(currentDate.getMonth() - 1)))}>Previous</button>
-      <button onClick={() => setCurrentDate(new Date(currentDate.setMonth(currentDate.getMonth() + 1)))}>Next</button>
+      <div className= "BMProTitle">{getMonthName(currentDate)}</div>
       <div className="calendar-grid">
-        {days.map(day => (
-          <Day key={day} date={day} weatherData={weatherData.find(data => new Date(data.date).getDate() === day.getDate())} />
+        {weatherData.map((day, index) => (
+          <Day key={index} date={new Date(day.date)} weatherData={day} />
         ))}
       </div>
     </div>
