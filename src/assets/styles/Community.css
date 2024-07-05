@@ -1,0 +1,127 @@
+.community-container {
+    width: 60%;
+    max-width: 1440px;
+    margin: 50px auto;
+    text-align: center;
+  }
+  
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+
+  .write-button {
+    padding: 10px 20px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .write-button:hover {
+    background-color: #555;
+  }
+  
+  .body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 100%;
+  }
+
+  .title {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .right {
+    position: absolute;
+    right: 0;
+  }
+  
+  .body h1, .body h3 {
+    margin: 0; 
+  }
+
+  .post-list {
+    border-top: 2px solid #333;
+    border-bottom: px solid #333;
+    margin-top: 60px;
+    margin-bottom: 60px; 
+  }
+  
+  .post-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .post-item.notice {
+    background-color: #f2f2f2;
+  }
+  
+  .post-avatar {
+    width: 50px;
+    height: 50px;
+    background-color: #ccc;
+    border-radius: 50%;
+    margin-right: 20px;
+    flex-shrink: 0;
+  }
+  
+  .post-content {
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+  }
+  
+  .post-author {
+    font-weight: bold;
+    margin-right: 60px;
+  }
+  
+  .post-best {
+    display: inline-block;
+    padding: 5px 10px;
+    background-color: red;
+    color: #fff;
+    margin-right: 15px;
+    border-radius: 5px;
+  }
+
+  .post-notice {
+    display: inline-block;
+    padding: 5px 10px;
+    background-color: rgb(0, 0, 0);
+    color: #fff;
+    margin-right: 15px;
+    border-radius: 5px;
+    margin-left: -15px;
+  }
+  
+  .post-text {
+    margin-right: 10px;
+  }
+  
+  .post-date {
+    margin-left: auto;
+    white-space: nowrap; /* 날짜가 여러 줄로 줄 바뀜 되지 않도록 */
+  }
+  
+  .pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  .page-number, .next-page {
+    margin: 0 5px;
+    cursor: pointer;
+  }
+  
