@@ -18,7 +18,7 @@ const Navbar = () => {
           <a href="www.naver.com">사이트 소개</a>
           <a href="/community">커뮤니티</a>
           <a href="www.naver.com">*사용자 추천 코스*</a>
-          <a href="www.naver.com">나만의 코스 만들기</a>
+          <a href="/createmycoursepage">나만의 코스 만들기</a>
         </div>
       </div>
     </nav>

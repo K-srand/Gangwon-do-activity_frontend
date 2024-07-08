@@ -1,19 +1,5 @@
-<<<<<<< HEAD
-import React from 'react';
-
-import './App.css';
-import CreateMyCoursePage from './components/pages/CreateMyCoursePage';
-// import MainPage from './components/common/MainPage';
-
-
-function App() {
-  return (
-    <div className="App">
-      <CreateMyCoursePage />
-    </div>
-=======
-
-import {React, useEffect, useState } from 'react';
+import CreateMyCoursePage from './pages/CreateMyCoursePage';
+import { React } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 //Test상태인 녀석들 -> 아직 components에서 바로 가져다 쓰는녀석들
@@ -30,26 +16,18 @@ function App() {
   return (
     <div className="App">
       <Router>
-          {/* <Navbar/> */}
-          {/* <LoginDetail/> */}
-          {/* <Footer/> */}
+  
           <Routes>
             <Route path= "logindetail" element={<LoginDetail />}/>
             <Route path="/" element={<MainPage />} />
             <Route path="/community" element={<CommunityListPage/>}/>
             <Route path="/register" element={<Register/>}/>
+            <Route path= "/createmycoursepage" element={<CreateMyCoursePage />}/>
           </Routes>
-
-
-
-
+          
         </Router>
     </div>
 
-
-
-
->>>>>>> 0aa9416800bc1de75220b4df6d153d04b6767b81
   );
 }
 
