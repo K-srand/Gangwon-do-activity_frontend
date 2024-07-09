@@ -1,0 +1,286 @@
+
+.PostWrite-header {
+    background-color: #fff; 
+    display: flex; 
+    justify-content: space-between; /* 양 끝에 배치 */
+    align-items: center; /* 세로축 가운데 정렬 */
+    width: 80%; 
+    padding: 20px; 
+    max-width: 1440px; 
+    margin: 0 auto; /* 수평 중앙 정렬 */
+}
+
+/* 글 제목 */
+.post-title {
+    align-items: center; /* 세로축 가운데 정렬 */
+    width: 100%; 
+    font-size: 30px; 
+    max-width: 1440px; 
+    margin: 0 0 60px 10%; 
+    text-align: justify; /* 텍스트를 양쪽 정렬 */
+}
+/* 수정/삭제 버튼 스타일 */
+.PostWrite-header-button {
+    display: flex;
+    flex-direction: row; /* 세로 방향으로 정렬을 가로로 변경 */
+    align-items: center; /* 가운데 정렬 */
+    justify-content: flex-end; /* 오른쪽 정렬 */
+    width: 100%; /* 버튼 영역 전체 너비 */
+    max-width: 1440px;
+    margin: 0 auto;
+    padding-right: 8%; 
+    margin-top: 20%;
+}
+
+/* 수정/삭제 버튼*/
+.editClick,
+.deleteClick {
+    margin: 0 10px; /* 버튼 간의 간격 좌우*/
+    padding: 10px; 
+    width: 100px; 
+    height: 40px; 
+    background-color: #D7DFE6;
+    cursor: pointer; /* 커서를 포인터로 변경하여 클릭 가능함을 나타냄 */
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); /* 버튼 그림자 */
+    font-size: 18px; 
+    border: none; /* 테두리를 없앰 */
+    outline: none; /* 포커스 아웃라인을 없앰 */
+    display: flex; 
+    justify-content: center; /* 가로축 가운데 정렬 */
+    align-items: center; /* 세로축 가운데 정렬 */
+    border-radius: 0px; /* 모서리를 둥글게 하지 않음 */
+}
+
+/* 버튼에 마우스를 올렸을 때 */
+.editClick:hover,
+.deleteClick:hover {
+    background-color: #e0e0e0; /* 약간 더 밝은 회색으로 변경 */
+    border-radius: 0px; /* 모서리를 둥글게 하지 않음 */
+}
+
+.PostWrite-header-body {
+    display: flex; 
+    flex-direction: row; /* 가로 방향으로 정렬 */
+    justify-content: space-between; /* 양 끝에 배치 */
+    align-items: center; /* 세로축 가운데 정렬 */
+    width: 80%; 
+    max-width: 1440px; 
+    margin: 0 auto; /* 수평 중앙 정렬 */
+    padding-top: 60px; 
+    margin-bottom: 55px; 
+    font-size: 20px; 
+}
+
+/* 일반 유저 프로필 */
+.profile {
+    display: flex; 
+    align-items: center; /* 세로축 가운데 정렬 */
+    padding-left: 50px; 
+    font-size: 20px; 
+}
+
+.profile img {
+    width: 80px; /* 프로필 이미지 크기 */
+    height: 80px;
+    margin-right: 15px;
+}
+
+/* 좋아요 이미지 */
+.liked {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: right;
+    padding-right: 10%;
+}
+
+.liked span {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px; /* 좋아요 아이콘과 숫자 사이의 간격 */
+    margin-left: 10px; /* 왼쪽 간격을 추가하여 살짝 오른쪽으로 이동 */
+}
+
+.liked img {
+    width: 20px; 
+    height: 20px; 
+    margin-right: 15px; /* 아이콘과 숫자 사이의 간격 */
+}
+
+.PostWrite-header-line {
+    border: 0;
+    border-bottom: 1px solid #414141;
+    width: 100%;
+    padding: auto;
+    max-width: 1440px;
+    margin: 0 auto;
+}
+
+/* 본문 */
+.post-body {
+    display: flex;
+    width: 80%;
+    max-width: 1440px;
+    margin: 0 auto; /* 수평 중앙 정렬 */
+    flex-direction: column
+}
+
+/* 글 작성 내용 */
+.content {
+    color: #000;
+    text-align: justify;
+    align-items: center;
+    font-size: 20px;
+    margin: 15px;
+}
+
+/* 좋아요/싫어요 버튼*/
+.LikeAction-DislikeAction { 
+    display: flex;
+    justify-content: center; /* 이미지 버튼을 중앙에 배치 */
+    gap: 80px; /* 버튼 사이의 간격 */
+    margin-top: 20px; /* 내용과 버튼 사이의 간격 */
+    padding-bottom: 20px;
+}
+
+.LikeAction-DislikeAction img {
+    width: 100px; /* 버튼의 너비를 설정 */
+    height: auto; /* 버튼의 높이를 설정 */
+    cursor: pointer; /* 버튼에 커서 포인터를 추가 */
+    transition: transform 0.3s; /* 마우스를 올릴 때의 애니메이션 효과 */
+}
+
+.LikeAction-DislikeAction img:hover {
+    transform: scale(1.1); /* 마우스를 올렸을 때 버튼 확대 */
+}
+
+.PostWrite-footer {
+    display: flex;
+    align-items: center;
+    max-width: 1440px;
+    margin: 0 auto;
+}
+
+/* 댓글 */
+.comment-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 0px 0;
+    font-size: 18px;
+    font-weight: bold;
+    max-width: 1440px;
+    margin: 0 auto;
+}
+
+.PostWrite-footer-line {
+    border: 0;
+    border-bottom: 1px solid #414141;
+    width: 100%;
+    padding: 20px 0 0 0;
+    max-width: 1440px;
+    margin: 1px auto;
+}
+
+.comment {
+    display: flex;
+    align-items: flex-start; /* 댓글 프로필과 내용을 위쪽으로 정렬 */
+    padding: 20px 0;
+    border-bottom: 1px solid #ddd; /* 각 댓글 사이에 줄 추가 */
+    max-width: 1440px;
+    margin: 0 auto;
+    font-size: 18px;
+}
+
+/* 댓글 프로필 */
+.comment-profile {
+    display: flex;
+    align-items: center;
+}
+
+.comment-profile img {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+    border-radius: 50%; /* 프로필 이미지를 원형으로 */
+}
+
+/* 댓글 내용 */
+.comment-content {
+    flex: 1;
+    padding: 7px 0 0 20px;
+    text-align: left; /* 텍스트를 왼쪽 정렬 */
+}
+
+.comment-content span {
+    display: block;
+    margin-bottom: 5px;
+}
+
+/* 댓글 액션 */
+.comment-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    font-size: 18px; /* 글씨 크기를 줄여서 텍스트가 더 잘 어울리게 */
+    color: #888; /* 텍스트 색상을 회색으로 변경 */
+}
+
+.comment-actions span {
+    margin-bottom: 5px;
+    cursor: pointer;
+}
+
+.comment-actions .report {
+    color: red; /* 신고 텍스트를 빨간색으로 */
+}
+
+/* 댓글 입력란 */
+.comment-input {
+    display: flex; 
+    justify-content: space-between; /* 양 끝에 배치 */
+    align-items: center; /* 세로축 가운데 정렬 */
+    width: 100%; 
+    max-width: 1440px; 
+    margin: 20px auto; /* 수직 방향으로 20px 여백을 추가하고 수평 중앙 정렬 */
+    padding: 10px; 
+    border: 1px solid #ddd; /* 회색 테두리 */
+    border-radius: 5px; /* 모서리를 둥글게 처리 */
+    background-color: #f9f9f9; /* 배경색을 밝은 회색으로 설정 */
+}
+
+/* 댓글 입력 필드 */
+.comment-input input {
+    width: 90%; /* 전체 너비의 90%로 설정 */
+    padding: 10px; 
+    border: none; /* 테두리를 없앰 */
+    outline: none; /* 포커스 아웃라인을 없앰 */
+    font-size: 18px; 
+    border-radius: 5px; /* 모서리를 둥글게 처리 */
+}
+
+/* 댓글 작성 버튼 */
+.comment-input button {
+    padding: 10px 20px; 
+    margin: 0 0 17px 10px;
+    background-color: #D5E6F5; 
+    color: #000; /* 텍스트 색상을 흰색으로 설정 */
+    border: none; /* 테두리를 없앰 */
+    border-radius: 5px; /* 모서리를 둥글게 처리 */
+    cursor: pointer; /* 커서를 포인터로 변경하여 클릭 가능함을 나타냄 */
+    font-size: 18px; 
+}
+
+.comment-input button:hover {
+    background-color: #b5cce5;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.page-number, .next-page {
+    margin: 0 5px;
+    cursor: pointer;
+}
