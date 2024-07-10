@@ -100,6 +100,8 @@ form {
 }
 
 .form-group button {
+    color: black;
+    font-family: 'BMHANNAPro', sans-serif;
     width: 15%;
     padding: 10px;
     margin-bottom: 20px;
@@ -159,7 +161,7 @@ button[type="submit"]:hover {
 .valid-feedback {
     position: absolute;
     bottom: 50%;
-    left : 70%;
+    left : 80%;
     color: green;
     font-size: 14px;
     font-weight: bold;
@@ -168,7 +170,7 @@ button[type="submit"]:hover {
 .invalid-feedback {
     position: absolute;
     bottom: 50%;
-    left : 70%;
+    left : 80%;
     color: red;
     font-size: 14px;
     font-weight: bold;

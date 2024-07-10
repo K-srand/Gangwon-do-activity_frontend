@@ -11,25 +11,52 @@
   
   .navbar-user {
     display: flex;
+    width : 40%;
     gap: 20px;
     position: absolute;
     top: 10px;
-    right: 185px;
+    left : 704px;
+    font-family: 'BMHANNAPro', sans-serif;
+    font-size: 18px;
+    justify-content: flex-end;
+    height: 40px;
+   
+  }
+  
+  .navbar-links {
+    display: flex;
+    gap: 20px;
     font-family: 'BMHANNAPro', sans-serif;
     font-size: 18px;
   }
   
+
   .navbar-user a {
     padding: 10px;
     min-width: 200px;
     background-color: #D5E6F5;
     text-decoration: none;
     color: black;
+    width: 200px ;
     border-radius: 0px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* 그림자 효과 */
     transition: background-color 0.3s, box-shadow 0.3s; /* hover 효과를 위한 전환 */
   }
   
+.navbar-user .nav-button{
+  padding: 10px;
+  margin: 0px;
+    min-width: 200px ;
+    height : 40px;
+    background-color: #D5E6F5;
+    text-decoration: none;
+    color: black;
+    width: 220px ;
+    border-radius: 0px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* 그림자 효과 */
+    transition: background-color 0.3s, box-shadow 0.3s; /* hover 효과를 위한 전환 */
+}
+
   .navbar-user a:hover {
     background-color: #b5cce5; /* hover 시 색상 변경 */
     box-shadow: 0 4px 5px rgba(0, 0, 0, 0.2); /* hover 시 그림자 효과 변경 */
