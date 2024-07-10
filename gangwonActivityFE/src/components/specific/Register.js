@@ -51,8 +51,12 @@ function Register() {
           'Content-Type': 'application/json'
         }
       });
-      setIsIdValid(response.data.isValid);
-      alert(response.data.isValid ? '아이디 사용 가능' : '아이디가 이미 사용 중입니다.');
+
+      // Log response for debugging
+      console.log('ID Check Response:', response.data);
+
+      setIsIdValid(response.data.isIdValid);
+      alert(response.data.isIdValid ? '아이디 사용 가능' : '아이디가 이미 사용 중입니다.');
     } catch (error) {
       console.error('Error checking ID:', error);
       alert('아이디 확인 중 오류가 발생했습니다.');
@@ -77,8 +81,12 @@ function Register() {
           'Content-Type': 'application/json'
         }
       });
-      setIsNickValid(response.data.isValid);
-      alert(response.data.isValid ? '닉네임 사용 가능' : '닉네임이 이미 사용 중입니다.');
+
+      // Log response for debugging
+      console.log('Nickname Check Response:', response.data);
+
+      setIsNickValid(response.data.isNickValid);
+      alert(response.data.isNickValid ? '닉네임 사용 가능' : '닉네임이 이미 사용 중입니다.');
     } catch (error) {
       console.error('Error checking nickname:', error);
       alert('닉네임 확인 중 오류가 발생했습니다.');
@@ -98,7 +106,7 @@ function Register() {
           'Content-Type': 'application/json'
         }
       });
-      if (response.data.code=='SU') {
+      if (response.data.code === 'SU') {
         navigate('/certification');
       } else {
         alert('이메일 인증 요청에 실패하였습니다: ' + (response.data.message || '알 수 없는 오류'));

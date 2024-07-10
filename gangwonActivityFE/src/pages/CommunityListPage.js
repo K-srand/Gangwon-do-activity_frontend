@@ -6,7 +6,7 @@ import Community from '../components/specific/Community'; // Community 경로에
 function CommunityPage() {
   return (
     <div>
-      <Navbar />
+      {/* <Navbar /> */}
       <main>
         <Community />
       </main>

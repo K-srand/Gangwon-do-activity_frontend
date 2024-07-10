@@ -5,6 +5,10 @@ import LoginDetail from './components/specific/LoginDetail';
 import Register from './components/specific/Register';
 import MainPage from './pages/MainPage';
 import CommunityListPage from './pages/CommunityListPage';
+import Certification from './components/specific/Certification';
+
+
+
 import Navbar from './components/common/Navbar'; // 추가
 import Modal from './components/specific/Modal'; // 추가
 import Login from './components/specific/Login'; // 추가
@@ -35,6 +39,7 @@ function App() {
       <Routes>
         <Route path="logindetail" element={<LoginDetail />} />
         <Route path="/" element={<MainPage />} />
+        <Route path="/certification" element={<Certification/>}/>
         <Route path="/community" element={<CommunityListPage />} />
         <Route path="/register" element={<Register />} />
         <Route path="/createmycoursepage" element={<CreateMyCoursePage />} />

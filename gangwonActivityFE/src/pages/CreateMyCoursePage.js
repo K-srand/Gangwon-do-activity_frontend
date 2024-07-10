@@ -8,7 +8,7 @@ import Weather from '../components/specific/Weather';
 function CreateMyCourse() {
     return (
         <div>
-            <Navbar />
+            {/* <Navbar /> */}
             <main>
                 <MyPlace />
                 <TotalRoute />
