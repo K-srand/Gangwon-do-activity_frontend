@@ -35,12 +35,35 @@ function EditPostBoard() {
     const handleCancel = () => {
         nav(-1);
     };
+    const handleImageUpload = async (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            try {
+                const formData = new FormData();
+                formData.append('file', file);
 
-    const handleImageUpload = (event) => {
-        const files = Array.from(event.target.files);
-        const newImages = files.map(file => URL.createObjectURL(file));
-        setImages([...images, ...newImages]);
+                const response = await axios.post('/upload', formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                });
+
+                const fileUrl = response.data;
+                setExistingImages([...existingImages, fileUrl]);
+                alert('File uploaded successfully!');
+            } catch (error) {
+                console.error('Error uploading file:', error);
+                alert('Error uploading file');
+            }
+        }
     };
+
+
+    // const handleImageUpload = (event) => {
+    //     const files = Array.from(event.target.files);
+    //     const newImages = files.map(file => URL.createObjectURL(file));
+    //     setImages([...images, ...newImages]);
+    // };
 
     const removeImage = (index) => {
         setImages(images.filter((_, i) => i !== index));

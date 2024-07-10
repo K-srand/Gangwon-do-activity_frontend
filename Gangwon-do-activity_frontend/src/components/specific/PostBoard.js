@@ -15,12 +15,15 @@ function PostBoard(){
 
     // 이미지 업로드 및 취소
     const [images, setImages] = useState([]);
+    // const [existingImages, setExistingImages] = useState([]);
 
-    const handleImageUpload = (event) => {
+    const handleImageChange = (event) => {
         const files = Array.from(event.target.files);
         const newImages = files.map(file => URL.createObjectURL(file));
         setImages([...images, ...newImages]);
-      };
+
+        files.forEach(file => uploadFile(file));
+    };
 
     const removeImage = (index) => {
         setImages(images.filter((_, i) => i !== index));
@@ -32,7 +35,7 @@ function PostBoard(){
         imageAddress : []
     });
 
-    const {boardTitle, content, imageAddress} = postData;
+    const {boardTitle, content, imageUrls} = postData;
 
     const onChange = (e) => {
         const {name, value} = e.target;
@@ -42,32 +45,65 @@ function PostBoard(){
         });
     };
 
-    const handleSubmit = () =>{
-        const token = localStorage.getItem('token'); // 토큰 가져오기
+    // 파일 URL을 저장할 상태
+    const [fileUrls, setFileUrls] = useState([]);
+
+    // 새로운 fileUrl을 fileUrls 배열에 추가하는 함수
+    const addFileUrl = (fileUrl) => {
+    setFileUrls((prevFileUrls) => [...prevFileUrls, fileUrl]);
+    };
+
+
+    let fileUrl ="" ;
+
+    const uploadFile = async (file) => {
         const formData = new FormData();
-            images.forEach((image, index) => {
-                formData.append(`image${index}`, image);
+        formData.append('file', file);
+
+        try {
+            const token = localStorage.getItem('token'); // 토큰 가져오기
+            const response = await axios.post('http://localhost:4040/file/upload', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    Authorization: `Bearer ${token}`
+                }
             });
 
-        axios.post('http://localhost:4040/api/v1/board', {
-            title : boardTitle,
-            content : content,
-            imageAddress : imageAddress
-        },{
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        })
-        .then((res) => {
-            console.log(res);
-            // 페이지이동
-            window.location.href ='/community';
-        })
-        .catch((err) =>{
-            console.log(err);
-        });
-           
-    }
+            fileUrl = response.data;
+            console.log('Uploaded image URL:', fileUrl);
+            addFileUrl(fileUrl);
+            return fileUrls; // 업로드된 이미지의 URL 반환
+        } catch (error) {
+            console.error('Error uploading file:', error);
+            throw error; // 업로드 실패 시 에러 처리
+        }
+    };
+       
+
+    const handleSubmit = async () => {
+        try {
+
+            // 게시글 작성 API 호출
+            const token = localStorage.getItem('token'); // 토큰 가져오기
+            const response = await axios.post('http://localhost:4040/api/v1/board', {
+                title: boardTitle,
+                content: content,
+                boardImageList:  fileUrls// 이미지 URL 전송
+            }, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+
+            console.log('Post submitted successfully:', response);
+            // 페이지 이동 등 추가 작업 수행
+            nav('/community');
+        } catch (error) {
+            console.error('Error submitting post:', error);
+
+        }
+    };
+    
 
     return(
        
@@ -85,7 +121,7 @@ function PostBoard(){
                     <div className='mycourse-image-upload-button'>
                         <button className='upload-button'>나만의 코스 불러오기</button><br/>
                         {/* <button className='upload-button'>이미지 불러오기</button> */}
-                        <input type="file" multiple onChange={handleImageUpload} />
+                        <input type="file" name="file" multiple onChange={handleImageChange} />
                     </div>
                    
                     {/* <input  type='file' accept='image/*' style={{display : 'none'}}/>  */}

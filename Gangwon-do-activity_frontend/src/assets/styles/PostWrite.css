@@ -284,3 +284,31 @@
     margin: 0 5px;
     cursor: pointer;
 }
+/* 이미지 추가 작업 */
+.board-write-image{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    flex-direction: row;
+    justify-content: center;
+    padding: 20px;
+  }
+
+  .image-container{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    flex-direction: row;
+    justify-content: center;
+    padding: 20px;
+    position: relative;
+    display: inline-block;
+  }
+
+  .write-image{
+    display: block;
+    max-width: 200px;
+    max-height: 200px;
+    border: 1px solid #ccc;
+
+  }
