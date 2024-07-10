@@ -61,15 +61,15 @@ button img {
 
 .prev-button {
   position: absolute;
-  left: 0;
-  top: 40%;
+  left: -10px;
+  top: 35%;
   transform: translateY(-50%);
 }
 
 .next-button {
   position: absolute;
-  right: 0;
-  top: 40%;
+  right: -10px;
+  top: 35%;
   transform: translateY(-50%);
 }
 
@@ -85,18 +85,17 @@ button img {
 }
 
 .map {
-  width: 50%;
+  width: 70%;
   height: 100%;
 }
 
 .button-container {
-  width: 80%; 
+  width: 60%; 
   margin: 0 auto; 
   position: absolute;
   top: 10px;
-  left: 370px;
+  left: 17%;
   display: flex;
-  gap: 10px;
   z-index: 10;
 }
 
@@ -109,4 +108,52 @@ button img {
   font-family: 'BMHANNAPro', sans-serif;
   font-size: 18px;
   color: black;
+}
+
+
+.recommendplace h2 {
+  width: 300px;
+  height: 50px;
+  background-color: #D5E6F5;
+  text-decoration: none;
+  color: black;
+  border-radius: 0px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3px;
+  font-family: 'BMHANNAPro', sans-serif;
+  font-size: 25px;
+}
+
+.mainupper {
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  padding: 100px;
+  max-width: 1440px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.Weather {
+  position: relative;
+  margin-top: 100px;
+}
+
+.Weather h2 {
+  width: 300px;
+  height: 50px;
+  background-color: #D5E6F5;
+  text-decoration: none;
+  color: black;
+  border-radius: 0px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3px;
+  font-family: 'BMHANNAPro', sans-serif;
+  font-size: 25px;
 }

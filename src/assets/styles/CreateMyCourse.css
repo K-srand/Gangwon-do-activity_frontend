@@ -1,129 +1,141 @@
-.CreateMyCourse {
+.CreateMyCourseContainer {
     display: flex;
-    flex-direction: column; /* 세로 정렬로 변경 */
+    flex-direction: column;
     align-items: left;
-    padding: 100px; /* 상하 좌우 패딩 */
+    padding: 100px;
     max-width: 1440px;
     margin: 0 auto;
     position: relative;
 }
 
-.MyPlaceList {
-    position: relative; /* 위치 조정을 위해 position 속성 추가 */
-    left: 0; /* 왼쪽으로 이동 */
-    margin-left: 0; /* 왼쪽 여백을 제거 */
-    padding-left: 0; /* 왼쪽 패딩을 제거 */
+.CreateMyCourseMyPlaceList {
+    position: relative;
+    left: 0;
+    margin-left: 0;
+    padding-left: 0;
 }
 
-.MyPlaceList h2 {
-    width: 200px; /* 원하는 너비 설정 */
-    height: 50px; /* 원하는 높이 설정 */
+.CreateMyCourseMyPlaceList h2 {
+    width: 200px;
+    height: 50px;
     background-color: #D5E6F5;
     text-decoration: none;
     color: black;
     border-radius: 0px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* 그림자 효과 */
-    display: flex; /* Flexbox 사용 */
-    align-items: center; /* 수직 중앙 정렬 */
-    justify-content: center; /* 수평 중앙 정렬 */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
     padding: 3px;
+    font-family: 'BMHANNAPro', sans-serif;
+    font-size: 25px;
 }
 
-.Category {
+.CreateMyCourseCategory {
     position: relative;
-    width: 700px; /* 원하는 너비 설정 */
+    width: 700px;
     display: flex;
     gap: 10px;
-    align-items: center; /* 수직 중앙 정렬 */
-    justify-content: center; /* 수평 중앙 정렬 */
+    align-items: center;
+    justify-content: center;
     background-color: rgba(139, 139, 139, 0.2);
-    padding: 10px; /* 내부 여백 */
+    padding: 10px;
     left: 25%;
 }
 
-.Category .button {
+.CreateMyCourseCategory button {
     display: flex;
     margin: 10px;
     background-color: white;
     border: 1px solid #ccc;
-    padding: 5px 15px;
+    padding: 5px 0px;
     cursor: pointer;
+    color: black;
+    font-family: 'BMHANNAAir', sans-serif;
 }
 
-.ImageList {
+.CreateMyCourseImageList {
     position: relative;
-    width: 700px; /* 원하는 너비 설정 */
-    height: 150px; /* 원하는 높이 설정 */
+    width: 1000px;
+    height: 200px;
     display: flex;
     gap: 60px;
-    align-items: center; /* 수직 중앙 정렬 */
-    justify-content: center; /* 수평 중앙 정렬 */
+    align-items: center;
+    justify-content: center;
     background-color: rgba(139, 139, 139, 0.2);
-    padding: 10px; /* 내부 여백 */
-    left: 25%;
-    margin-top: 30px;
+    padding: 10px;
+    left: 15%;
+    margin-top: 100px;
 }
 
-.ImageList img {
+.CreateMyCourseImageList img {
     position: relative;
     margin: 10px;
-    width: 150px; 
-    height: 150px; 
+    width: 150px;
+    height: 150px;
 }
 
-.TourCombination h2 {
-    width: 200px; /* 원하는 너비 설정 */
-    height: 50px; /* 원하는 높이 설정 */
+.CreateMyCourseTourCombination h2 {
+    width: 200px;
+    height: 50px;
     background-color: #D5E6F5;
     text-decoration: none;
     color: black;
     border-radius: 0px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* 그림자 효과 */
-    display: flex; /* Flexbox 사용 */
-    align-items: center; /* 수직 중앙 정렬 */
-    justify-content: center; /* 수평 중앙 정렬 */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
     padding: 3px;
+    font-family: 'BMHANNAPro', sans-serif;
+    font-size: 25px;
 }
 
-.tour-combination-list {
+.CreateMyCourseTourCombinationList {
     position: relative;
-    width: 1000px; /* 원하는 너비 설정 */
-    height: 150px; /* 원하는 높이 설정 */
+    width: 1000px;
+    height: 200px;
     display: flex;
     gap: 60px;
-    align-items: center; /* 수직 중앙 정렬 */
-    justify-content: center; /* 수평 중앙 정렬 */
+    align-items: center;
+    justify-content: center;
     background-color: rgba(139, 139, 139, 0.2);
-    padding: 10px; /* 내부 여백 */
+    padding: 10px;
     left: 15%;
-    margin-top: 30px;
+    margin-top: 100px;
 }
 
-.TourCombination .tour-combination-list .tour-item img {
+.CreateMyCourseTourCombinationList .CreateMyCourseTourItem img {
     position: relative;
     margin: 10px;
-    width: 150px; 
-    height: 150px; 
+    width: 150px;
+    height: 150px;
 }
 
-.Confirm {
+.CreateMyCourseConfirm {
     position: relative;
-    margin-top: 30px;
+    margin-top: 350px;
     display: flex;
     gap: 60px;
-    align-items: center; /* 수직 중앙 정렬 */
-    justify-content: center; /* 수평 중앙 정렬 */
+    align-items: center;
+    justify-content: center;
+    left: 0%;
 }
 
-.Confirm .button {
+.CreateMyCourseConfirm button {
     position: relative;
+    background-color: #f0f0f0;
+}
+
+.CreateMyCourseConfirm button:hover {
+    background-color: #ccc; 
 }
 
 .TotalRoute {
-    position: relative; /* 위치 조정을 위해 position 속성 추가 */
-    left: 0; /* 왼쪽으로 이동 */
-    margin-left: 0; /* 왼쪽 여백을 제거 */
-    padding-left: 0; /* 왼쪽 패딩을 제거 */
+    position: relative;
+    left: 0;
+    margin-left: 0;
+    padding-left: 0;
 }
 
 .map {
@@ -132,47 +144,129 @@
 }
 
 .TotalRoute h2 {
-    width: 200px; /* 원하는 너비 설정 */
-    height: 50px; /* 원하는 높이 설정 */
+    width: 200px;
+    height: 50px;
     background-color: #D5E6F5;
     text-decoration: none;
     color: black;
     border-radius: 0px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* 그림자 효과 */
-    display: flex; /* Flexbox 사용 */
-    align-items: center; /* 수직 중앙 정렬 */
-    justify-content: center; /* 수평 중앙 정렬 */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
     padding: 3px;
+    margin-top: 100px;
+    font-family: 'BMHANNAPro', sans-serif;
+    font-size: 25px;
 }
 
 .map-container {
+    width: 120%;
+    max-width: 1440px;
+    height: 500px;
+    margin: auto;
     position: relative;
-    width: 700px; /* 원하는 너비 설정 */
-    height: 700px; /* 원하는 높이 설정 */
     display: flex;
-    gap: 60px;
-    align-items: center; /* 수직 중앙 정렬 */
-    justify-content: center; /* 수평 중앙 정렬 */
-    background-color: rgba(139, 139, 139, 0.2);
-    padding: 10px; /* 내부 여백 */
+    align-items: center;
     left: 25%;
-    margin-top: 30px;
+    margin-top: 100px;
 }
 
 .Weather {
     position: relative;
+    margin-top: 100px;
 }
 
 .Weather h2 {
-    width: 200px; /* 원하는 너비 설정 */
-    height: 50px; /* 원하는 높이 설정 */
+    width: 200px;
+    height: 50px;
     background-color: #D5E6F5;
     text-decoration: none;
     color: black;
     border-radius: 0px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* 그림자 효과 */
-    display: flex; /* Flexbox 사용 */
-    align-items: center; /* 수직 중앙 정렬 */
-    justify-content: center; /* 수평 중앙 정렬 */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
     padding: 3px;
+    font-family: 'BMHANNAPro', sans-serif;
+    font-size: 25px;
+}
+
+.Course {
+    position: relative;
+    top: 450px;
+    left: -47%;
+    background: white;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    height: 150px;
+    width: 500px;
+    padding: 60px;
+}
+
+.CourseItem {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0px;
+}
+
+.CourseIndex {
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.CourseTitle {
+    flex: 1;
+    font-size: 20px;
+}
+
+.CourseDuration {
+    margin-left: 10px;
+    color: #666;
+}
+
+.image-title {
+    font-family: 'BMHANNAAir', sans-serif;
+    font-size: 18px;
+}
+
+.CourseTitle {
+    font-family: 'BMHANNAAir', sans-serif;
+    font-size: 25px;
+}
+
+.duration {
+    font-family: 'BMHANNAAir', sans-serif;
+    font-size: 20px;
+    text-align: right;
+}
+
+.duration img {
+    height: 20px;
+    width: 20px;
+}
+
+.Slide img {
+    height: 30px;
+    width: 30px;
+    position: absolute;
+}
+
+.Slide img:hover {
+    background-color: #666;
+}
+
+.LeftArrow {
+    position: absolute;
+    left: 10px;
+    top: 100px;
+    transform: translateY(-50%);
+}
+
+.RightArrow {
+    position: absolute;
+    right: 10px;
+    top: 100px;
+    transform: translateY(-50%);
 }

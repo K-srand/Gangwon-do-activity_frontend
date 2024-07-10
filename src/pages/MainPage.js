@@ -7,7 +7,7 @@ import MainUpper from '../components/specific/MainUpper.js';
 function MainPage() {
   return (
     <div>
-      {/* <Navbar /> */}
+      <Navbar />
       <main>
         <MainUpper />
         <WeatherPage/>

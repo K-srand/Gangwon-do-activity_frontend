@@ -1,15 +1,11 @@
 import React, { useState } from 'react';
 import '../../assets/styles/Register.css';
 import image from '../../assets/images/MainLogo.png';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-import Certification from './Certification';
 
 function Register() {
   const [isIdValid, setIsIdValid] = useState(null);
   const [isNickValid, setIsNickValid] = useState(null);
   const [isPasswordValid, setIsPasswordValid] = useState(null);
-  const [isEmailCertified, setIsEmailCertified] = useState(false); // 이메일 인증 상태
   const [form, setForm] = useState({
     userName: '',
     userId: '',
@@ -19,14 +15,12 @@ function Register() {
     userNick: ''
   });
 
-  const navigate = useNavigate();
-
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setForm((prevForm) => ({
-      ...prevForm,
+    setForm({
+      ...form,
       [name]: value
-    }));
+    });
 
     if (name === 'userPassword') {
       validatePassword(value);
@@ -44,12 +38,12 @@ function Register() {
       return;
     }
     try {
-      const response = await axios.post('http://localhost:4040/api/v1/auth/check-id', {
-        userId: form.userId
-      }, {
+      const response = await fetch('http://localhost:4040/api/v1/auth/check-id', {
+        method: 'POST',
         headers: {
           'Content-Type': 'application/json'
-        }
+        },
+        body: JSON.stringify({ userId: form.userId })
       });
 
       // Log response for debugging
@@ -74,12 +68,12 @@ function Register() {
       return;
     }
     try {
-      const response = await axios.post('http://localhost:4040/api/v1/auth/check-nickname', {
-        userNick: form.userNick
-      }, {
+      const response = await fetch('http://localhost:4040/api/v1/auth/check-nickname', {
+        method: 'POST',
         headers: {
           'Content-Type': 'application/json'
-        }
+        },
+        body: JSON.stringify({ userNick: form.userNick })
       });
 
       // Log response for debugging
@@ -139,26 +133,24 @@ function Register() {
       return;
     }
 
-    if (!isEmailCertified) {
-      alert('이메일 인증이 완료되지 않았습니다.');
-      return;
-    }
-
     try {
-      const response = await axios.post('http://localhost:4040/api/v1/auth/sign-up', {
-        userName: form.userName,
-        userId: form.userId,
-        userEmail: form.userEmail,
-        userPassword: form.userPassword,
-        userNick: form.userNick
-      }, {
+      const response = await fetch('http://localhost:4040/api/v1/auth/sign-up', {
+        method: 'POST',
         headers: {
           'Content-Type': 'application/json'
-        }
+        },
+        body: JSON.stringify({
+          userName: form.userName,
+          userId: form.userId,
+          userEmail: form.userEmail,
+          userPassword: form.userPassword,
+          userNick: form.userNick
+        })
       });
-      if (response.data.success) {
+      const result = await response.json();
+      if (result.success) {
         alert('회원가입에 성공했습니다!');
-        navigate('/');
+        window.location.href = '/';
       } else {
         alert('회원가입에 실패했습니다.');
       }
@@ -189,11 +181,13 @@ function Register() {
             <label htmlFor="userId">*아이디</label>
             <input type="text" id="userId" name="userId" placeholder="아이디를 입력해주세요" required onChange={handleChange} />
             <button type="button" onClick={handleIdCheck}>아이디 체크</button>
+            {/* {isIdValid === true && <span className="valid-feedback">사용 가능</span>}
+            {isIdValid === false && <span className="invalid-feedback">사용 불가능</span>} */}
           </div>
           <div className='form-group'>
             <label htmlFor="userEmail">*이메일</label>
             <input type="email" id="userEmail" name="userEmail" placeholder="example@a.com" required onChange={handleChange} />
-            <button type="button" onClick={handleEmailCertification}>인증</button>
+            <button type="button">인증</button>
           </div>
           <div className='form-group'>
             <label htmlFor="userPassword">*비밀번호</label>
@@ -209,6 +203,8 @@ function Register() {
             <label htmlFor="userNick">*닉네임</label>
             <input type="text" id="userNick" name="userNick" placeholder="6~20자 이내의 닉네임" required onChange={handleChange} />
             <button type="button" onClick={handleNickCheck}>닉네임 체크</button>
+            {/* {isNickValid === true && <span className="valid-feedback">사용 가능</span>}
+            {isNickValid === false && <span className="invalid-feedback">사용 불가능</span>} */}
           </div>
           <button type="submit">회원가입</button>
         </form>
@@ -218,3 +214,4 @@ function Register() {
 }
 
 export default Register;
+

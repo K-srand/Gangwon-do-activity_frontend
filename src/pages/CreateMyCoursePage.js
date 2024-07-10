@@ -1,22 +1,27 @@
-import React from 'react';
-import MyPlace from '../components/specific/MyPlace';
-import TotalRoute from '../components/specific/TotalRoute';
-import Navbar from '../components/common/Navbar.js'; // Navbar 경로에 맞게 수정
-import Footer from '../components/common/Footer'; // Footer 경로에 맞게 수정
-import Weather from '../components/specific/Weather';
+import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import CreateMyCourse from '../components/specific/CreateMyCourse.js';
+import WeatherPage from './WeatherPage.js';
 
-function CreateMyCourse() {
+function CreateMyCoursePage() {
+    const token = localStorage.getItem('token');
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (!token) {
+            alert("로그인 후 이용가능합니다!");
+            navigate('/loginDetail'); // 로그인 페이지 경로로 리디렉션
+        } 
+    }, [token, navigate]);
+
     return (
         <div>
-            {/* <Navbar /> */}
             <main>
-                <MyPlace />
-                <TotalRoute />
-                <Weather />
+                <CreateMyCourse token={token} />
+                <WeatherPage />
             </main>
-            <Footer />
         </div>
     );
 }
 
-export default CreateMyCourse;
+export default CreateMyCoursePage;
