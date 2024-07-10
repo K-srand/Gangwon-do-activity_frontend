@@ -53,11 +53,11 @@ const CreateMyCourse = ({token}) => {
     // 이미지 선택
     const selectImage = (image) => {
         if (selectedImages.length < 4) {
-            const newSelectedImages = [...selectedImages, image];
-            setSelectedImages(newSelectedImages);
+            const saveSelectedImages = [...selectedImages, image];
+            setSelectedImages(saveSelectedImages);
 
-            if (newSelectedImages.length === 4) {    //이미지 4개 모두 선택 시 경로 출력
-                handleSave(newSelectedImages);
+            if (saveSelectedImages.length === 4) {    //이미지 4개 모두 선택 시 경로 출력
+                handleSave(saveSelectedImages);
             }
         } else {
             alert("4개까지만 선택할 수 있습니다.");
@@ -106,8 +106,8 @@ const CreateMyCourse = ({token}) => {
     }, []);
 
     // 이미지 4개 선택 시 맵 업데이트
-    const handleSave = (newSelectedImages) => {
-        const imagesToUse = newSelectedImages || selectedImages;
+    const handleSave = (saveSelectedImages) => {
+        const imagesToUse = saveSelectedImages || selectedImages;
         if (imagesToUse.length === 4 && window.naver) {
             const { naver } = window;
             const coordinates = imagesToUse.map(image => new naver.maps.LatLng(image.mapy, image.mapx));
