@@ -170,13 +170,13 @@ function PostWrite() {
                             <p>{boardDetail.content}</p>
                         </div>
                         {/* 이미지 추가 작업 */}
-                        <div>
+                        <div className='board-detail-image'>
                             {imageAddress.length > 0 ? (
                                 imageAddress.map((url, index) => (
                                     <div key={index} className="image-container">
                                         <img 
                                             src={imageAddress[`${index}`]} 
-                                            
+                                            className='detail-image'
                                             alt={`Image ${index}`} 
                                         />
                                     </div>
