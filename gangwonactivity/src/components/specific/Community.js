@@ -40,6 +40,7 @@ function Community() {
               content: post.content,
               title: post.boardTitle,
               date: post.writtenTime.split('T')[0], // 날짜만 사용
+              countViews: post.boardCount, // 조회수 필드 추가
               notice: false, // 백엔드 데이터에 따라 설정
               best: false // 백엔드 데이터에 따라 설정
             }));
@@ -86,6 +87,7 @@ function Community() {
               </Link>
             </div>
             <div className="post-date">{post.date}</div>
+            <div className="post-views">조회수: {post.countViews}</div>
           </div>
         ))}
       </div>
