@@ -1,0 +1,45 @@
+.footer {
+    background-color: #e0e0e0; /* 배경 색상 */
+    padding: 0 0 20px 0; /* 패딩 */
+    text-align: left; /* 텍스트 정렬 */
+    width: 80%; /*가로폭의 80%*/
+    max-width: 1440px;
+    margin: 0 auto; /* 중앙 정렬 */
+  }
+  .footer-divider {
+    border: 0;
+    border-top: 1px solid #8a8a8a; /* 검은색 구분선 */
+    margin: 0; /* 구분선의 여백 제거 */
+    padding: 0 0 10 0px;
+  }
+  
+  
+  .footer-header {
+    background-color: #ffffff;
+    padding: 5px; 
+    font-family: 'BMHANNAPro', sans-serif;
+    font-size: 10px;
+  }
+  
+  
+  
+  .footer-content {
+    
+    max-width: 1440px; /* 최대 너비 */
+    margin: 0 auto; /* 가운데 정렬 */
+    color: #000; /* 텍스트 색상 */
+    font-family: 'BMHANNAAir', sans-serif;
+    font-size: 10px;
+  }
+  
+  .footer h2 {
+    font-size: 16px; /* 폰트 크기 */
+    margin-bottom: 10px; /* 하단 여백 */
+  }
+  
+  .footer p {
+    font-size: 14px; /* 폰트 크기 */
+    line-height: 1.5; /* 줄 간격 */
+    margin : 0;
+  }
+
