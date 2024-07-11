@@ -296,3 +296,25 @@
 .page-number, .next-page {
     cursor: pointer;
 }
+/* 이미지 추가 작업 */
+.board-detail-image{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    flex-direction: row;
+    justify-content: center;
+    padding: 20px;
+  }
+
+.image-container{
+    position: relative;
+    display: inline-block;
+ }
+
+.detail-image{
+    display: block;
+    max-width: 200px;
+    max-height: 200px;
+    border: 1px solid #ccc;
+
+  }
