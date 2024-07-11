@@ -1,21 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-import logo from '../../assets/images/MainLogo.png';
 import '../../assets/styles/Certification.css';
+import logo from '../../assets/images/MainLogo.png'; // logo import 추가
 
-function Certification() {
+function Certification({ closeModal, setIsEmailVerified }) {
   const [certificationNumber, setCertificationNumber] = useState('');
-  const navigate = useNavigate();
   const email = sessionStorage.getItem('email');
   console.log(email);
 
   useEffect(() => {
     if (!email) {
       alert('이메일 정보가 없습니다. 다시 인증을 시도해주세요.');
-      navigate('/'); // 이메일 정보가 없으면 메인 페이지로 리디렉션
+      closeModal();
     }
-  }, [email, navigate]);
+  }, [email, closeModal]);
 
   const handleChange = (e) => {
     setCertificationNumber(e.target.value);
@@ -32,12 +30,13 @@ function Certification() {
         headers: {
           'Content-Type': 'application/json'
         },
-        withCredentials : 'true'
+        withCredentials: true
       });
 
       if (response.data.code === 'SU') {
         alert('이메일 인증에 성공하였습니다.');
-        navigate('/');
+        setIsEmailVerified(true); // 이메일 인증 성공 상태 업데이트
+        closeModal();
       } else {
         alert('이메일 인증에 실패하였습니다: ' + (response.data.message || '알 수 없는 오류'));
       }
@@ -49,6 +48,7 @@ function Certification() {
 
   return (
     <div className='certification-modal-main'>
+      <button className="close-button" onClick={closeModal}>X</button>
       <div className='certification-modal-main-logo'>
         <img src={logo} alt='Logo'></img>
       </div>

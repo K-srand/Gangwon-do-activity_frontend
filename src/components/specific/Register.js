@@ -3,11 +3,16 @@ import '../../assets/styles/Register.css';
 import image from '../../assets/images/MainLogo.png';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import Modal from 'react-modal';
+import Certification from './Certification'; // Certification 컴포넌트 import
+
+Modal.setAppElement('#root'); // 접근성을 위해 설정
 
 function Register() {
   const [isIdValid, setIsIdValid] = useState(null);
   const [isNickValid, setIsNickValid] = useState(null);
   const [isPasswordValid, setIsPasswordValid] = useState(null);
+  const [isEmailVerified, setIsEmailVerified] = useState(false); // 이메일 인증 상태
   const [form, setForm] = useState({
     userName: '',
     userId: '',
@@ -16,6 +21,7 @@ function Register() {
     passwordConfirm: '',
     userNick: ''
   });
+  const [modalIsOpen, setModalIsOpen] = useState(false); // 모달 상태
 
   const navigate = useNavigate();
 
@@ -53,8 +59,8 @@ function Register() {
       const result = await response.json();
       console.log('ID Check Response:', result);
 
-      setIsIdValid(result.isIdValid);
-      alert(result.isIdValid ? '아이디 사용 가능' : '아이디가 이미 사용 중입니다.');
+      setIsIdValid(result);
+      alert(result ? '아이디 사용 가능' : '아이디가 이미 사용 중입니다.');
     } catch (error) {
       console.error('Error checking ID:', error);
       alert('아이디 확인 중 오류가 발생했습니다.');
@@ -83,8 +89,8 @@ function Register() {
       const result = await response.json();
       console.log('Nickname Check Response:', result);
 
-      setIsNickValid(result.isNickValid);
-      alert(result.isNickValid ? '닉네임 사용 가능' : '닉네임이 이미 사용 중입니다.');
+      setIsNickValid(result);
+      alert(result ? '닉네임 사용 가능' : '닉네임이 이미 사용 중입니다.');
     } catch (error) {
       console.error('Error checking nickname:', error);
       alert('닉네임 확인 중 오류가 발생했습니다.');
@@ -107,9 +113,8 @@ function Register() {
       });
 
       if (response.data.code === 'SU') {
-        // 이메일 값을 sessionStorage에 저장
         sessionStorage.setItem('email', form.userEmail);
-        navigate('/certification');
+        setModalIsOpen(true); // 모달 열기
       } else {
         alert('이메일 인증 요청에 실패하였습니다: ' + (response.data.message || '알 수 없는 오류'));
       }
@@ -121,6 +126,10 @@ function Register() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!isEmailVerified) {
+      alert('이메일 인증을 완료해주세요.');
+      return;
+    }
     if (form.userPassword !== form.passwordConfirm) {
       alert('비밀번호가 일치하지 않습니다.');
       return;
@@ -136,8 +145,18 @@ function Register() {
       return;
     }
 
+    if (isIdValid === null) {
+      alert('아이디 체크를 해주세요.');
+      return;
+    }
+
     if (isNickValid === false) {
       alert('닉네임이 이미 사용 중입니다.');
+      return;
+    }
+
+    if (isNickValid === null) {
+      alert('닉네임 체크를 해주세요.');
       return;
     }
 
@@ -155,16 +174,19 @@ function Register() {
           userNick: form.userNick
         })
       });
+
       const result = await response.json();
-      if (result.success) {
+      console.log('Sign-up Response:', result);
+
+      if (result.code === 'SU') {
         alert('회원가입에 성공했습니다!');
-        window.location.href = '/';
+        navigate('/'); // 메인 페이지로 리디렉션
       } else {
-        alert('회원가입에 실패했습니다.');
+        alert(`회원가입에 실패했습니다: ${result.message || '알 수 없는 오류'}`);
       }
     } catch (error) {
       console.error('Error during sign-up:', error);
-      alert('회원가입에 실패했습니다.');
+      alert('회원가입 중 오류가 발생했습니다.');
     }
   };
 
@@ -213,6 +235,16 @@ function Register() {
           <button type="submit">회원가입</button>
         </form>
       </div>
+
+      <Modal
+        isOpen={modalIsOpen}
+        onRequestClose={() => setModalIsOpen(false)}
+        contentLabel="Email Certification Modal"
+        className="certification-modal"
+        overlayClassName="certification-overlay"
+      >
+        <Certification closeModal={() => setModalIsOpen(false)} setIsEmailVerified={setIsEmailVerified} />
+      </Modal>
     </div>
   );
 }
