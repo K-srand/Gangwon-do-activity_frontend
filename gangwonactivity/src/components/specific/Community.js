@@ -27,6 +27,7 @@ function Community() {
 
         const pageData = response.data; // 페이지 정보 추출
         setTotalPages(pageData.totalPages);
+        console.log("data? : ", pageData);
 
         // 현재 페이지가 총 페이지 수를 초과하면 첫 페이지로 리다이렉트
         if (currentPage > pageData.totalPages) {
