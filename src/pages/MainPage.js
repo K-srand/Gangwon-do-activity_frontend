@@ -32,8 +32,8 @@ function MainPage() {
     <div>
       {/* <Navbar /> */}
       <main>
-        <MainUpper />
-        <WeatherPage/>
+        <Main />
+        
       </main>
       <Footer />
     </div>

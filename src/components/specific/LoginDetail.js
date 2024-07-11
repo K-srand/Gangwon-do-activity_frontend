@@ -82,8 +82,8 @@ const LoginDetail = () => {
 
                 <div className='login-modal-main-find'>
                     <div className="links">
-                        <a href="#">아이디 찾기 </a>
-                        <a href="#">비밀번호 찾기</a>
+                        <a href="/">아이디 찾기 </a>
+                        <a href="/">비밀번호 찾기</a>
                     </div>
                 </div>
                 <div className=''></div>

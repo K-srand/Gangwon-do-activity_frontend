@@ -1,18 +1,18 @@
 import React from 'react';
 import Navbar from '../components/common/Navbar.js'; // Navbar 경로에 맞게 수정
 import Footer from '../components/common/Footer'; // Footer 경로에 맞게 수정
-import Community from '../components/specific/Community'; // Community 경로에 맞게 수정
+import PatchBoard from '../components/specific/PatchBoard.js'; // PatchBoard 경로에 맞게 수정
 
-function CommunityPage() {
-  return (
-    <div>
+function PatchBoardPage(){
+    return(
+        <div>
       <Navbar />
       <main>
-        <Community />
+        <PatchBoard />
       </main>
       <Footer />
     </div>
-  );
+    )
 }
 
-export default CommunityPage;
+export default PatchBoardPage;
