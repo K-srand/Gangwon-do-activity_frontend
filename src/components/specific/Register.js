@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import '../../assets/styles/Register.css';
 import image from '../../assets/images/MainLogo.png';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 function Register() {
   const [isIdValid, setIsIdValid] = useState(null);
@@ -14,6 +16,8 @@ function Register() {
     passwordConfirm: '',
     userNick: ''
   });
+
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -46,11 +50,11 @@ function Register() {
         body: JSON.stringify({ userId: form.userId })
       });
 
-      // Log response for debugging
-      console.log('ID Check Response:', response.data);
+      const result = await response.json();
+      console.log('ID Check Response:', result);
 
-      setIsIdValid(response.data.isIdValid);
-      alert(response.data.isIdValid ? '아이디 사용 가능' : '아이디가 이미 사용 중입니다.');
+      setIsIdValid(result.isIdValid);
+      alert(result.isIdValid ? '아이디 사용 가능' : '아이디가 이미 사용 중입니다.');
     } catch (error) {
       console.error('Error checking ID:', error);
       alert('아이디 확인 중 오류가 발생했습니다.');
@@ -76,11 +80,11 @@ function Register() {
         body: JSON.stringify({ userNick: form.userNick })
       });
 
-      // Log response for debugging
-      console.log('Nickname Check Response:', response.data);
+      const result = await response.json();
+      console.log('Nickname Check Response:', result);
 
-      setIsNickValid(response.data.isNickValid);
-      alert(response.data.isNickValid ? '닉네임 사용 가능' : '닉네임이 이미 사용 중입니다.');
+      setIsNickValid(result.isNickValid);
+      alert(result.isNickValid ? '닉네임 사용 가능' : '닉네임이 이미 사용 중입니다.');
     } catch (error) {
       console.error('Error checking nickname:', error);
       alert('닉네임 확인 중 오류가 발생했습니다.');
@@ -98,9 +102,13 @@ function Register() {
       }, {
         headers: {
           'Content-Type': 'application/json'
-        }
+        },
+        withCredentials: true
       });
+
       if (response.data.code === 'SU') {
+        // 이메일 값을 sessionStorage에 저장
+        sessionStorage.setItem('email', form.userEmail);
         navigate('/certification');
       } else {
         alert('이메일 인증 요청에 실패하였습니다: ' + (response.data.message || '알 수 없는 오류'));
@@ -181,13 +189,11 @@ function Register() {
             <label htmlFor="userId">*아이디</label>
             <input type="text" id="userId" name="userId" placeholder="아이디를 입력해주세요" required onChange={handleChange} />
             <button type="button" onClick={handleIdCheck}>아이디 체크</button>
-            {/* {isIdValid === true && <span className="valid-feedback">사용 가능</span>}
-            {isIdValid === false && <span className="invalid-feedback">사용 불가능</span>} */}
           </div>
           <div className='form-group'>
             <label htmlFor="userEmail">*이메일</label>
             <input type="email" id="userEmail" name="userEmail" placeholder="example@a.com" required onChange={handleChange} />
-            <button type="button">인증</button>
+            <button type="button" onClick={handleEmailCertification}>인증</button>
           </div>
           <div className='form-group'>
             <label htmlFor="userPassword">*비밀번호</label>
@@ -203,8 +209,6 @@ function Register() {
             <label htmlFor="userNick">*닉네임</label>
             <input type="text" id="userNick" name="userNick" placeholder="6~20자 이내의 닉네임" required onChange={handleChange} />
             <button type="button" onClick={handleNickCheck}>닉네임 체크</button>
-            {/* {isNickValid === true && <span className="valid-feedback">사용 가능</span>}
-            {isNickValid === false && <span className="invalid-feedback">사용 불가능</span>} */}
           </div>
           <button type="submit">회원가입</button>
         </form>
@@ -214,4 +218,3 @@ function Register() {
 }
 
 export default Register;
-

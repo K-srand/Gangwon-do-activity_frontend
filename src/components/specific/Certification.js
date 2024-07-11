@@ -8,6 +8,7 @@ function Certification() {
   const [certificationNumber, setCertificationNumber] = useState('');
   const navigate = useNavigate();
   const email = sessionStorage.getItem('email');
+  console.log(email);
 
   useEffect(() => {
     if (!email) {
@@ -30,8 +31,8 @@ function Certification() {
       }, {
         headers: {
           'Content-Type': 'application/json'
-        }, 
-       
+        },
+        withCredentials : 'true'
       });
 
       if (response.data.code === 'SU') {
@@ -79,4 +80,3 @@ function Certification() {
 }
 
 export default Certification;
-

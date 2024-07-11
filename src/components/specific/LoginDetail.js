@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import '../../assets/styles/LoginDetail.css';
 import logo from '../../assets/images/MainLogo.png';
 
 const LoginDetail = () => {
-    
     const [userId, setUserId] = useState('');
     const [userPassword, setUserPassword] = useState('');
+    const navigate = useNavigate(); // useNavigate 훅 사용
 
     const handleLogin = (e) => {
         e.preventDefault();
@@ -18,30 +19,28 @@ const LoginDetail = () => {
             const token = res.data.token; // 서버에서 반환된 JWT 토큰
             localStorage.setItem('token', token); // 토큰 저장
             console.log('Logged in successfully:', res);
+            navigate('/'); // 메인페이지로 리다이렉트
         })
         .catch(function(error) {
+            alert("로그인 정보가 틀렸습니다"); 
             console.error("There was an error!", error);
         });
     }
 
-
-
-    
-    // 얘는 추후에 우리가 로그인 user의 기능에 필요함.
-    const getUser = () => {
-        const token = localStorage.getItem('token'); // 저장된 토큰 가져오기
-        axios.get('http://localhost:4040/api/v1/user', {
-            headers: {
-                'Authorization': `Bearer ${token}` // 요청 헤더에 토큰 추가
-            }
-        })
-        .then(function(res){
-            console.log('User data:', res);
-        })
-        .catch(function(error) {
-            console.error("There was an error!", error);
-        });
-    }
+    // const getUser = () => {
+    //     const token = localStorage.getItem('token'); // 저장된 토큰 가져오기
+    //     axios.get('http://localhost:4040/api/v1/user', {
+    //         headers: {
+    //             'Authorization': `Bearer ${token}` // 요청 헤더에 토큰 추가
+    //         }
+    //     })
+    //     .then(function(res){
+    //         console.log('User data:', res);
+    //     })
+    //     .catch(function(error) {
+    //         console.error("There was an error!", error);
+    //     });
+    // }
 
     return (
         <div>

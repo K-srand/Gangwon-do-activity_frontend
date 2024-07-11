@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import CreateMyCourse from '../components/specific/CreateMyCourse.js';
 import WeatherPage from './WeatherPage.js';
+import Footer from '../components/common/Footer.js';
 
 function CreateMyCoursePage() {
     const token = localStorage.getItem('token');
@@ -20,6 +21,7 @@ function CreateMyCoursePage() {
                 <CreateMyCourse token={token} />
                 <WeatherPage />
             </main>
+            <Footer/>
         </div>
     );
 }

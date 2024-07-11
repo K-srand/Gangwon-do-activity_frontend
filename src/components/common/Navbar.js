@@ -1,18 +1,20 @@
 import React from 'react';
-import '../../assets/styles/Navbar.css'; // 상대 경로로 CSS 파일 import
+import '../../assets/styles/Navbar.css';
 import logo from '../../assets/images/MainLogo.png';
+import { useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
+  const navigate = useNavigate();
+
   return (
     <nav className="navbar">
       <div className="navbar-user">
-        <a href="/logindetail">로그인</a>
+        <button className='nav-button'  onClick={() => navigate('/login')}>로그인</button>
         <a href="www.naver.com">마이페이지</a>
       </div>
       <div className="navbar-logoandlinks">
-        <a href= "/" className="navbar-logo" >
+        <a href="/" className="navbar-logo">
           <img src={logo} alt="Logo" />
-          {/* <span>액티비티 강추</span> */}
         </a>
         <div className="navbar-links">
           <a href="www.naver.com">사이트 소개</a>
