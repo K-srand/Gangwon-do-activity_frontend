@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation, useNavigate } from 'react-router-dom';
 import '../../assets/styles/BoardDetail.css';
 import role from '../../assets/images/gamja.png';
 import likeIcon from '../../assets/images/likeIcon.png';
@@ -18,6 +18,50 @@ function BoardDetail() {
     const [comments, setComments] = useState([]);
     const [newComment, setNewComment] = useState('');
     const [imageAddress , setImgUrl] = useState([]);
+    
+    const [totalPages, setTotalPages] = useState(0); // 전체 페이지 수
+    const [currentPage, setCurrentPage] = useState(1); // 현재 페이지를 1로 설정
+
+    const location = useLocation();
+    const navigate = useNavigate();
+    const query = new URLSearchParams(location.search);
+    const page = parseInt(query.get('page')) || 1; // 기본 페이지를 1로 설정
+
+    useEffect(() => {
+        setCurrentPage(page);
+    }, [page]);
+
+    useEffect(() => {
+        fetchComments();
+    }, [currentPage, boardNo]);
+
+    const fetchComments = async () => {
+        const token = localStorage.getItem('token');
+        try {
+            const response = await axios.get(`http://localhost:4040/api/v1/board/commentList/${boardNo}?page=${currentPage - 1}&size=5`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+            const pageData = response.data;
+            setTotalPages(pageData.totalPages);
+            setComments(pageData.content);  // 응답 데이터 구조에 맞게 설정
+            console.log('댓글 목록:', pageData.content);
+
+            // 현재 페이지가 총 페이지 수를 초과하면 첫 페이지로 리다이렉트
+            if (currentPage > pageData.totalPages) {
+                navigate(`/BoardDetail/${boardNo}?page=${pageData.totalPages}`);
+            }
+        } catch (error) {
+            console.error('데이터를 가져오는 중 오류 발생:', error);
+        }
+    };
+
+    const handlePageChange = (newPage) => {
+        if (newPage >= 1 && newPage <= totalPages) {
+            navigate(`/BoardDetail/${boardNo}?page=${newPage}`);
+        }
+    };
 
     const handleLogin = (e) => {
         e.preventDefault();
@@ -69,21 +113,9 @@ function BoardDetail() {
             console.error("에러 발생!", error);
         });
     
-        // 댓글 리스트를 가져오는 요청 추가
-        axios.get(`http://localhost:4040/api/v1/board/commentList/${boardNo}`, {
-            headers: {
-                'Authorization': `Bearer ${token}`
-            }
-        })
-        .then(function(res){
-            setComments(res.data.content);  // 응답 데이터 구조에 맞게 설정
-            console.log('댓글 목록:', res.data.content);
-        })
-        .catch(function(error) {
-            console.error("에러 발생!", error);
-        });
+        getImgUrl();
     }
-    {/* 이미지 추가 작업*/}
+
     const getImgUrl = () => {
         const token = localStorage.getItem('token');
         axios.get(`http://localhost:4040/api/v1/board/image/${boardNo}`, {
@@ -92,25 +124,19 @@ function BoardDetail() {
             }
         })
         .then(function(res){
-            // setImgUrl(res.data.imageAddress);
             setImgUrl(res.data);
             console.log('setImgUrlres:', res);
-            console.log('setImgUrl', res.data)
+            console.log('setImgUrl', res.data);
             console.log('imageAddress', imageAddress);
-            
         })
         .catch(function(error) {
             console.error("There was an error!", error);
         });
     }
 
-    {/* 이미지 추가 작업 완료*/}
-    
-
     useEffect(() => {
         getUser();
         getBoardDetail();
-        getImgUrl();
     }, [boardNo]);
 
     const editClick = () => {
@@ -118,15 +144,11 @@ function BoardDetail() {
     };
 
     const deleteClick = () => {
-        // 사용자에게 삭제 확인을 요청하는 알림 창 표시
         const userConfirmed = window.confirm('게시물을 삭제하시겠습니까?');
-    
         if (!userConfirmed) {
-            // 사용자가 취소 버튼을 눌렀을 경우
             return;
         }
-    
-        // 사용자가 확인 버튼을 눌렀을 경우 삭제 요청 진행
+
         const token = localStorage.getItem('token');
         axios.patch(`http://localhost:4040/api/v1/board/delete/${boardNo}`, {}, {
             headers: {
@@ -157,12 +179,7 @@ function BoardDetail() {
         })
         .then(function(res){
             console.log('댓글 등록 성공:', res);
-            const newCommentObj = {
-                userNick: userName, // author 대신 userNick 사용
-                content: newComment,
-                writtenTime: new Date().toISOString(), // date 대신 writtenTime 사용
-            };
-            setComments([...comments, newCommentObj]);
+            fetchComments(); // 댓글을 다시 불러와서 페이지 갱신
             setNewComment('');
         })
         .catch(function(error) {
@@ -201,32 +218,28 @@ function BoardDetail() {
                         <div className="content">
                             <p>{boardDetail.content}</p>
                         </div>
-                        {/* 이미지 추가 작업 */}
                         <div className='board-detail-image'>
                             {imageAddress.length > 0 ? (
                                 imageAddress.map((url, index) => (
                                     <div key={index} className="image-container">
                                         <img 
-                                            src={imageAddress[`${index}`]} 
+                                            src={url} 
                                             className='detail-image'
                                             alt={`Image ${index}`} 
                                         />
                                     </div>
                                 ))
                             ) : (
-                                <p>Loading...</p>
+                                null
                             )}
                         </div>
-                        {/* 이미지 추가 작업 완료 */}
                         <div className="LikeAction-DislikeAction">
                             <img src={like} alt="LikeAction" />
                             <img src={disLike} alt="DislikeAction" />
                         </div>
 
                         <div className='boardDetail-report'>
-                        {/* <span onClick="#">글 신고</span> */}
                         </div>
-
                     </div>
                     <Comment 
                         comments={comments} 
@@ -234,11 +247,30 @@ function BoardDetail() {
                         handleCommentChange={handleCommentChange}
                         handleCommentSubmit={handleCommentSubmit}
                     />
-                    <div className="pagination">
-                        {Array.from({ length: 10 }, (_, i) => i + 1).map(page => (
-                            <span key={page} className="page-number">{page}</span>
+                    <div className="comment-pagination">
+                        <button 
+                            onClick={() => handlePageChange(currentPage - 1)} 
+                            disabled={currentPage <= 1}
+                            className="comment-page-button"
+                        >
+                            이전
+                        </button>
+                        {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
+                            <button 
+                                key={page} 
+                                onClick={() => handlePageChange(page)} 
+                                className={`comment-page-number ${page === currentPage ? 'active' : ''}`}
+                            >
+                                {page}
+                            </button>
                         ))}
-                        <span className="next-page">다음&gt;</span>
+                        <button 
+                            onClick={() => handlePageChange(currentPage + 1)} 
+                            disabled={currentPage >= totalPages}
+                            className="comment-page-button"
+                        >
+                            다음
+                        </button>
                     </div>
                 </>
             )}

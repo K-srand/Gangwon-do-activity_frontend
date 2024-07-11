@@ -287,15 +287,22 @@
     background-color: #b5cce5;
 }
 
-.pagination {
+.comment-pagination {
     display: flex;
     justify-content: center;
-    margin: 20px 0;
-}
-
-.page-number, .next-page {
+    max-width: 1440px;
+    margin: 0 auto;
+    font-size: 18px;
+    padding-bottom: 20px;
+  }
+  
+  .comment-page-number, .comment-page-button button{
+    padding: 0;
     cursor: pointer;
-}
+    margin-top: 20px;
+    width: 5%;
+  }
+  
 /* 이미지 추가 작업 */
 .board-detail-image{
     display: flex;

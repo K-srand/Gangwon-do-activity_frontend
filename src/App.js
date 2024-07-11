@@ -10,6 +10,7 @@ import MainPage from './pages/MainPage';
 import CommunityListPage from './pages/CommunityListPage'; 
 import './App.css';
 import PostBoard from './pages/PostBoardPage';
+import PatchBoard from './pages/PatchBoardPage'
 
 // BoardDetail 컴포넌트 임포트 추가
 import BoardDetail from './components/specific/BoardDetail';
@@ -30,6 +31,7 @@ function App() {
             <Route path="/register" element={<Register/>}/>
             <Route path="/BoardDetail/:boardNo" element={<BoardDetailPage/>}/>
             <Route path="/post" element={<PostBoard/>}/>
+            <Route path="/patch/:boardNo" element={<PatchBoard/>}/>
           </Routes>
         </Router>
     </div>

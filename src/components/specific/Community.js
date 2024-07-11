@@ -10,11 +10,13 @@ function Community() {
   const [posts, setPosts] = useState([]); // 현재 페이지의 게시글 목록을 저장
   const [totalPages, setTotalPages] = useState(0); // 전체 페이지 수
   const [currentPage, setCurrentPage] = useState(1); // 현재 페이지를 1로 설정
+  const [bestPosts, setBestPosts] = useState([]); // 주간 베스트 게시글 목록을 저장
 
   const location = useLocation();
   const navigate = useNavigate();
   const query = new URLSearchParams(location.search);
   const page = parseInt(query.get('page')) || 1; // 기본 페이지를 1로 설정
+  const [postCount,setPostCount] = useState(0);
 
   useEffect(() => {
     setCurrentPage(page);
@@ -23,10 +25,11 @@ function Community() {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const response = await axios.get(`http://localhost:4040/api/v1/board/?page=${currentPage -1}&size=10`);
+        const response = await axios.get(`http://localhost:4040/api/v1/board/?page=${currentPage -1}&size=6`);
 
         const pageData = response.data; // 페이지 정보 추출
         setTotalPages(pageData.totalPages);
+        setPostCount(response.data.totalElements);
         console.log("data? : ", pageData);
 
         // 현재 페이지가 총 페이지 수를 초과하면 첫 페이지로 리다이렉트
@@ -52,7 +55,27 @@ function Community() {
       }
     };
 
+    const fetchBestPosts = async () => { // 주간 베스트 게시글을 가져오는 함수 추가
+      try {
+        const response = await axios.get('http://localhost:4040/api/v1/board/best');
+        const fetchedBestPosts = response.data.map(post => ({
+          id: post.boardNo,
+          author: post.userNick,
+          content: post.content,
+          title: post.boardTitle,
+          date: post.writtenTime.split('T')[0],
+          countViews: post.boardCount,
+          notice: false,
+          best: true
+        }));
+        setBestPosts(fetchedBestPosts); // 주간 베스트 게시글 목록 상태
+      } catch (error) {
+        console.error('데이터를 가져오는 중 오류 발생:', error);
+      }
+    };
+
     fetchPosts(); // 게시글 목록을 가져옴
+    fetchBestPosts(); // 주간 베스트 게시글을 가져옴
   }, [currentPage, navigate]);
 
   const handlePageChange = (newPage) => {
@@ -61,12 +84,10 @@ function Community() {
     }
   };
 
-  const postCount = posts.length; // 현재 페이지의 게시글 수
-
   return (
     <div className="community-container">
       <div className="header">
-        <h3>전체글 {postCount}개의 글</h3>
+        <h3>전체글 {postCount+3}개의 글</h3>
         <LinkContainer className="write-button" to="/post">
           <Nav.Link>글 작성</Nav.Link>
         </LinkContainer>
@@ -76,13 +97,25 @@ function Community() {
         <h3 className="right">작성일</h3>
       </div>
       <div className="post-list">
+        {bestPosts.map(post => ( // 주간 베스트 게시글 목록 추가
+            <div key={post.id} className="post-item">
+              <div className="post-avatar"></div>
+              <div className="post-content">
+                <span className="post-author">{post.author}</span>
+                {post.best && <span className="post-best">베스트</span>}
+                <Link to={`/BoardDetail/${post.id}`} className="post-text">
+                  {post.title}
+                </Link>
+              </div>
+              <div className="post-date">{post.date}</div>
+              <div className="post-views">조회수: {post.countViews}</div>
+            </div>
+        ))}
         {posts.map(post => (
           <div key={post.id} className="post-item">
             <div className="post-avatar"></div>
             <div className="post-content">
               <span className="post-author">{post.author}</span>
-              {post.notice && <span className="post-notice">공지</span>}
-              {post.best && <span className="post-best">베스트</span>}
               <Link to={`/BoardDetail/${post.id}`} className="post-text">
                 {post.title}
               </Link>
