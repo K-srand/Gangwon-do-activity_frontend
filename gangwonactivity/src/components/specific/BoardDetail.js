@@ -17,6 +17,7 @@ function BoardDetail() {
     const [boardDetail, setBoardDetail] = useState(null);
     const [comments, setComments] = useState([]);
     const [newComment, setNewComment] = useState('');
+    const [imageAddress , setImgUrl] = useState([]);
 
     const handleLogin = (e) => {
         e.preventDefault();
@@ -82,15 +83,38 @@ function BoardDetail() {
             console.error("에러 발생!", error);
         });
     }
+    {/* 이미지 추가 작업*/}
+    const getImgUrl = () => {
+        const token = localStorage.getItem('token');
+        axios.get(`http://localhost:4040/api/v1/board/image/${boardNo}`, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
+        .then(function(res){
+            // setImgUrl(res.data.imageAddress);
+            setImgUrl(res.data);
+            console.log('setImgUrlres:', res);
+            console.log('setImgUrl', res.data)
+            console.log('imageAddress', imageAddress);
+            
+        })
+        .catch(function(error) {
+            console.error("There was an error!", error);
+        });
+    }
+
+    {/* 이미지 추가 작업 완료*/}
     
 
     useEffect(() => {
         getUser();
         getBoardDetail();
+        getImgUrl();
     }, [boardNo]);
 
     const editClick = () => {
-        window.location.href = 'https://www.naver.com';
+        window.location.href = `/patch/${boardNo}`;
     };
 
     const deleteClick = () => {
@@ -145,7 +169,7 @@ function BoardDetail() {
             console.error("에러 발생!", error);
         });
     };
-
+    
     return (
         <div className="boardDetail">
             {boardDetail && (
@@ -177,6 +201,23 @@ function BoardDetail() {
                         <div className="content">
                             <p>{boardDetail.content}</p>
                         </div>
+                        {/* 이미지 추가 작업 */}
+                        <div className='board-detail-image'>
+                            {imageAddress.length > 0 ? (
+                                imageAddress.map((url, index) => (
+                                    <div key={index} className="image-container">
+                                        <img 
+                                            src={imageAddress[`${index}`]} 
+                                            className='detail-image'
+                                            alt={`Image ${index}`} 
+                                        />
+                                    </div>
+                                ))
+                            ) : (
+                                <p>Loading...</p>
+                            )}
+                        </div>
+                        {/* 이미지 추가 작업 완료 */}
                         <div className="LikeAction-DislikeAction">
                             <img src={like} alt="LikeAction" />
                             <img src={disLike} alt="DislikeAction" />
