@@ -1,18 +1,11 @@
 import React, { useState } from 'react';
 import '../../assets/styles/Register.css';
 import image from '../../assets/images/MainLogo.png';
-import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import Modal from 'react-modal';
-import Certification from './Certification'; // Certification 컴포넌트 import
-
-Modal.setAppElement('#root'); // 접근성을 위해 설정
 
 function Register() {
   const [isIdValid, setIsIdValid] = useState(null);
   const [isNickValid, setIsNickValid] = useState(null);
   const [isPasswordValid, setIsPasswordValid] = useState(null);
-  const [isEmailVerified, setIsEmailVerified] = useState(false); // 이메일 인증 상태
   const [form, setForm] = useState({
     userName: '',
     userId: '',
@@ -21,9 +14,6 @@ function Register() {
     passwordConfirm: '',
     userNick: ''
   });
-  const [modalIsOpen, setModalIsOpen] = useState(false); // 모달 상태
-
-  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -55,11 +45,9 @@ function Register() {
         },
         body: JSON.stringify({ userId: form.userId })
       });
-
       const result = await response.json();
-      console.log('ID Check Response:', result);
-
       setIsIdValid(result);
+      console.log(result);
       alert(result ? '아이디 사용 가능' : '아이디가 이미 사용 중입니다.');
     } catch (error) {
       console.error('Error checking ID:', error);
@@ -85,11 +73,9 @@ function Register() {
         },
         body: JSON.stringify({ userNick: form.userNick })
       });
-
       const result = await response.json();
-      console.log('Nickname Check Response:', result);
-
       setIsNickValid(result);
+      console.log(result);
       alert(result ? '닉네임 사용 가능' : '닉네임이 이미 사용 중입니다.');
     } catch (error) {
       console.error('Error checking nickname:', error);
@@ -97,39 +83,8 @@ function Register() {
     }
   };
 
-  const handleEmailCertification = async () => {
-    if (!form.userEmail) {
-      alert('이메일을 입력해주세요.');
-      return;
-    }
-    try {
-      const response = await axios.post('http://localhost:4040/api/v1/auth/email-certification', {
-        email: form.userEmail
-      }, {
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        withCredentials: true
-      });
-
-      if (response.data.code === 'SU') {
-        sessionStorage.setItem('email', form.userEmail);
-        setModalIsOpen(true); // 모달 열기
-      } else {
-        alert('이메일 인증 요청에 실패하였습니다: ' + (response.data.message || '알 수 없는 오류'));
-      }
-    } catch (error) {
-      console.error('Error during email certification request:', error);
-      alert('이메일 인증 요청 중 오류가 발생했습니다.');
-    }
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!isEmailVerified) {
-      alert('이메일 인증을 완료해주세요.');
-      return;
-    }
     if (form.userPassword !== form.passwordConfirm) {
       alert('비밀번호가 일치하지 않습니다.');
       return;
@@ -145,18 +100,8 @@ function Register() {
       return;
     }
 
-    if (isIdValid === null) {
-      alert('아이디 체크를 해주세요.');
-      return;
-    }
-
     if (isNickValid === false) {
       alert('닉네임이 이미 사용 중입니다.');
-      return;
-    }
-
-    if (isNickValid === null) {
-      alert('닉네임 체크를 해주세요.');
       return;
     }
 
@@ -174,19 +119,16 @@ function Register() {
           userNick: form.userNick
         })
       });
-
       const result = await response.json();
-      console.log('Sign-up Response:', result);
-
-      if (result.code === 'SU') {
+      if (result.success) {
         alert('회원가입에 성공했습니다!');
-        navigate('/'); // 메인 페이지로 리디렉션
+        window.location.href = '/';
       } else {
-        alert(`회원가입에 실패했습니다: ${result.message || '알 수 없는 오류'}`);
+        alert('회원가입에 실패했습니다.');
       }
     } catch (error) {
       console.error('Error during sign-up:', error);
-      alert('회원가입 중 오류가 발생했습니다.');
+      alert('회원가입에 실패했습니다.');
     }
   };
 
@@ -211,11 +153,13 @@ function Register() {
             <label htmlFor="userId">*아이디</label>
             <input type="text" id="userId" name="userId" placeholder="아이디를 입력해주세요" required onChange={handleChange} />
             <button type="button" onClick={handleIdCheck}>아이디 체크</button>
+            {/* {isIdValid === true && <span className="valid-feedback">사용 가능</span>}
+            {isIdValid === false && <span className="invalid-feedback">사용 불가능</span>} */}
           </div>
           <div className='form-group'>
             <label htmlFor="userEmail">*이메일</label>
             <input type="email" id="userEmail" name="userEmail" placeholder="example@a.com" required onChange={handleChange} />
-            <button type="button" onClick={handleEmailCertification}>인증</button>
+            <button type="button">인증</button>
           </div>
           <div className='form-group'>
             <label htmlFor="userPassword">*비밀번호</label>
@@ -231,22 +175,15 @@ function Register() {
             <label htmlFor="userNick">*닉네임</label>
             <input type="text" id="userNick" name="userNick" placeholder="6~20자 이내의 닉네임" required onChange={handleChange} />
             <button type="button" onClick={handleNickCheck}>닉네임 체크</button>
+            {/* {isNickValid === true && <span className="valid-feedback">사용 가능</span>}
+            {isNickValid === false && <span className="invalid-feedback">사용 불가능</span>} */}
           </div>
           <button type="submit">회원가입</button>
         </form>
       </div>
-
-      <Modal
-        isOpen={modalIsOpen}
-        onRequestClose={() => setModalIsOpen(false)}
-        contentLabel="Email Certification Modal"
-        className="certification-modal"
-        overlayClassName="certification-overlay"
-      >
-        <Certification closeModal={() => setModalIsOpen(false)} setIsEmailVerified={setIsEmailVerified} />
-      </Modal>
     </div>
   );
 }
 
 export default Register;
+

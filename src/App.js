@@ -1,57 +1,42 @@
-import React, { useState } from 'react';
-import { BrowserRouter as Router, Route, Routes, useNavigate, useLocation } from 'react-router-dom';
-import CreateMyCoursePage from './pages/CreateMyCoursePage';
+import {React, useEffect, useState } from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+
+//Test상태인 녀석들 -> 아직 components에서 바로 가져다 쓰는녀석들
 import LoginDetail from './components/specific/LoginDetail';
 import Register from './components/specific/Register';
+
+//Page 단위 구성까지 끝난 녀석들 -> pages에서 끌어오기.
 import MainPage from './pages/MainPage';
-import CommunityListPage from './pages/CommunityListPage';
-import Certification from './components/specific/Certification';
-
-
-
-import Navbar from './components/common/Navbar'; // 추가
-import Modal from './components/specific/Modal'; // 추가
-import Login from './components/specific/Login'; // 추가
+import CommunityListPage from './pages/CommunityListPage'; 
 import './App.css';
+import PostBoard from './pages/PostBoardPage';
+import PatchBoard from './pages/PatchBoardPage'
+
+// BoardDetail 컴포넌트 임포트 추가
+import BoardDetail from './components/specific/BoardDetail';
+import BoardDetailPage from './pages/BoardDetailPage'; 
 
 function App() {
-  const [isModalOpen, setModalOpen] = useState(false);
-  const location = useLocation();
-  const navigate = useNavigate();
-
-  const openModal = () => setModalOpen(true);
-  const closeModal = () => {
-    setModalOpen(false);
-    navigate('/');
-  };
-
-  React.useEffect(() => {
-    if (location.pathname === '/login') {
-      setModalOpen(true);
-    } else {
-      setModalOpen(false);
-    }
-  }, [location]);
 
   return (
     <div className="App">
-      <Navbar openLoginModal={openModal} /> {/* Navbar에 모달 열기 함수 전달 */}
-      <Routes>
-        <Route path="logindetail" element={<LoginDetail />} />
-        <Route path="/" element={<MainPage />} />
-        <Route path="/certification" element={<Certification/>}/>
-        <Route path="/community" element={<CommunityListPage />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/createmycoursepage" element={<CreateMyCoursePage />} />
-      </Routes>
-      <Modal isOpen={isModalOpen} onClose={closeModal}>
-        <Login />
-      </Modal>
+      <Router>
+          {/* <Navbar/> */}
+          {/* <LoginDetail/> */}
+          {/* <Footer/> */}
+          <Routes>
+            <Route path= "logindetail" element={<LoginDetail />}/>
+            <Route path="/" element={<MainPage />} />
+            <Route path="/community" element={<CommunityListPage/>}/>
+            <Route path="/register" element={<Register/>}/>
+            <Route path="/BoardDetail/:boardNo" element={<BoardDetailPage/>}/>
+            <Route path="/post" element={<PostBoard/>}/>
+            <Route path="/patch/:boardNo" element={<PatchBoard/>}/>
+          </Routes>
+        </Router>
     </div>
+
   );
 }
-
-
-
 
 export default App;
