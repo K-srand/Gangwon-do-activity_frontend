@@ -146,7 +146,7 @@ const FindId = () => {
                 </div>
                 <div className='find-find'>
                     <div className='link'>
-                        <a href='/findpwd'>비밀번호 찾기</a>
+                        <a href='/findpassword'>비밀번호 찾기</a>
                     </div>
                 </div>
             </div>
