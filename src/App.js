@@ -15,6 +15,7 @@ import CertificationPwd from './components/specific/Certificationpwd';
 import CreateMyCoursePage from './pages/CreateMyCoursePage';
 import CommunityListPage from './pages/CommunityListPage';
 import MainPage from './pages/MainPage';
+import Agreement from './components/specific/Agreement';
 
 // BoardDetail 컴포넌트 임포트 추가
 import BoardDetailPage from './pages/BoardDetailPage'; 
@@ -54,6 +55,7 @@ function App() {
         <Route path="/" element={<MainPage />} />
         <Route path="/certification" element={<Certification/>}/>
         <Route path="/community" element={<CommunityListPage />} />
+        <Route path="/agreement" element={<Agreement />} />
         <Route path="/register" element={<Register />} />
         <Route path="/createmycoursepage" element={<CreateMyCoursePage />} />
         <Route path="/BoardDetail/:boardNo" element={<BoardDetailPage/>}/>

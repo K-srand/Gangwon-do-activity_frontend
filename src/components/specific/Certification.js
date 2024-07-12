@@ -42,7 +42,16 @@ function Certification({ closeModal, setIsEmailVerified }) {
       }
     } catch (error) {
       console.error('Error during email verification:', error);
-      alert('이메일 인증 요청 중 오류가 발생했습니다.');
+      if (error.response) {
+        const result = error.response.data;
+        if (result.code === 'NE') {
+          alert('인증번호가 맞지 않습니다.');
+        } else {
+          alert('이메일 인증 요청에 실패하였습니다: ' + (result.message || '알 수 없는 오류'));
+        }
+      } else {
+        alert('이메일 인증 요청 중 오류가 발생했습니다.');
+      }
     }
   };
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import '../../assets/styles/LoginDetail.css';
@@ -8,6 +8,13 @@ const LoginDetail = () => {
     const [userId, setUserId] = useState('');
     const [userPassword, setUserPassword] = useState('');
     const navigate = useNavigate(); // useNavigate 훅 사용
+
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        if (token) {
+          navigate('/');
+        }
+      }, []);
 
     const handleLogin = (e) => {
         e.preventDefault();
@@ -20,6 +27,7 @@ const LoginDetail = () => {
             localStorage.setItem('token', token); // 토큰 저장
             console.log('Logged in successfully:', res);
             navigate('/'); // 메인페이지로 리다이렉트
+            window.location.reload();
         })
         .catch(function(error) {
             alert("로그인 정보가 틀렸습니다"); 
@@ -82,8 +90,8 @@ const LoginDetail = () => {
 
                 <div className='login-modal-main-find'>
                     <div className="links">
-                        <a href="/">아이디 찾기 </a>
-                        <a href="/">비밀번호 찾기</a>
+                        <a href="/findid">아이디 찾기 </a>
+                        <a href="/findpassword">비밀번호 찾기</a>
                     </div>
                 </div>
                 <div className=''></div>

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import logo from '../../assets/images/MainLogo.png';
 import '../../assets/styles/Certification.css';
@@ -7,6 +8,7 @@ function CertificationPwd({ closeModal, setIsEmailVerified }) {
   const [certificationNumber, setCertificationNumber] = useState('');
   const email = sessionStorage.getItem('email');
   console.log(email);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!email) {

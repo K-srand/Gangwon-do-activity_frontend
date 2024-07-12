@@ -1,8 +1,18 @@
-import React from "react";
+import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import logo from '../../assets/images/MainLogo.png';
 import '../../assets/styles/Login.css';
 
 const Login = () => {
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        if (token) {
+          navigate('/');
+        }
+      }, []);
+
     return (
         <div className="log-modal-main">
             <div className="log-modal-main-logo">
@@ -14,7 +24,7 @@ const Login = () => {
             <div className="login-container">
                 <a href="/logindetail" className="button-link">로그인하기</a>
                 <div className="login-options">
-                    <a href="/register" className="nav">회원가입</a>
+                    <a href="/agreement" className="nav">회원가입</a>
                     <a href="/findid" className="nav">아이디 찾기</a>
                     <a href="/findpassword" className="nav">비밀번호 찾기</a>
                 </div>

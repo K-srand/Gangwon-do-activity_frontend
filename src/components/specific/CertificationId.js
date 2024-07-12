@@ -2,10 +2,12 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../../assets/styles/Certification.css';
 import logo from '../../assets/images/MainLogo.png'; // logo import 추가
+import { useNavigate } from 'react-router-dom';
 
 function CertificationId({ closeModal, setIsEmailVerified }) {
   const [certificationNumber, setCertificationNumber] = useState('');
   const email = sessionStorage.getItem('email');
+  const navigate = useNavigate();
   console.log(email);
 
   useEffect(() => {

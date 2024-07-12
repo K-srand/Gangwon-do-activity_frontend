@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../../assets/styles/Register.css';
 import image from '../../assets/images/MainLogo.png';
 import { useNavigate } from 'react-router-dom';
@@ -24,6 +24,13 @@ function Register() {
   const [modalIsOpen, setModalIsOpen] = useState(false); // 모달 상태
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      navigate('/');
+    }
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -113,6 +120,7 @@ function Register() {
       });
 
       if (response.data.code === 'SU') {
+        alert('인증번호가 발송되었습니다.');
         sessionStorage.setItem('email', form.userEmail);
         setModalIsOpen(true); // 모달 열기
       } else {
