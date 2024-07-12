@@ -3,9 +3,9 @@ import axios from "axios";
 import '../../assets/styles/MainPage.css';
 import leftArrow from '../../assets/images/MainLeftArrow.png';
 import rightArrow from '../../assets/images/MainRightArrow.png';
-import favorite from '../../assets/images/favorite.png';
+import favorite from '../../assets/images/Favorite.png';
 import defaultImage from '../../assets/images/Icon_No_Image.png';
-import welcome from '../../assets/images/welcome.png';
+import welcome from '../../assets/images/Welcome.png';
 
 function MainUpper({token}) {
   const mapContainer = useRef(null);
@@ -144,6 +144,16 @@ function MainUpper({token}) {
       placeNo: item.id,
       userId: userId
     })
+    .then(response => {
+      if(response.data === "already favorited") {
+          alert("이미 찜한 장소입니다!");
+      } else if(response.data === "success favorite") {
+          alert("성공적으로 찜하였습니다!");
+      }
+    })
+    .catch(error => {
+      console.error("찜 처리 중 오류가 발생했습니다:", error);
+    });
     } else {
       alert("로그인 후 이용가능합니다!");
     }

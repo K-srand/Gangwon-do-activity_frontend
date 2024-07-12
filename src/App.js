@@ -16,6 +16,7 @@ import CreateMyCoursePage from './pages/CreateMyCoursePage';
 import CommunityListPage from './pages/CommunityListPage';
 import MainPage from './pages/MainPage';
 import Agreement from './components/specific/Agreement';
+import IntroducePage from './pages/IntroducePage';
 
 // BoardDetail 컴포넌트 임포트 추가
 import BoardDetailPage from './pages/BoardDetailPage'; 
@@ -61,6 +62,7 @@ function App() {
         <Route path="/BoardDetail/:boardNo" element={<BoardDetailPage/>}/>
         <Route path="/post" element={<PostBoard/>}/>
         <Route path="/patch/:boardNo" element={<PatchBoard/>}/>
+        <Route path="/introduce" element={<IntroducePage/>}/>
 
       </Routes>
       <Modal isOpen={isModalOpen} onClose={closeModal}>

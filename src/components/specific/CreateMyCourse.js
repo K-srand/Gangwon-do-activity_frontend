@@ -4,6 +4,7 @@ import axios from 'axios';
 import Car from '../../assets/images/Car.png';
 import LeftArrow from '../../assets/images/MainLeftArrow.png';
 import RightArrow from '../../assets/images/MainRightArrow.png';
+import defaultImage from '../../assets/images/Icon_No_Image.png';
 
 const CreateMyCourse = ({ token }) => {
     const [images, setImages] = useState([]);
@@ -14,7 +15,6 @@ const CreateMyCourse = ({ token }) => {
     const mapRef = useRef(null);
     const lineRef = useRef(null);
     const markersRef = useRef([]);
-    const imageListRef = useRef(null);
     const [userId, setUserId] = useState(null);
 
     useEffect(() => {
@@ -217,7 +217,7 @@ const CreateMyCourse = ({ token }) => {
     // 코스 저장
     const saveSelectedImages = () => {
         if (selectedImages.length !== 4) {
-            alert("4개의 이미지를 선택해야 합니다.");
+            alert("4개의 플레이스를 선택해야 합니다.");
             return;
         }
 
@@ -233,14 +233,18 @@ const CreateMyCourse = ({ token }) => {
             userId: userId,
             courseData: courseData
         })
-            .then(response => {
-                console.log(response.data);
+        .then(response => {
+            if (response.data === "Course already exists.") {
+                alert('이미 존재하는 코스입니다.');
+            } else {
                 alert('코스가 저장되었습니다.');
-            })
-            .catch(error => {
-                console.error('오류가 발생했습니다!', error);
-                alert('코스 저장에 실패했습니다.');
-            });
+            }
+            console.log(response.data);
+        })
+        .catch(error => {
+            console.error('오류가 발생했습니다!', error);
+            alert('코스 저장에 실패했습니다.');
+        });
     }
 
 
@@ -265,7 +269,7 @@ const CreateMyCourse = ({ token }) => {
                 {images.slice(currentImageIndex * 4, (currentImageIndex + 1) * 4).map((image, index) => (
                     <div key={index} className="image-container">
                         <img
-                            src={image.firstImage2}
+                            src={image.firstImage2 || defaultImage}
                             alt={image.placeTitle}
                             onClick={() => selectImage(image)}
                             className="selectable-image"
@@ -283,7 +287,7 @@ const CreateMyCourse = ({ token }) => {
                 <div className="CreateMyCourseTourCombinationList">
                     {selectedImages.map((image, index) => (
                         <div className="CreateMyCourseTourItem" key={index}>
-                            <img src={image.firstImage2} alt={image.placeTitle} />
+                            <img src={image.firstImage2 || defaultImage} alt={image.placeTitle} />
                             <div className="image-title">{image.placeTitle}</div>
                         </div>
                     ))}

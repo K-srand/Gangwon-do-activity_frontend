@@ -40,7 +40,7 @@ const Navbar = () => {
           <img src={logo} alt="Logo" />
         </a>
         <div className="navbar-links">
-          <a href="www.naver.com">사이트 소개</a>
+          <a href="/introduce">사이트 소개</a>
           <a href="/community">커뮤니티</a>
           <a href="www.naver.com">*사용자 추천 코스*</a>
           {isLoggedIn && <a href="/createmycoursepage">나만의 코스 만들기</a>}
