@@ -296,11 +296,12 @@
     padding-bottom: 20px;
   }
   
-  .comment-page-number, .comment-page-button button{
+  .comment-page-number, .comment-page-button{
     padding: 0;
     cursor: pointer;
     margin-top: 20px;
     width: 5%;
+    color: black
   }
   
 /* 이미지 추가 작업 */

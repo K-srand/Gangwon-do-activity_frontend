@@ -18,9 +18,9 @@ function BoardDetail() {
     const [comments, setComments] = useState([]);
     const [newComment, setNewComment] = useState('');
     const [imageAddress , setImgUrl] = useState([]);
-    
     const [totalPages, setTotalPages] = useState(0); // 전체 페이지 수
     const [currentPage, setCurrentPage] = useState(1); // 현재 페이지를 1로 설정
+    const [commentCount, setCommentCount] = useState(0);
 
     const location = useLocation();
     const navigate = useNavigate();
@@ -46,6 +46,7 @@ function BoardDetail() {
             const pageData = response.data;
             setTotalPages(pageData.totalPages);
             setComments(pageData.content);  // 응답 데이터 구조에 맞게 설정
+            setCommentCount(pageData.totalElements);
             console.log('댓글 목록:', pageData.content);
 
             // 현재 페이지가 총 페이지 수를 초과하면 첫 페이지로 리다이렉트
@@ -106,8 +107,12 @@ function BoardDetail() {
             }
         })
         .then(function(res){
-            setBoardDetail(res.data);
-            console.log('게시물 상세정보:', res);
+            if (res.data.deletedTime !== null) {
+                window.location.href = '/ErrorPage';
+            } else {
+                setBoardDetail(res.data);
+                console.log('게시물 상세정보:', res);
+            }
         })
         .catch(function(error) {
             console.error("에러 발생!", error);
@@ -244,6 +249,7 @@ function BoardDetail() {
                     <Comment 
                         comments={comments} 
                         newComment={newComment}
+                        commentCount={commentCount}
                         handleCommentChange={handleCommentChange}
                         handleCommentSubmit={handleCommentSubmit}
                     />

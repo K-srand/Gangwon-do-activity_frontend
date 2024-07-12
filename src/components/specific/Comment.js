@@ -1,8 +1,7 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import profile from '../../assets/images/profile.png';
 
-const Comment = ({ comments, newComment, handleCommentChange, handleCommentSubmit }) => {
-    
+const Comment = ({ comments, newComment, commentCount, handleCommentChange, handleCommentSubmit }) => {
     const handleKeyPress = (event) => {
         if (event.key === 'Enter') {
             handleCommentSubmit();
@@ -12,7 +11,7 @@ const Comment = ({ comments, newComment, handleCommentChange, handleCommentSubmi
     return (
         <div className="boardDetail-footer">
             <div className="comment-header">
-                <span>댓글 {comments.length}개</span>
+                <span>댓글 {commentCount}개</span>
             </div>
             <hr className="boardDetail-footer-line" />
             {comments.length > 0 ? (
@@ -26,7 +25,6 @@ const Comment = ({ comments, newComment, handleCommentChange, handleCommentSubmi
                             <span>{comment.content}</span>
                         </div>
                         <div className="comment-report">
-                            {/* <span onClick="#">신고</span> */}
                             <span>{new Date(comment.writtenTime).toLocaleString()}</span> {/* date 대신 writtenTime 사용 */}
                         </div>
                     </div>

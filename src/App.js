@@ -18,6 +18,8 @@ import MainPage from './pages/MainPage';
 import Agreement from './components/specific/Agreement';
 import IntroducePage from './pages/IntroducePage';
 
+import ErrorPage from './pages/ErrorPage';
+
 // BoardDetail 컴포넌트 임포트 추가
 import BoardDetailPage from './pages/BoardDetailPage'; 
 import PostBoard from './pages/PostBoardPage';
@@ -63,6 +65,8 @@ function App() {
         <Route path="/post" element={<PostBoard/>}/>
         <Route path="/patch/:boardNo" element={<PatchBoard/>}/>
         <Route path="/introduce" element={<IntroducePage/>}/>
+
+        <Route path="/ErrorPage" element={<ErrorPage />} />
 
       </Routes>
       <Modal isOpen={isModalOpen} onClose={closeModal}>

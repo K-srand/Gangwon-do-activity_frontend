@@ -121,11 +121,13 @@
   max-width: 1440px;
   font-size: 18px;
   margin: 0 auto;
+  
 }
 
-.page-number, .page-button button{
+.page-number, .page-button {
   padding: 0;
   cursor: pointer;
   margin-top: 20px;
   width: 5%;
+  color: black;
 }
