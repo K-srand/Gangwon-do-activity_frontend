@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import '../../assets/styles/Find.css';
@@ -6,10 +6,19 @@ import logo from '../../assets/images/MainLogo.png';
 import CertificationId from './CertificationId';
 import Modal from 'react-modal';
 
+
 const FindId = () => {
     const [form, setForm] = useState({ userName: '', userEmail: '' });
     const navigate = useNavigate();
     const certificationNumber = sessionStorage.getItem('certificationNumber');
+
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        if (token) {
+          navigate('/');
+        }
+      }, []);
+
     const handleChange = (e) => {
         const { name, value } = e.target;
         setForm((prevForm) => ({ ...prevForm, [name]: value }));
