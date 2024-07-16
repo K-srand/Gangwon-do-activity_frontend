@@ -25,6 +25,8 @@ const Comment = ({ comments, newComment, commentCount, handleCommentChange, hand
                             <span>{comment.content}</span>
                         </div>
                         <div className="comment-report">
+                            
+                            <span onClick="#">신고</span>
                             <span>{new Date(comment.writtenTime).toLocaleString()}</span> {/* date 대신 writtenTime 사용 */}
                         </div>
                     </div>
