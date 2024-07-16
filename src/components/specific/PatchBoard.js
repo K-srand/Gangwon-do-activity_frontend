@@ -10,7 +10,6 @@ function EditPostBoard() {
     const [images, setImages] = useState([]);
     const [fileUrls, setFileUrls] = useState([]);
     const [removeAddress, setRemoveAddress] = useState("");
-    const [newUrls, setNewUrls] = useState([]);
 
     useEffect(() => {
         // 기존 글 데이터 가져오기
@@ -73,10 +72,6 @@ function EditPostBoard() {
     // 새로운 fileUrl을 fileUrls 배열에 추가하는 함수
     const addFileUrl = (fileUrl) => {
     setFileUrls((prevFileUrls) => [...prevFileUrls, fileUrl]);
-    };
-    
-    const addNewUrls = (fileUrl) => {
-        setNewUrls((prevFileUrls) => [...prevFileUrls, fileUrl]);
     };
     
     let fileUrl ="" ;

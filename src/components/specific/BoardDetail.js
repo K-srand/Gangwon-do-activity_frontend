@@ -14,6 +14,7 @@ function BoardDetail() {
     const [userId, setUserId] = useState('');
     const [userPassword, setUserPassword] = useState('');
     const [userName, setUserName] = useState('');
+    const [boardNick, setBoardNick] = useState('');
     const [boardDetail, setBoardDetail] = useState(null);
     const [comments, setComments] = useState([]);
     const [newComment, setNewComment] = useState('');
@@ -111,6 +112,7 @@ function BoardDetail() {
                 window.location.href = '/ErrorPage';
             } else {
                 setBoardDetail(res.data);
+                setBoardNick(res.data.userNick);
                 console.log('게시물 상세정보:', res);
             }
         })
@@ -145,7 +147,15 @@ function BoardDetail() {
     }, [boardNo]);
 
     const editClick = () => {
-        window.location.href = `/patch/${boardNo}`;
+        // userName이라 되어 있지만 로그인한 사용자 닉네임임
+        console.log("userNick :", userName);
+        // 여긴 게시글의 닉네임
+        console.log("getBoardDetail.userNick", boardNick);
+        if(userName !== boardNick){
+            alert("너꺼 아님");
+        }else{
+            window.location.href = `/patch/${boardNo}`;
+        }
     };
 
     const deleteClick = () => {
