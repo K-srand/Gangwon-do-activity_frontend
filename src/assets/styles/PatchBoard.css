@@ -2,7 +2,6 @@
     border-top: 1px solid rgba(0, 0, 0, 0.2);
     display: flex;
     justify-content: center;
-    background-color: rgba(0, 0, 0, 0.05);
     max-width: 1440px;
     margin: auto;
     width: 100%;
@@ -151,3 +150,40 @@
     font-size: 8px;
     border-radius: 50%;
   }
+
+  .myCourse {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    flex-direction: row;
+    justify-content: center;
+    padding: 20px;
+  }
+
+  .course-container{
+    position: relative;
+    display: inline-block;
+  }
+
+  .myCourse .course-container .course-images{
+    width: 200px;
+    height: 200px;
+  }
+
+
+  .courseDelete {
+    background-color: #ff4d4d;
+    color: white; /* White text */
+    border: none; /* No border */
+    border-radius: 5px; /* Rounded corners */
+    padding: 10px 15px; /* Padding */
+    font-size: 16px; /* Font size */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s; /* Transition for hover effect */
+    height: 20px;
+    width: 20px;
+}
+
+.courseDelete:hover {
+    background-color: #ff1a1a; /* Darker red on hover */
+}

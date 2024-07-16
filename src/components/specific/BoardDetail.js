@@ -28,6 +28,7 @@ function BoardDetail() {
     const [isDisliked, setIsDisliked] = useState(false);
 
     const [isButtonDisabled, setIsButtonDisabled] = useState(false); //서버 응답 받을 때까지 비활성화
+    const [myCourse, setMyCourse] = useState([]);
 
     const location = useLocation();
     const navigate = useNavigate();
@@ -119,6 +120,18 @@ function BoardDetail() {
             } else {
                 setBoardDetail(res.data);
                 setBoardNick(res.data.userNick);
+         
+                if (res.data.firstImage2 && Array.isArray(res.data.firstImage2)) {
+                    const courseDetails = res.data.firstImage2.map(imageObj => ({
+                        placeTitle: imageObj.placeTitle,
+                        imageUrl: imageObj.firstImage2
+                    }));
+                    setMyCourse(courseDetails);
+                } else {
+                    setMyCourse([]);
+                }
+
+                console.log('이미지', res.data.firstImage2);
                 console.log('게시물 상세정보:', res);
             }
         })
@@ -335,6 +348,7 @@ function BoardDetail() {
                         <div className="content">
                             <p>{boardDetail.content}</p>
                         </div>
+
                         <div className='board-detail-image'>
                             {imageAddress.length > 0 ? (
                                 imageAddress.map((url, index) => (
@@ -350,6 +364,16 @@ function BoardDetail() {
                                 null
                             )}
                         </div>
+
+                        <div className='myCourse'>
+                        {myCourse.length > 0 ? myCourse.map((course, index) => (
+                            <div className="course-container" key={index}>
+                                <img className="course-images" src={course.imageUrl} alt={`image-${index}`} />
+                                <h4>{course.placeTitle}</h4>
+                            </div>
+                        )) : null}   
+                        </div>
+
                         <div className="LikeAction-DislikeAction">
                             <img src={like} alt="LikeAction" onClick={handleLike} className={isLiked ? 'liked' : ''} disabled={isButtonDisabled}/>
                             <img src={dislike} alt="DislikeAction" onClick={handleDislike} className={isDisliked ? 'disliked' : ''} disabled={isButtonDisabled}/>

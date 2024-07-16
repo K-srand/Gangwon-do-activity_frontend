@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import '../../assets/styles/PostBoard.css';
+import '../../assets/styles/PatchBoard.css';
+import LoadMyCourse from '../specific/LoadMyCourse';
 import axios from 'axios';
 
 function EditPostBoard() {
@@ -9,6 +10,9 @@ function EditPostBoard() {
 
     const [images, setImages] = useState([]);
     const [fileUrls, setFileUrls] = useState([]);
+
+    const [myCourse, setMyCourse] = useState([]);
+
     const [removeAddress, setRemoveAddress] = useState("");
 
     useEffect(() => {
@@ -24,9 +28,19 @@ function EditPostBoard() {
             setPostData({
                 boardTitle: data.boardTitle,
                 content: data.content,
-                // imageAddress: data.imageAddress || []
+
             });
-            // setExistingImages(data.imageAddress || []);
+
+
+            if (res.data.firstImage2 && Array.isArray(res.data.firstImage2)) {
+                const courseDetails = res.data.firstImage2.map(imageObj => ({
+                    placeTitle: imageObj.placeTitle,
+                    imageUrl: imageObj.firstImage2
+                }));
+                setMyCourse(courseDetails);
+            } else {
+                setMyCourse([]);
+            }
         })
         .catch(err => {
             console.log(err);
@@ -164,6 +178,55 @@ function EditPostBoard() {
         });
     };
 
+    //나만의 코스 불러오기 모달창
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const openModal = () => {
+        setIsModalOpen(true);
+    };
+
+    const closeModal = () => {
+        setIsModalOpen(false);
+    };
+
+    const handleCourseSelect = (courseInfo) => {
+        console.log('선택된 코스 정보:', courseInfo);
+       
+        axios.patch(`http://localhost:4040/api/v1/board/updatemycourse/${boardNo}`, {
+            myCourseNo: courseInfo[0].myCourseNo
+        })
+
+        const allCourseDetails = courseInfo.map(imageObj => ({
+            placeTitle: imageObj.placeTitle,
+            imageUrl: imageObj.firstImage2
+        }));
+    
+        setMyCourse(allCourseDetails);
+           
+
+        setIsModalOpen(false);
+        
+    };
+
+
+    const courseDelete = () => {
+        const token = localStorage.getItem('token');
+    axios.patch(`http://localhost:4040/api/v1/board/deletemycourse/${boardNo}`, {
+        boardNo: boardNo
+    }, {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    })
+    .then(res => {
+        setMyCourse([]); // Clear myCourse state to remove from UI
+    })
+    .catch(err => {
+        console.error(err);
+        alert('Failed to delete course');
+    });
+    };
+
     return (
         <div id="board-write">
             <div className='board-write-box'>
@@ -174,7 +237,7 @@ function EditPostBoard() {
                 <div className='board-write-content'>
                     <textarea className='board-write-content-textarea' name="content" value={content} onChange={onChange} placeholder='본문을 작성해주세요.' ></textarea>
                     <div className='mycourse-image-upload-button'>
-                        <button className='upload-button'>나만의 코스 불러오기</button><br />
+                    <button className="upload-button" onClick={openModal}>나만의 코스 불러오기</button><br />{isModalOpen && <LoadMyCourse closeModal={closeModal} onCourseSelect={handleCourseSelect} />}
                         <input type="file" multiple onChange={handleImageChange} />
                     </div>
                 </div>
@@ -189,6 +252,17 @@ function EditPostBoard() {
                         </div>
                     ))}
                 </div>
+
+                <div className='myCourse'>
+                    {myCourse.length > 0 ? myCourse.map((course, index) => (
+                        <div className="course-container" key={index}>
+                            <img className="course-images" src={course.imageUrl} alt={`image-${index}`} />
+                            <h4>{course.placeTitle}</h4>
+                        </div>
+                    )) : null}   
+                    {myCourse.length > 0 && <button onClick={courseDelete} className='courseDelete'>X</button>}
+                </div>
+
                 <div className='board-submit-cancel'>
                     <button onClick={handleCancel} className='board-write-cancel'>취소</button>
                     <button onClick={handleSubmit} className='board-write-submit'>수정</button>
