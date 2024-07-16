@@ -10,6 +10,7 @@ function EditPostBoard() {
     const [images, setImages] = useState([]);
     const [fileUrls, setFileUrls] = useState([]);
     const [removeAddress, setRemoveAddress] = useState("");
+    const [newUrls, setNewUrls] = useState([]);
 
     useEffect(() => {
         // 기존 글 데이터 가져오기
@@ -67,13 +68,18 @@ function EditPostBoard() {
 
         files.forEach(file => uploadFile(file));
     };
-    let fileUrl ="" ;
+
 
     // 새로운 fileUrl을 fileUrls 배열에 추가하는 함수
     const addFileUrl = (fileUrl) => {
     setFileUrls((prevFileUrls) => [...prevFileUrls, fileUrl]);
     };
-
+    
+    const addNewUrls = (fileUrl) => {
+        setNewUrls((prevFileUrls) => [...prevFileUrls, fileUrl]);
+    };
+    
+    let fileUrl ="" ;
     const uploadFile = async (file) => {
         const formData = new FormData();
         formData.append('file', file);
@@ -148,7 +154,7 @@ function EditPostBoard() {
         axios.patch(`http://localhost:4040/api/v1/board/patch/${boardNo}`, {
             title: boardTitle,
             content: content,
-            imageAddress: fileUrls
+            boardImageList:  fileUrls// 이미지 URL 전송
         }, {
             headers: {
                 Authorization: `Bearer ${token}`
