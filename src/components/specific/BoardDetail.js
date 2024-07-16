@@ -26,6 +26,8 @@ function BoardDetail() {
     const [isLiked, setIsLiked] = useState(false);
     const [isDisliked, setIsDisliked] = useState(false);
 
+    const [isButtonDisabled, setIsButtonDisabled] = useState(false); //서버 응답 받을 때까지 비활성화
+
     const location = useLocation();
     const navigate = useNavigate();
     const query = new URLSearchParams(location.search);
@@ -146,31 +148,14 @@ function BoardDetail() {
     useEffect(() => {
         getUser();
         getBoardDetail();
-        checkLikeStatus(); // 좋아요/싫어요 상태 확인 함수 호출 추가
     }, [boardNo]);
 
-    // 좋아요/싫어요 상태를 서버에서 확인하는 함수 추가
-    const checkLikeStatus = () => {
-        const token = localStorage.getItem('token');
-        axios.get(`http://localhost:4040/api/v1/board/likeStatus/${boardNo}`, {
-            headers: {
-                'Authorization': `Bearer ${token}`
-            }
-        })
-        .then(function(res) {
-            const { liked, disliked } = res.data;
-            setIsLiked(liked);
-            setIsDisliked(disliked);
-            // 로컬 스토리지에도 상태를 저장
-            localStorage.setItem(`likeState_${boardNo}`, liked ? 'liked' : disliked ? 'disliked' : '');
-        })
-        .catch(function(error) {
-            console.error("좋아요/싫어요 상태를 가져오는 중 에러 발생!", error);
-        });
-    }
-
     const editClick = () => {
-        window.location.href = `/patch/${boardNo}`;
+        if (userId !== boardDetail.userId) {
+            alert("해당 id는 접근 권한이 없습니다.");
+        } else {
+            navigate(`/patch/${boardNo}`);
+        }
     };
 
     const deleteClick = () => {
@@ -219,6 +204,8 @@ function BoardDetail() {
 
     const handleLike = () => {
         const token = localStorage.getItem('token');
+        setIsButtonDisabled(true); // 버튼 비활성화
+
         if (isLiked) {
             // 좋아요 취소
             axios.post(`http://localhost:4040/api/v1/board/like/${boardNo}`, {}, {
@@ -257,15 +244,17 @@ function BoardDetail() {
 
     const handleDislike = () => {
         const token = localStorage.getItem('token');
+
         if (isDisliked) {
             // 싫어요 취소
-            axios.post(`http://localhost:4040/api/v1/board/like/${boardNo}`, {}, {
+            axios.post(`http://localhost:4040/api/v1/board/dislike/${boardNo}`, {}, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
             })
             .then(function(res){
                 console.log('싫어요 취소:', res);
+                setBoardDetail(prev => ({...prev, countLikes: prev.countLikes + 1}));
                 setIsDisliked(false);
                 localStorage.setItem(`likeState_${boardNo}`, ''); // 싫어요 눌림 상태 해제
             })
@@ -274,7 +263,7 @@ function BoardDetail() {
             });
         } else {
             // 싫어요
-            axios.post(`http://localhost:4040/api/v1/board/like/${boardNo}`, {}, {
+            axios.post(`http://localhost:4040/api/v1/board/dislike/${boardNo}`, {}, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -290,6 +279,11 @@ function BoardDetail() {
                 console.error("에러 발생!", error);
             });
         }
+    };
+
+    const handleReportClick = () => {
+        // '글 신고' 버튼 클릭 시 처리할 로직을 추가합니다.
+        alert("신고가 접수되었습니다.");
     };
 
     // 작성글에 해당하는 좋아요/싫어요 상태 불러오기
@@ -351,12 +345,12 @@ function BoardDetail() {
                             )}
                         </div>
                         <div className="LikeAction-DislikeAction">
-                            <img src={like} alt="LikeAction" onClick={handleLike} className={isLiked ? 'liked' : ''}/>
-                            <img src={dislike} alt="DislikeAction" onClick={handleDislike} className={isDisliked ? 'disliked' : ''}/>
+                            <img src={like} alt="LikeAction" onClick={handleLike} className={isLiked ? 'liked' : ''} disabled={isButtonDisabled}/>
+                            <img src={dislike} alt="DislikeAction" onClick={handleDislike} className={isDisliked ? 'disliked' : ''} disabled={isButtonDisabled}/>
                         </div>
 
                         <div className='boardDetail-report'>
-                            <span onClick="#">글 신고</span>
+                            <span onClick={handleReportClick}>글 신고</span>
                         </div>
                     </div>
                     <Comment 
