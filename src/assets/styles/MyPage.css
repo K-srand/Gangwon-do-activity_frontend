@@ -1,0 +1,139 @@
+.mypage {
+  padding: 20px;
+  background-color: #ffffff;
+  margin: auto;
+  max-width: 1440px;
+  width: 80%;
+}
+
+.paginated-list {
+  margin-top: 100px;
+  margin-bottom: 200px; /* 두 목록 간의 거리를 늘림 */
+}
+
+.paginated-list h2 {
+  background-color: #e0e7ff;
+  padding: 10px;
+  border-radius: 5px;
+  /* text-align: left; */
+  width: 300px;
+}
+
+.carousel-container {
+  display: flex;
+  align-items: center;
+  position: relative;
+  background-color: #D5E6F5;
+  padding: 10px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.carousel-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+  padding: 10px;
+}
+
+.carousel-button img {
+  width: 20px;
+  height: 20px;
+}
+
+.carousel-button.left {
+  left: -25px; /* Adjust as needed */
+}
+
+.carousel-button.right {
+  right: -25px; /* Adjust as needed */
+}
+
+.list-container {
+  display: flex;
+  overflow: hidden;
+  width: 100%;
+  justify-content: space-around;
+}
+
+.carousel-item {
+  flex: 0 0 20%;
+  text-align: center;
+  margin-right: 10px;
+  background-color: #D9D9D9;
+  padding: 10px;
+  border-radius: 5px;
+  position: relative;
+}
+
+.carousel-item img {
+  width: 100%;
+  height: auto;
+  border-radius: 5px;
+}
+
+.delete-button {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background: #b1c7f0;
+  border: none;
+  cursor: pointer;
+  /* display: none;  */
+}
+
+  /* .carousel-item:hover .delete-button {
+    display: block; 
+  } */
+
+.delete-button img {
+  width: 20px;
+  height: 20px;
+  filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(93deg) brightness(103%) contrast(103%); /* Change color to red */
+}
+
+.post-item {
+  padding: 10px 20px;
+  background-color: #D5E6F5;
+  /* border-radius: 10px; */
+  /* margin-bottom: 10px; */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  border-bottom: 1px solid #a7a7a7;
+}
+
+.post-item p {
+  margin: 0;
+  font-size: 16px;
+  color: #333;
+}
+
+.post-item hr {
+  border: none;
+  border-top: 1px solid #ccc;
+  margin: 5px 0;
+}
+
+.post-date {
+  font-size: 14px;
+  color: #666;
+}
+
+.pagination-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 0;
+}
+
+.pagination-controls span {
+  font-size: 14px;
+}
