@@ -21,6 +21,7 @@ function BoardDetail() {
     const [totalPages, setTotalPages] = useState(0); // 전체 페이지 수
     const [currentPage, setCurrentPage] = useState(1); // 현재 페이지를 1로 설정
     const [commentCount, setCommentCount] = useState(0);
+    const [myCourse, setMyCourse] = useState([]);
 
     const location = useLocation();
     const navigate = useNavigate();
@@ -111,6 +112,18 @@ function BoardDetail() {
                 window.location.href = '/ErrorPage';
             } else {
                 setBoardDetail(res.data);
+         
+                if (res.data.firstImage2 && Array.isArray(res.data.firstImage2)) {
+                    const courseDetails = res.data.firstImage2.map(imageObj => ({
+                        placeTitle: imageObj.placeTitle,
+                        imageUrl: imageObj.firstImage2
+                    }));
+                    setMyCourse(courseDetails);
+                } else {
+                    setMyCourse([]);
+                }
+
+                console.log('이미지', res.data.firstImage2);
                 console.log('게시물 상세정보:', res);
             }
         })
@@ -223,6 +236,7 @@ function BoardDetail() {
                         <div className="content">
                             <p>{boardDetail.content}</p>
                         </div>
+
                         <div className='board-detail-image'>
                             {imageAddress.length > 0 ? (
                                 imageAddress.map((url, index) => (
@@ -238,6 +252,16 @@ function BoardDetail() {
                                 null
                             )}
                         </div>
+
+                        <div className='myCourse'>
+                        {myCourse.length > 0 ? myCourse.map((course, index) => (
+                            <div className="course-container" key={index}>
+                                <img className="course-images" src={course.imageUrl} alt={`image-${index}`} />
+                                <h4>{course.placeTitle}</h4>
+                            </div>
+                        )) : null}   
+                        </div>
+
                         <div className="LikeAction-DislikeAction">
                             <img src={like} alt="LikeAction" />
                             <img src={disLike} alt="DislikeAction" />

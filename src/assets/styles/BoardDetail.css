@@ -326,3 +326,22 @@
     border: 1px solid #ccc;
 
   }
+
+  .myCourse {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    flex-direction: row;
+    justify-content: center;
+    padding: 20px;
+  }
+
+  .course-container{
+    position: relative;
+    display: inline-block;
+  }
+
+  .myCourse .course-container .course-images{
+    width: 250px;
+    height: 250px;
+  }

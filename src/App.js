@@ -20,12 +20,11 @@ import IntroducePage from './pages/IntroducePage';
 
 import ErrorPage from './pages/ErrorPage';
 
-import MyPage from './components/specific/MyPage';
-
 // BoardDetail 컴포넌트 임포트 추가
 import BoardDetailPage from './pages/BoardDetailPage'; 
 import PostBoard from './pages/PostBoardPage';
 import PatchBoard from './pages/PatchBoardPage'
+import LoadMyCourse from './components/specific/LoadMyCourse';
 
 
 function App() {
@@ -67,7 +66,8 @@ function App() {
         <Route path="/post" element={<PostBoard/>}/>
         <Route path="/patch/:boardNo" element={<PatchBoard/>}/>
         <Route path="/introduce" element={<IntroducePage/>}/>
-        <Route path = "/mypage" element = {<MyPage/>}/>
+        <Route path="/loadmycourse" element={<LoadMyCourse/>}/>
+
         <Route path="/ErrorPage" element={<ErrorPage />} />
 
       </Routes>
