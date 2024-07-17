@@ -8,12 +8,10 @@ const Login = () => {
 
     useEffect(() => {
         const token = localStorage.getItem('token');
-        const userId = localStorage.getItem('userId'); // userId도 함께 확인
-
-        if (token && userId) {
-            navigate('/');
+        if (token) {
+          navigate('/');
         }
-    }, [navigate]);
+      }, []);
 
     return (
         <div className="log-modal-main">

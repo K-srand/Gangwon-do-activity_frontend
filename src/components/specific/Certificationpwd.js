@@ -7,7 +7,6 @@ import '../../assets/styles/Certification.css';
 function CertificationPwd({ closeModal, setIsEmailVerified }) {
   const [certificationNumber, setCertificationNumber] = useState('');
   const email = sessionStorage.getItem('email');
-  const userId = sessionStorage.getItem('userId');
   console.log(email);
   const navigate = useNavigate();
 
@@ -27,7 +26,6 @@ function CertificationPwd({ closeModal, setIsEmailVerified }) {
 
     try {
       const response = await axios.post('http://localhost:4040/api/v1/auth/check-certification', {
-        userId,
         email,
         certificationNumber
       }, {

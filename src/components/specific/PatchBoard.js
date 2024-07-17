@@ -235,7 +235,16 @@ function EditPostBoard() {
                 </div>
                 <hr className="PostWrite-header-line" />
                 <div className='board-write-content'>
-                    <textarea className='board-write-content-textarea' name="content" value={content} onChange={onChange} placeholder='본문을 작성해주세요.' ></textarea>
+                    <textarea className='board-write-content-textarea' name="content" value={content} onChange={onChange} placeholder='본문을 작성해주세요.' >
+                    {content.split("\n").map((line) => { 
+                        return (
+                        <span>
+                            {line}
+                            <br />
+                        </span>
+                        );
+                        })}   
+                    </textarea>
                     <div className='mycourse-image-upload-button'>
                     <button className="upload-button" onClick={openModal}>나만의 코스 불러오기</button><br />{isModalOpen && <LoadMyCourse closeModal={closeModal} onCourseSelect={handleCourseSelect} />}
                         <input type="file" multiple onChange={handleImageChange} />

@@ -7,7 +7,6 @@ import { useNavigate } from 'react-router-dom';
 function CertificationId({ closeModal, setIsEmailVerified }) {
   const [certificationNumber, setCertificationNumber] = useState('');
   const email = sessionStorage.getItem('email');
-  const userName = sessionStorage.getItem('userName')
   const navigate = useNavigate();
   console.log(email);
 
@@ -27,7 +26,6 @@ function CertificationId({ closeModal, setIsEmailVerified }) {
 
     try {
       const response = await axios.post('http://localhost:4040/api/v1/auth/check-certification', {
-        userName,
         email,
         certificationNumber
       }, {

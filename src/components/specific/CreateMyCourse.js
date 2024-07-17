@@ -6,7 +6,6 @@ import LeftArrow from '../../assets/images/MainLeftArrow.png';
 import RightArrow from '../../assets/images/MainRightArrow.png';
 import defaultImage from '../../assets/images/Icon_No_Image.png';
 
-
 const CreateMyCourse = ({ token }) => {
     const [images, setImages] = useState([]);
     const [selectedImages, setSelectedImages] = useState([]);

@@ -346,7 +346,14 @@ function BoardDetail() {
                     <hr className="boardDetail-header-line" />
                     <div className='post-body'>
                         <div className="content">
-                            <p>{boardDetail.content}</p>
+                        {boardDetail.content.split("\n").map((line) => { 
+                        return (
+                        <span>
+                            {line}
+                            <br />
+                        </span>
+                        );
+                        })}   
                         </div>
 
                         <div className='board-detail-image'>
@@ -364,13 +371,19 @@ function BoardDetail() {
                                 null
                             )}
                         </div>
-
+                        <div>
+                        {myCourse.length ? (
+                            <p className='mycourse-board'>내가 추천하는 코스</p>
+                        ) : (
+                            null
+                        )}
+                        </div>
                         <div className='myCourse'>
-                        {myCourse.length > 0 ? myCourse.map((course, index) => (
+                        {myCourse.length > 0 ? myCourse.map((course, index) => ( 
                             <div className="course-container" key={index}>
                                 <img className="course-images" src={course.imageUrl} alt={`image-${index}`} />
                                 <h4>{course.placeTitle}</h4>
-                            </div>
+                                </div>
                         )) : null}   
                         </div>
 

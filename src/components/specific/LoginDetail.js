@@ -11,12 +11,10 @@ const LoginDetail = () => {
 
     useEffect(() => {
         const token = localStorage.getItem('token');
-        const storedUserId = localStorage.getItem('userId'); // userId도 함께 확인
-
-        if (token && storedUserId) {
-            navigate('/');
+        if (token) {
+          navigate('/');
         }
-    }, [navigate]);
+      }, []);
 
     const handleLogin = (e) => {
         e.preventDefault();
@@ -26,9 +24,7 @@ const LoginDetail = () => {
         })
         .then(function(res){
             const token = res.data.token; // 서버에서 반환된 JWT 토큰
-            const userIdFromResponse = res.data.userId; // 서버에서 반환된 사용자 ID
             localStorage.setItem('token', token); // 토큰 저장
-            localStorage.setItem('userId', userIdFromResponse); // 사용자 ID 저장
             console.log('Logged in successfully:', res);
             navigate('/'); // 메인페이지로 리다이렉트
             window.location.reload();
@@ -39,9 +35,25 @@ const LoginDetail = () => {
         });
     }
 
+    // const getUser = () => {
+    //     const token = localStorage.getItem('token'); // 저장된 토큰 가져오기
+    //     axios.get('http://localhost:4040/api/v1/user', {
+    //         headers: {
+    //             'Authorization': `Bearer ${token}` // 요청 헤더에 토큰 추가
+    //         }
+    //     })
+    //     .then(function(res){
+    //         console.log('User data:', res);
+    //     })
+    //     .catch(function(error) {
+    //         console.error("There was an error!", error);
+    //     });
+    // }
+
     return (
         <div>
             <div className='login-modal-main'>
+                
                 <div className='login-modal-main-logo'>
                     <img src={logo} alt="Logo"></img>
                 </div>
@@ -52,7 +64,7 @@ const LoginDetail = () => {
 
                 <div className='login-modal-main-login-inputboxes'>
                     <form onSubmit={handleLogin}>
-                        <label htmlFor="userId">*아이디</label>
+                        <label htmlFor="username">*아이디</label>
                         <input 
                             type="text" 
                             id="userId" 
@@ -61,11 +73,11 @@ const LoginDetail = () => {
                             onChange={(e) => setUserId(e.target.value)}  
                         />
 
-                        <label htmlFor="userPassword">*비밀번호</label>
+                        <label htmlFor="password">*비밀번호</label>
                         <input 
                             type="password" 
                             id="userPassword" 
-                            name="userPassword" 
+                            name="password" 
                             value={userPassword} 
                             onChange={(e) => setUserPassword(e.target.value)} 
                         />
@@ -82,6 +94,7 @@ const LoginDetail = () => {
                         <a href="/findpassword">비밀번호 찾기</a>
                     </div>
                 </div>
+                <div className=''></div>
             </div>
         </div>
     );
