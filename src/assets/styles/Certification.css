@@ -131,3 +131,11 @@ form {
   left: 50%; /* 화면 중앙 정렬 */
   transform: translate(-50%, -50%); /* 화면 중앙 정렬 */
 }
+
+.form-delete {
+  display: flex;
+  align-items: center;
+  margin-top: 25px;
+  margin-bottom: 5px;
+  position: relative;
+}

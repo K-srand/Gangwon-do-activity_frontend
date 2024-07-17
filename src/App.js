@@ -18,6 +18,10 @@ import MainPage from './pages/MainPage';
 import Agreement from './components/specific/Agreement';
 import IntroducePage from './pages/IntroducePage';
 
+// 수정, 탈퇴
+import Modify from './components/specific/Modify';
+import Withdraw from './components/specific/Withdraw';
+
 import ErrorPage from './pages/ErrorPage';
 
 // BoardDetail 컴포넌트 임포트 추가
@@ -69,7 +73,10 @@ function App() {
         <Route path="/loadmycourse" element={<LoadMyCourse/>}/>
 
         <Route path="/ErrorPage" element={<ErrorPage />} />
-
+        
+        <Route path="/modify" element={<Modify/>}/>
+        <Route path="/withdraw" element={<Withdraw/>}/>
+        
       </Routes>
       <Modal isOpen={isModalOpen} onClose={closeModal}>
         <Login />

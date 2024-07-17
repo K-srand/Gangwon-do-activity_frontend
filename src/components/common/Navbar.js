@@ -3,7 +3,7 @@ import '../../assets/styles/Navbar.css';
 import logo from '../../assets/images/MainLogo.png';
 import { useNavigate } from 'react-router-dom';
 
-const AUTO_LOGOUT_TIME = 30000000; // 500분을 밀리초로 표현한 값
+const AUTO_LOGOUT_TIME = 3600000; // 500분을 밀리초로 표현한 값
 
 const Navbar = () => {
   const navigate = useNavigate();
