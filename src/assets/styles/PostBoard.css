@@ -80,12 +80,20 @@
     line-height: 150%;
 
   }
-  .mycourse-image-upload-button{
+  .upload-button{
     height: 200px;
     align-items: center;
     justify-content: center;
-
+    background-color: #ccc; 
   }
+
+  .upload-button:hover{
+    height: 200px;
+    align-items: center;
+    justify-content: center;
+    background-color: #007bff; 
+  }
+
   .board-write-images-box{
     width: 100%;
     display: flex;
@@ -152,4 +160,21 @@
     cursor: pointer;
     font-size: 8px;
     border-radius: 50%;
+  }
+
+  .board-write-course {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    flex-direction: row;
+    justify-content: center;
+    padding: 20px;
+  }
+
+  .board-write-course .course-options {
+
+  }
+
+  .board-write-course .course-options .course-item {
+    
   }

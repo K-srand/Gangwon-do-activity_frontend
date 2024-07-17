@@ -3,6 +3,7 @@ import React, {  useState } from 'react';
 // import React, { useEffect, useRef} from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../../assets/styles/PostBoard.css';
+import LoadMyCourse from '../specific/LoadMyCourse';
 import axios from 'axios';
 
 function PostBoard(){
@@ -85,10 +86,16 @@ function PostBoard(){
 
             // 게시글 작성 API 호출
             const token = localStorage.getItem('token'); // 토큰 가져오기
+
+            const selectedCourseNo = selectedCourseInfo[0].myCourseNo;
+
+            console.log(selectedCourseNo);
+       
             const response = await axios.post('http://localhost:4040/api/v1/board', {
                 title: boardTitle,
                 content: content,
-                boardImageList:  fileUrls// 이미지 URL 전송
+                boardImageList:  fileUrls,// 이미지 URL 전송
+                myCourseNo: selectedCourseNo
             }, {
                 headers: {
                     Authorization: `Bearer ${token}`
@@ -103,7 +110,24 @@ function PostBoard(){
 
         }
     };
-    
+
+    //나만의 코스 불러오기 모달창
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [selectedCourseInfo, setSelectedCourseInfo] = useState(null);
+
+    const openModal = () => {
+        setIsModalOpen(true);
+    };
+
+    const closeModal = () => {
+        setIsModalOpen(false);
+    };
+
+    const handleCourseSelect = (courseInfo) => {
+        console.log('선택된 코스 정보:', courseInfo);
+        setSelectedCourseInfo(courseInfo);
+        setIsModalOpen(false);
+      };
 
     return(
        
@@ -119,7 +143,7 @@ function PostBoard(){
                 <div className='board-write-content'>
                     <textarea  className='board-write-content-textarea' name="content" value={content} onChange={onChange} placeholder='본문을 작성해주세요.' ></textarea>
                     <div className='mycourse-image-upload-button'>
-                        <button className='upload-button'>나만의 코스 불러오기</button><br/>
+                    <button className="upload-button" onClick={openModal}>나만의 코스 불러오기</button><br />{isModalOpen && <LoadMyCourse closeModal={closeModal} onCourseSelect={handleCourseSelect} />}
                         {/* <button className='upload-button'>이미지 불러오기</button> */}
                         <input type="file" name="file" multiple onChange={handleImageChange} />
                     </div>
@@ -135,6 +159,23 @@ function PostBoard(){
                         </div>
                     ))}
                 </div>
+
+                <div className='board-write-course'>
+                    {selectedCourseInfo && (
+                        <div>
+                        <h3>선택된 코스:</h3>
+                        <div className="course-options">
+                            {selectedCourseInfo.map((course, index) => (
+                            <div key={index} className="course-item">
+                                <img src={course.firstImage2} alt={course.placeTitle} className="course-image" />
+                                <div>{course.placeTitle}</div>
+                            </div>
+                            ))}
+                        </div>
+                        </div>
+                    )}
+                </div>
+
                 <div className='board-submit-cancel'>
                     <button onClick={handleCancel} className='board-write-cancel'>취소</button>
                     <button onClick={handleSubmit} className='board-write-submit'>완료</button>

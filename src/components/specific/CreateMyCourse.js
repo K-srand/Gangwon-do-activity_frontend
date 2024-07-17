@@ -10,17 +10,18 @@ const CreateMyCourse = ({ token }) => {
     const [images, setImages] = useState([]);
     const [selectedImages, setSelectedImages] = useState([]);
     const [durations, setDurations] = useState([]);
-    const [currentImageIndex, setCurrentImageIndex] = useState(0); 
+    const [currentImageIndex, setCurrentImageIndex] = useState(0);
     const mapContainer = useRef(null);
     const mapRef = useRef(null);
-    const lineRef = useRef(null);
+    const lineRefs = useRef([]);
     const markersRef = useRef([]);
     const [userId, setUserId] = useState(null);
+    const pathData = useRef([]);
 
     useEffect(() => {
         axios.get('http://localhost:4040/api/v1/user', {
             headers: {
-                'Authorization': `Bearer ${token}` 
+                'Authorization': `Bearer ${token}`
             }
         })
             .then(function (res) {
@@ -40,8 +41,8 @@ const CreateMyCourse = ({ token }) => {
         })
             .then(response => {
                 console.log(response.data);
-                setImages(response.data);  
-                setCurrentImageIndex(0); 
+                setImages(response.data);
+                setCurrentImageIndex(0);
             })
             .catch(error => {
                 console.error('오류가 발생했습니다!', error);
@@ -54,8 +55,10 @@ const CreateMyCourse = ({ token }) => {
             const saveSelectedImages = [...selectedImages, image];
             setSelectedImages(saveSelectedImages);
 
-            if (saveSelectedImages.length === 4) {   
-                handleSave(saveSelectedImages);
+            if (saveSelectedImages.length === 4) {
+                calculateDurations(saveSelectedImages).then(() => {
+                    handleSave(saveSelectedImages);
+                });
             }
         } else {
             alert("4개까지만 선택할 수 있습니다.");
@@ -65,10 +68,11 @@ const CreateMyCourse = ({ token }) => {
     // 취소
     const clearSelectedImages = () => {
         setSelectedImages([]);
-        setDurations([]);  
-       
-        if (lineRef.current) {
-            lineRef.current.setMap(null);
+        setDurations([]);
+
+        if (lineRefs.current.length > 0) {
+            lineRefs.current.forEach(line => line.setMap(null));
+            lineRefs.current = [];
         }
         markersRef.current.forEach(marker => marker.setMap(null));
         markersRef.current = [];
@@ -97,7 +101,7 @@ const CreateMyCourse = ({ token }) => {
                 const script = document.createElement('script');
                 script.type = 'text/javascript';
                 script.src = response.data;
-                script.onload = initMap; 
+                script.onload = initMap;
                 document.head.appendChild(script);
             })
             .catch(error => console.error('Error fetching map script:', error));
@@ -109,7 +113,7 @@ const CreateMyCourse = ({ token }) => {
         if (imagesToUse.length === 4 && window.naver) {
             const { naver } = window;
             const coordinates = imagesToUse.map(image => new naver.maps.LatLng(image.mapy, image.mapx));
-            console.log('좌표:', coordinates);  
+            console.log('좌표:', coordinates);
 
             if (!coordinates || coordinates.length < 2) {
                 alert("좌표가 유효하지 않습니다. 최소 두 개의 좌표가 필요합니다.");
@@ -117,23 +121,27 @@ const CreateMyCourse = ({ token }) => {
             }
 
             // 기존 선 제거
-            if (lineRef.current) {
-                lineRef.current.setMap(null);
+            if (lineRefs.current.length > 0) {
+                lineRefs.current.forEach(line => line.setMap(null));
+                lineRefs.current = [];
             }
 
             // 기존 마커 제거
             markersRef.current.forEach(marker => marker.setMap(null));
             markersRef.current = [];
 
-            // 선 그리기
-            const polyline = new naver.maps.Polyline({
-                map: mapRef.current,
-                path: coordinates,
-                strokeColor: '#FF0000',
-                strokeOpacity: 1,
-                strokeWeight: 3
+            // 각 경로별로 폴리라인을 생성하여 지도에 추가
+            pathData.current.forEach(path => {
+                const pathCoordinates = path.map(point => new naver.maps.LatLng(point[1], point[0]));
+                const polyline = new naver.maps.Polyline({
+                    map: mapRef.current,
+                    path: pathCoordinates,
+                    strokeColor: '#FF0000',
+                    strokeOpacity: 1,
+                    strokeWeight: 4
+                });
+                lineRefs.current.push(polyline);
             });
-            lineRef.current = polyline;
 
             // 마커 추가
             coordinates.forEach((coord, index) => {
@@ -156,11 +164,15 @@ const CreateMyCourse = ({ token }) => {
     };
 
     // 경로 소요시간 계산 및 저장
-    const calculateDurations = () => {
+    const calculateDurations = (images) => {
         const durationPromises = [];
-        for (let i = 0; i < selectedImages.length - 1; i++) {
-            const start = selectedImages[i];
-            const end = selectedImages[i + 1];
+        const updatedPathData = [];
+
+        // 각 경로를 올바르게 계산하고 저장
+        for (let i = 0; i < images.length - 1; i++) {
+            const start = images[i];
+            const end = images[i + 1];
+
             durationPromises.push(
                 axios.post('http://localhost:4040/api/v1/getdrive', {
                     startLat: start.mapy,
@@ -169,8 +181,10 @@ const CreateMyCourse = ({ token }) => {
                     endLng: end.mapx
                 }).then(response => {
                     const data = response.data;
+                    console.log(data);
 
                     if (data.route && data.route.traoptimal && data.route.traoptimal[0]) {
+                        updatedPathData.push(data.route.traoptimal[0].path);
                         const duration = data.route.traoptimal[0].summary.duration;
                         return formatDuration(duration);
                     }
@@ -178,11 +192,14 @@ const CreateMyCourse = ({ token }) => {
                 })
             );
         }
-        Promise.all(durationPromises)
-            .then(durations => {
-                setDurations(durations);
-            })
-            .catch(error => console.error('Error fetching durations:', error));
+
+        return Promise.all(durationPromises).then(durations => {
+            console.log('Durations:', durations);
+            console.log('Updated Path Data:', updatedPathData);
+
+            setDurations(durations); // durations 상태 업데이트
+            pathData.current = updatedPathData; // pathData 업데이트
+        }).catch(error => console.error('Error fetching durations:', error));
     }
 
     // 소요시간을 읽기 쉽게 변환하는 함수 추가
@@ -196,13 +213,6 @@ const CreateMyCourse = ({ token }) => {
             return `${minutes}분`;
         }
     }
-
-    useEffect(() => {
-        if (selectedImages.length === 4) {
-            calculateDurations();
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [selectedImages]);
 
     // 이미지 리스트를 왼쪽으로 스크롤
     const scrollLeft = () => {
@@ -222,8 +232,8 @@ const CreateMyCourse = ({ token }) => {
         }
 
         const courseData = selectedImages.map((image, index) => ({
-            placeNo: image.placeNo,  
-            orderNo: index + 1,      
+            placeNo: image.placeNo,
+            orderNo: index + 1,
         }));
 
         // 디버깅: courseData 콘솔 출력
@@ -233,20 +243,19 @@ const CreateMyCourse = ({ token }) => {
             userId: userId,
             courseData: courseData
         })
-        .then(response => {
-            if (response.data === "Course already exists.") {
-                alert('이미 존재하는 코스입니다.');
-            } else {
-                alert('코스가 저장되었습니다.');
-            }
-            console.log(response.data);
-        })
-        .catch(error => {
-            console.error('오류가 발생했습니다!', error);
-            alert('코스 저장에 실패했습니다.');
-        });
+            .then(response => {
+                if (response.data === "Course already exists.") {
+                    alert('이미 존재하는 코스입니다.');
+                } else {
+                    alert('코스가 저장되었습니다.');
+                }
+                console.log(response.data);
+            })
+            .catch(error => {
+                console.error('오류가 발생했습니다!', error);
+                alert('코스 저장에 실패했습니다.');
+            });
     }
-
 
     return (
         <div className="CreateMyCourseContainer">

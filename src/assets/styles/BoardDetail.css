@@ -91,7 +91,6 @@
     flex-direction: column;
     align-items: center;
     text-align: right;
-    padding-right: 10%;
 }
 
 .liked span {
@@ -150,6 +149,16 @@
     transition: transform 0.3s; /* 마우스를 올릴 때의 애니메이션 효과 */
 }
 
+/* 좋아요 눌린 상태 */
+.LikeAction-DislikeAction .liked {
+    transform: scale(1.2); /* 눌렸을 때 크기 증가 */
+}
+
+/* 싫어요 눌린 상태 */
+.LikeAction-DislikeAction .disliked {
+    transform: scale(1.2); /* 눌렸을 때 크기 증가 */
+}
+
 .LikeAction-DislikeAction img:hover {
     transform: scale(1.1); /* 마우스를 올렸을 때 버튼 확대 */
 }
@@ -162,6 +171,7 @@
     color: #888; /* 텍스트 색상을 회색으로 변경 */
 }
 
+/* 신고 */
 .boardDetail-report span {
     margin-bottom: 5px;
     cursor: pointer;
@@ -238,13 +248,9 @@
     color: #888; /* 텍스트 색상을 회색으로 변경 */
 }
 
-.comment-report span {
+.comment-z {
     margin-bottom: 5px;
     cursor: pointer;
-}
-
-.comment-report .report {
-    color: red; /* 신고 텍스트를 빨간색으로 */
 }
 
 /* 댓글 입력란 */
@@ -325,4 +331,23 @@
     max-height: 200px;
     border: 1px solid #ccc;
 
+  }
+
+  .myCourse {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    flex-direction: row;
+    justify-content: center;
+    padding: 20px;
+  }
+
+  .course-container{
+    position: relative;
+    display: inline-block;
+  }
+
+  .myCourse .course-container .course-images{
+    width: 250px;
+    height: 250px;
   }

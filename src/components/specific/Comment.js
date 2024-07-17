@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import profile from '../../assets/images/profile.png';
 
-const Comment = ({ comments, newComment, commentCount, handleCommentChange, handleCommentSubmit }) => {
+const Comment = ({ comments, newComment, commentCount, handleCommentChange, handleCommentSubmit, handleCommentReport }) => {
     const handleKeyPress = (event) => {
         if (event.key === 'Enter') {
             handleCommentSubmit();
@@ -24,7 +24,10 @@ const Comment = ({ comments, newComment, commentCount, handleCommentChange, hand
                         <div className="comment-content">
                             <span>{comment.content}</span>
                         </div>
-                        <div className="comment-report">
+                        <div className="comment-z">
+                            <div className='comment-report'>
+                                <span onClick={() => handleCommentReport(comment.commentNo)}>신고</span>
+                            </div>
                             <span>{new Date(comment.writtenTime).toLocaleString()}</span> {/* date 대신 writtenTime 사용 */}
                         </div>
                     </div>
