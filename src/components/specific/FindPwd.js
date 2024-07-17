@@ -13,10 +13,12 @@ const FindPwd = () => {
 
     useEffect(() => {
         const token = localStorage.getItem('token');
-        if (token) {
-          navigate('/');
+        const userId = localStorage.getItem('userId'); // userId도 함께 확인
+
+        if (token && userId) {
+            navigate('/');
         }
-      }, []);
+    }, [navigate]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -43,7 +45,7 @@ const FindPwd = () => {
             if (response.data.code === 'SU') {
                 alert('인증번호가 발송되었습니다.');
                 sessionStorage.setItem('email', form.userEmail);
-                
+                sessionStorage.setItem('userId', form.userId);
                 setModalIsOpen(true); // 모달 열기
             } else {
                 alert('이메일 인증 요청에 실패하였습니다: ' + (response.data.message || '알 수 없는 오류'));

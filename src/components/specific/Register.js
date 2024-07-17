@@ -27,10 +27,12 @@ function Register() {
 
   useEffect(() => {
     const token = localStorage.getItem('token');
-    if (token) {
-      navigate('/');
+    const storedUserId = localStorage.getItem('userId'); // userId도 함께 확인
+
+    if (token && storedUserId) {
+        navigate('/');
     }
-  }, []);
+}, [navigate]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
