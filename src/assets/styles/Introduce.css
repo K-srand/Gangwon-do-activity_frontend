@@ -1,0 +1,44 @@
+.introduce {
+    position: relative;
+    margin-top: 40px;
+}
+
+.introduce p {
+    font-family: 'BMHANNAPro', sans-serif;
+    font-size: 10px;
+}
+
+.introduce h2 {
+    font-family: 'BMHANNAPro', sans-serif;
+    font-size: 20px;
+}
+
+.introduce h3 {
+    position: relative;
+    margin-top: 50px;
+    left: -10%;
+    font-family: 'BMHANNAAir', sans-serif;
+    font-size: 10px;
+}
+
+.how-about-this-service {
+    margin-top: 70px;
+    position: relative;
+    width: 200px;
+    height: 100px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    left: 25%;
+    margin-bottom: 200px;
+}
+
+.how-about-this-service .favoriteslist {
+    margin-top: 20px;
+}
+
+.how-about-this-service .course {
+    width: 300px;
+    height: 200px;
+    margin-top: -100px;
+}
