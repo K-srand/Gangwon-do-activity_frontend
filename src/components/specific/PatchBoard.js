@@ -121,6 +121,7 @@ function EditPostBoard() {
                     fileUrl: removeAddress[index]
                 }
             });
+            nav(`/patch/${boardNo}`)
             console.log("Image removed: ", removeAddress);
         } catch (error) {
             console.error('Error deleting file:', error);
@@ -158,6 +159,8 @@ function EditPostBoard() {
         .then((res) => {
             console.log(fileUrls);
             console.log(res);
+            
+           
             window.location.href = `/BoardDetail/${boardNo}`;
         })
         .catch((err) => {

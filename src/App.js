@@ -26,7 +26,6 @@ import ReportPage from './pages/ReportPage';
 import Modify from './components/specific/Modify';
 import Withdraw from './components/specific/Withdraw';
 
-import ErrorPage from './pages/ErrorPage';
 
 // BoardDetail 컴포넌트 임포트 추가
 import BoardDetailPage from './pages/BoardDetailPage'; 

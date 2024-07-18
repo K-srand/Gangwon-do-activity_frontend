@@ -66,7 +66,7 @@ const MyPage = () => {
   const handleDelete = async (placeNo) => {
     const token = localStorage.getItem('token');
     try {
-      const response = await axios.delete(`http://localhost:4040/api/v1/mypage/delete?placeNo=${placeNo}`, {
+      const response = await axios.delete(`http://localhost:4040/api/v1/mypage/delete/${placeNo}`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
 

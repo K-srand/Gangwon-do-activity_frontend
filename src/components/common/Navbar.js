@@ -60,7 +60,7 @@ const Navbar = () => {
       <div className="navbar-user">
         {isLoggedIn ? (
           <>
-            <a href="www.naver.com">마이페이지</a>
+            <a href="/mypage">마이페이지</a>
             <button className='nav-button' onClick={handleLogout}>로그아웃</button>
           </>
         ) : (
