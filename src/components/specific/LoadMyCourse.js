@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import '../../assets/styles/LoadMycourse.css'; 
+import defaultImage from '../../assets/images/Icon_No_Image.png';
 import axios from 'axios';
 
 function LoadMyCourse({ closeModal, onCourseSelect }) {
@@ -98,7 +99,7 @@ function LoadMyCourse({ closeModal, onCourseSelect }) {
                 <div className="course-options">
                   {set.map((course, index) => (
                     <div key={index} className="course-item">
-                      <img src={course.firstImage2} alt={course.placeTitle} className="course-image" />
+                      <img src={course.firstImage2 || defaultImage} alt={course.placeTitle} className="course-image" />
                       <div>{course.placeTitle}</div>
                     </div>
                   ))}

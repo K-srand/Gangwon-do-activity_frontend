@@ -167,13 +167,17 @@ function MainUpper({ token }) {
         userId: userId
       })
         .then(response => {
-          if (response.data === "already favorited") {
+          if (response.data.code === 'FE') {
             alert("이미 찜한 장소입니다!");
-          } else if (response.data === "success favorite") {
+          } else if (response.data.code === 'SU') {
             alert("성공적으로 찜하였습니다!");
           }
         })
         .catch(error => {
+          const responseData = error.response.data;
+          if (responseData.code === 'FE') {
+            alert("이미 찜한 장소입니다!");
+          }
           console.error("찜 처리 중 오류가 발생했습니다:", error);
         });
     } else {
@@ -201,14 +205,14 @@ function MainUpper({ token }) {
 
       {/* 장소 리스트 */}
       <div className="main-cards-container">
-        <div className="carousel-container">
+        <div className="mainpage-carousel-container">
           <button className={`prev-button ${currentIndex === 0 ? 'hidden' : ''}`} onClick={prevItems}>
             <img src={leftArrow} alt="Previous" />
           </button>
 
           <div className="carousel">
             {items.slice(currentIndex, currentIndex + 4).map((item) => (
-              <div key={item.id} className="carousel-item">
+              <div key={item.id} className="mainpage-carousel-item">
                 <div className="image-container">
                   <img className="place" src={item.img || defaultImage} alt={item.title} onError={(e) => e.target.style.display = 'none'} />
                   <img className="favoriteplace" src={favorite} alt="favorite" onClick={() => favoriteplace(item)} />

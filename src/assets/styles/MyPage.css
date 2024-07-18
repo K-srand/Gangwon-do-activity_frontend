@@ -15,7 +15,6 @@
   background-color: #e0e7ff;
   padding: 10px;
   border-radius: 5px;
-  /* text-align: left; */
   width: 300px;
 }
 
@@ -83,12 +82,7 @@
   background: #b1c7f0;
   border: none;
   cursor: pointer;
-  /* display: none;  */
 }
-
-  /* .carousel-item:hover .delete-button {
-    display: block; 
-  } */
 
 .delete-button img {
   width: 20px;
@@ -99,8 +93,6 @@
 .post-item-mypage {
   padding: 10px 20px;
   background-color: #D5E6F5;
-  /* border-radius: 10px; */
-  /* margin-bottom: 10px; */
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -110,19 +102,19 @@
   border-bottom: 1px solid #a7a7a7;
 }
 
-.post-item p {
+.post-item-mypage p {
   margin: 0;
   font-size: 16px;
   color: #333;
 }
 
-.post-item hr {
+.post-item-mypage hr {
   border: none;
   border-top: 1px solid #ccc;
   margin: 5px 0;
 }
 
-.post-date {
+.post-item-mypage .post-date {
   font-size: 14px;
   color: #666;
 }
@@ -136,4 +128,15 @@
 
 .pagination-controls span {
   font-size: 14px;
+}
+
+.mypage-course-options {
+  display: flex;
+  align-items: center;
+  position: relative;
+  background-color: #D5E6F5;
+  padding: 10px;
+  border-radius: 10px;
+  overflow: hidden;
+  gap: 10px;
 }

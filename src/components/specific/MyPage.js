@@ -3,7 +3,8 @@ import axios from 'axios';
 import '../../assets/styles/MyPage.css';
 import leftArrow from '../../assets/images/MainLeftArrow.png';
 import rightArrow from '../../assets/images/MainRightArrow.png';
-import deleteIcon from '../../assets/images/delete-icon.png'; // 삭제 아이콘 추가
+import deleteIcon from '../../assets/images/delete-icon.png';
+import defaultImage from '../../assets/images/Icon_No_Image.png';
 
 const PaginatedList = ({ title, fetchUrl, renderItem, itemsPerPage }) => {
   const [data, setData] = useState([]);
@@ -17,11 +18,12 @@ const PaginatedList = ({ title, fetchUrl, renderItem, itemsPerPage }) => {
   const fetchData = async (page) => {
     const token = localStorage.getItem('token');
     try {
-      const response = await axios.get(`${fetchUrl}?page=${page - 1}&size=${itemsPerPage}`, {
+      const response = await axios.get(`${fetchUrl}?page=${page-1}&size=${itemsPerPage}`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       setData(response.data.content);
       setTotalPages(response.data.totalPages);
+      console.log("Fetched data:", response.data.content);
     } catch (error) {
       console.error('Error fetching data:', error);
     }
@@ -62,9 +64,79 @@ const PaginatedList = ({ title, fetchUrl, renderItem, itemsPerPage }) => {
   );
 };
 
-const MyPage = () => {
-  const handleDelete = async (placeNo) => {
+const PaginatedList2 = ({ title, fetchUrl, renderItem, itemsPerPage }) => {
+  const [totalPages, setTotalPages] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [courseSet, setCourseSets] = useState([]);
+
+  useEffect(() => {
+    fetchData(currentPage);
+  }, [currentPage]);
+
+  const fetchData = async (page) => {
     const token = localStorage.getItem('token');
+    try {
+      const response = await axios.get(`${fetchUrl}?page=${page-1}&size=${itemsPerPage}`, {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      const content = response.data.content;
+      const sets = [];
+      for (let i = 0; i < content.length; i += 4) {
+        sets.push(content.slice(i, i + 4));
+      }
+      setCourseSets(sets);
+      setTotalPages(sets.length);
+      console.log("Fetched sets:", sets);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
+
+  const handlePageChange = (newPage) => {
+    if (newPage >= 1 && newPage <= totalPages) {
+      setCurrentPage(newPage);
+    }
+  };
+
+  return (
+    <div className="paginated-list">
+      <h2>{title}</h2>
+      <div className="carousel-container">
+        <button 
+          onClick={() => handlePageChange(currentPage - 1)} 
+          disabled={currentPage <= 1}
+          className="carousel-button left"
+        >
+          <img src={leftArrow} alt="Previous" />
+        </button>
+        <div className="list-container">
+          {courseSet && courseSet.length > 0 ? (
+            <div className="course-set">
+              {renderItem(courseSet[currentPage - 1])}
+            </div>
+          ) : (
+            <p>로딩 중이거나 코스가 없습니다.</p>
+          )}
+        </div>
+        <button 
+          onClick={() => handlePageChange(currentPage + 1)} 
+          disabled={currentPage >= totalPages}
+          className="carousel-button right"
+        >
+          <img src={rightArrow} alt="Next" />
+        </button>
+      </div>
+      <div className="pagination-controls">
+        <span>{currentPage} / {totalPages}</span>
+      </div>
+    </div>
+  );
+};
+
+const MyPage = () => {
+  const token = localStorage.getItem('token');
+
+  const handleDelete = async (placeNo) => {
     try {
       const response = await axios.delete(`http://localhost:4040/api/v1/mypage/delete/${placeNo}`, {
         headers: { 'Authorization': `Bearer ${token}` }
@@ -81,6 +153,22 @@ const MyPage = () => {
     }
   };
 
+  const courseDelete = async (myCourseNo) => {
+    try {
+      const response = await axios.delete(`http://localhost:4040/api/v1/mypage/deletemycourse/${myCourseNo}`, {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+
+      if (response.data.code === 'SU' && response.data.message === 'Success.') {
+        alert("내가 만든 코스가 삭제되었습니다");
+      }
+
+      window.location.reload();
+    } catch (error) {
+      console.error('Error deleting course:', error);
+    }
+  };
+
   const renderMyPostItem = (item) => (
     <div className="post-item-mypage" key={item.boardNo}>
       <p>{item.boardTitle}</p>
@@ -91,7 +179,7 @@ const MyPage = () => {
 
   const renderFavoriteItem = (item) => (
     <div className="carousel-item" key={item.placeNo}>
-      <img src={item.firstImage} alt={item.placeTitle} />
+      <img src={item.firstImage || defaultImage} alt={item.placeTitle} />
       <p>{item.placeTitle}</p>
       <button 
         className="delete-button"
@@ -99,6 +187,23 @@ const MyPage = () => {
       >
         <img src={deleteIcon} alt="Delete" />
       </button>
+    </div>
+  );
+
+  const renderMyCourseItem = (items) => (
+    <div className="mypage-course-options">
+      {items.map((course, index) => (
+        <div key={index} className="mypage-course-item">
+          <img src={course.firstImage2 || defaultImage} alt={course.placeTitle} className="course-image" />
+          <div>{course.placeTitle}</div>
+          <button 
+            className="delete-button"
+            onClick={() => courseDelete(course.myCourseNo)}
+          >
+            <img src={deleteIcon} alt="Delete" />
+          </button>
+        </div>
+      ))}
     </div>
   );
 
@@ -114,9 +219,15 @@ const MyPage = () => {
         title="내가 찜한 곳"
         fetchUrl="http://localhost:4040/api/v1/mypage/getmyfavoritelist"
         renderItem={renderFavoriteItem}
-        itemsPerPage={5}
+        itemsPerPage={4}
       />
-    </div>
+      <PaginatedList2 
+        title="마이 코스"
+        fetchUrl="http://localhost:4040/api/v1/mypage/mycourse"
+        renderItem={renderMyCourseItem}
+        itemsPerPage={1}
+      />
+    </div> 
   );
 };
 
