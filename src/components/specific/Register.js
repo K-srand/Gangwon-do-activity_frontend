@@ -30,7 +30,7 @@ function Register() {
     const storedUserId = localStorage.getItem('userId'); // userId도 함께 확인
 
     if (token && storedUserId) {
-        navigate('/');
+      navigate('/');
     }
 }, [navigate]);
 

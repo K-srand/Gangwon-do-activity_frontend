@@ -17,7 +17,7 @@ const FindId = () => {
         const userId = localStorage.getItem('userId'); // userId도 함께 확인
 
         if (token && userId) {
-            navigate('/');
+          navigate('/');
         }
     }, [navigate]);
 

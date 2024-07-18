@@ -29,6 +29,7 @@ import BoardDetailPage from './pages/BoardDetailPage';
 import PostBoard from './pages/PostBoardPage';
 import PatchBoard from './pages/PatchBoardPage'
 import LoadMyCourse from './components/specific/LoadMyCourse';
+import RecommendPage from './pages/RecommendPage';
 
 
 function App() {
@@ -71,6 +72,7 @@ function App() {
         <Route path="/patch/:boardNo" element={<PatchBoard/>}/>
         <Route path="/introduce" element={<IntroducePage/>}/>
         <Route path="/loadmycourse" element={<LoadMyCourse/>}/>
+        <Route path="/recommend" element={<RecommendPage/>}/>
 
         <Route path="/ErrorPage" element={<ErrorPage />} />
         

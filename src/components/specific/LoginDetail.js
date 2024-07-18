@@ -14,7 +14,7 @@ const LoginDetail = () => {
         const storedUserId = localStorage.getItem('userId'); // userId도 함께 확인
 
         if (token && storedUserId) {
-            navigate('/');
+          navigate('/');
         }
     }, [navigate]);
 
@@ -42,6 +42,7 @@ const LoginDetail = () => {
     return (
         <div>
             <div className='login-modal-main'>
+                
                 <div className='login-modal-main-logo'>
                     <img src={logo} alt="Logo"></img>
                 </div>

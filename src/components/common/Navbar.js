@@ -3,7 +3,7 @@ import '../../assets/styles/Navbar.css';
 import logo from '../../assets/images/MainLogo.png';
 import { useNavigate } from 'react-router-dom';
 
-const AUTO_LOGOUT_TIME = 3600000; // 500분을 밀리초로 표현한 값
+const AUTO_LOGOUT_TIME = 3600000; // 60분을 밀리초로 표현한 값
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -74,7 +74,7 @@ const Navbar = () => {
         <div className="navbar-links">
           <a href="/introduce">사이트 소개</a>
           <a href="/community">커뮤니티</a>
-          <a href="www.naver.com">*사용자 추천 코스*</a>
+          <a href="/recommend">*사용자 추천 코스*</a>
           {isLoggedIn && <a href="/createmycoursepage">나만의 코스 만들기</a>}
         </div>
       </div>
