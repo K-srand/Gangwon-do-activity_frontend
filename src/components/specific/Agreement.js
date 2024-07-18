@@ -14,7 +14,9 @@ const Agreement = () => {
 
     useEffect(() => {
         const token = localStorage.getItem('token');
-        if (token) {
+        const userId = localStorage.getItem('userId'); // userId도 함께 확인
+
+        if (token && userId) {
             navigate('/');
         }
     }, [navigate]);
@@ -39,10 +41,11 @@ const Agreement = () => {
     };
 
     const handleNextClick = () => {
-        if (Object.values(checkedItems).slice(1).every(Boolean)) {
+        const { serviceTerms, privacyPolicy, dataProcessingPolicy } = checkedItems;
+        if (serviceTerms && privacyPolicy && dataProcessingPolicy) {
             navigate('/register');
         } else {
-            alert('모든 약관에 동의해야 합니다.');
+            alert('모든 필수 약관에 동의해야 합니다.');
         }
     };
 
@@ -190,7 +193,7 @@ const Agreement = () => {
                         onChange={handleCheckboxChange}
                     />
                     <label htmlFor="marketingInfo" className='agreement-label'>
-                        마케팅 정보 제공에 동의합니다. [필수]
+                        마케팅 정보 제공에 동의합니다. [선택]
                     </label>
                 </div>
                 <div className="agreement-section">

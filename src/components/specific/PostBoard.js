@@ -1,4 +1,3 @@
-
 import React, {  useState } from 'react';
 // import React, { useEffect, useRef} from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -83,33 +82,32 @@ function PostBoard(){
 
     const handleSubmit = async () => {
         try {
-
             // 게시글 작성 API 호출
             const token = localStorage.getItem('token'); // 토큰 가져오기
-
-            const selectedCourseNo = selectedCourseInfo[0].myCourseNo;
-
+    
+            const selectedCourseNo = selectedCourseInfo && selectedCourseInfo.length > 0 ? selectedCourseInfo[0].myCourseNo : null;
+    
             console.log(selectedCourseNo);
-       
+    
             const response = await axios.post('http://localhost:4040/api/v1/board', {
                 title: boardTitle,
                 content: content,
-                boardImageList:  fileUrls,// 이미지 URL 전송
+                boardImageList: fileUrls, // 이미지 URL 전송
                 myCourseNo: selectedCourseNo
             }, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
             });
-
+    
             console.log('Post submitted successfully:', response);
             // 페이지 이동 등 추가 작업 수행
             nav('/community');
         } catch (error) {
             console.error('Error submitting post:', error);
-
         }
     };
+    
 
     //나만의 코스 불러오기 모달창
     const [isModalOpen, setIsModalOpen] = useState(false);

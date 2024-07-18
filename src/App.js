@@ -22,12 +22,18 @@ import ErrorPage from './pages/ErrorPage';
 import MyPage from './components/specific/MyPage';
 import ReportPage from './pages/ReportPage';
 
+// 수정, 탈퇴
+import Modify from './components/specific/Modify';
+import Withdraw from './components/specific/Withdraw';
+
+import ErrorPage from './pages/ErrorPage';
 
 // BoardDetail 컴포넌트 임포트 추가
 import BoardDetailPage from './pages/BoardDetailPage'; 
 import PostBoard from './pages/PostBoardPage';
 import PatchBoard from './pages/PatchBoardPage'
 import LoadMyCourse from './components/specific/LoadMyCourse';
+import RecommendPage from './pages/RecommendPage';
 
 
 function App() {
@@ -73,7 +79,12 @@ function App() {
         <Route path="/loadmycourse" element={<LoadMyCourse/>}/>
         <Route path="/Report" element={<ReportPage/>} />
         <Route path="/ErrorPage" element={<ErrorPage />} />
-
+        <Route path="/loadmycourse" element={<LoadMyCourse/>}/>
+        <Route path="/recommend" element={<RecommendPage/>}/>
+        <Route path="/ErrorPage" element={<ErrorPage />} />
+        <Route path="/modify" element={<Modify/>}/>
+        <Route path="/withdraw" element={<Withdraw/>}/>
+        
       </Routes>
       <Modal isOpen={isModalOpen} onClose={closeModal}>
         <Login />

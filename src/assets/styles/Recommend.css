@@ -1,0 +1,37 @@
+/* styles.css */
+
+.recommend-course {
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.user-course {
+    margin-bottom: 20px;
+}
+
+.user-nickname {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.recommend-course-options {
+    display: flex;
+    justify-content: center; /* 이미지들을 가로로 정렬합니다. */
+}
+
+.recommend-course-item {
+    display: flex;
+    flex-direction: column; /* 이미지를 위에, 제목을 아래에 배치합니다. */
+    margin: 10px;
+}
+
+.course-image {
+    width: 150px; /* 각 이미지의 너비를 설정합니다. */
+    height: 150px; /* 각 이미지의 높이를 설정합니다. */
+    object-fit: cover; /* 이미지가 잘리지 않고 적절히 맞추도록 설정합니다. */
+    border-radius: 8px; /* 이미지의 모서리를 둥글게 만듭니다. */
+    margin-bottom: 5px; /* 이미지 아래 여백을 조정합니다. */
+}

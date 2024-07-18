@@ -10,9 +10,9 @@ function EditPostBoard() {
 
     const [images, setImages] = useState([]);
     const [fileUrls, setFileUrls] = useState([]);
+    const [existingFileUrls, setExistingFileUrls] = useState([]); // 기존 이미지 URL을 저장하는 상태
 
     const [myCourse, setMyCourse] = useState([]);
-
     const [removeAddress, setRemoveAddress] = useState("");
 
     useEffect(() => {
@@ -28,9 +28,7 @@ function EditPostBoard() {
             setPostData({
                 boardTitle: data.boardTitle,
                 content: data.content,
-
             });
-
 
             if (res.data.firstImage2 && Array.isArray(res.data.firstImage2)) {
                 const courseDetails = res.data.firstImage2.map(imageObj => ({
@@ -47,7 +45,6 @@ function EditPostBoard() {
         });
     }, [boardNo]);
 
-    let imageAddress = "";
     const getImgUrl = () => {
         const token = localStorage.getItem('token');
         axios.get(`http://localhost:4040/api/v1/board/image/${boardNo}`, {
@@ -56,9 +53,8 @@ function EditPostBoard() {
             }
         })
         .then(function(res){
-            setFileUrls(res.data);
+            setExistingFileUrls(res.data); // 기존 이미지 URL을 상태로 저장
             setRemoveAddress(res.data);
-            imageAddress = res.data;
         })
         .catch(function(error) {
             console.error("There was an error!", error);
@@ -75,20 +71,17 @@ function EditPostBoard() {
 
     const handleImageChange = (event) => {
         const files = Array.from(event.target.files);
-        if(files.length === 0) return ;
+        if (files.length === 0) return;
         const newImages = files.map(file => URL.createObjectURL(file));
         setImages([...images, ...newImages]);
 
         files.forEach(file => uploadFile(file));
     };
 
-
-    // 새로운 fileUrl을 fileUrls 배열에 추가하는 함수
     const addFileUrl = (fileUrl) => {
-    setFileUrls((prevFileUrls) => [...prevFileUrls, fileUrl]);
+        setFileUrls((prevFileUrls) => [...prevFileUrls, fileUrl]);
     };
-    
-    let fileUrl ="" ;
+
     const uploadFile = async (file) => {
         const formData = new FormData();
         formData.append('file', file);
@@ -102,10 +95,9 @@ function EditPostBoard() {
                 }
             });
 
-            fileUrl = response.data;
+            const fileUrl = response.data;
             console.log('Uploaded image URL:', fileUrl);
             addFileUrl(fileUrl);
-            return fileUrls; // 업로드된 이미지의 URL 반환
         } catch (error) {
             console.error('Error uploading file:', error);
             throw error; // 업로드 실패 시 에러 처리
@@ -113,7 +105,6 @@ function EditPostBoard() {
     };
 
     const removeImage = async (index) => {
-        console.log("removeAddress?????:", removeAddress[index]);
         const token = localStorage.getItem('token'); // 토큰 가져오기
         try {
             if (!token) {
@@ -140,10 +131,9 @@ function EditPostBoard() {
     const [postData, setPostData] = useState({
         boardTitle: '',
         content: '',
-        imageAddress: []
     });
 
-    const { boardTitle, content} = postData;
+    const { boardTitle, content } = postData;
 
     const onChange = (e) => {
         const { name, value } = e.target;
@@ -155,21 +145,18 @@ function EditPostBoard() {
 
     const handleSubmit = () => {
         const token = localStorage.getItem('token');
-        const formData = new FormData();
-        images.forEach((image, index) => {
-            formData.append(`image${index}`, image);
-        });
 
         axios.patch(`http://localhost:4040/api/v1/board/patch/${boardNo}`, {
             title: boardTitle,
             content: content,
-            boardImageList:  fileUrls// 이미지 URL 전송
+            boardImageList: fileUrls // 새 이미지 URL만 전송
         }, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
         })
         .then((res) => {
+            console.log(fileUrls);
             console.log(res);
             window.location.href = `/BoardDetail/${boardNo}`;
         })
@@ -202,29 +189,25 @@ function EditPostBoard() {
         }));
     
         setMyCourse(allCourseDetails);
-           
-
         setIsModalOpen(false);
-        
     };
-
 
     const courseDelete = () => {
         const token = localStorage.getItem('token');
-    axios.patch(`http://localhost:4040/api/v1/board/deletemycourse/${boardNo}`, {
-        boardNo: boardNo
-    }, {
-        headers: {
-            Authorization: `Bearer ${token}`
-        }
-    })
-    .then(res => {
-        setMyCourse([]); // Clear myCourse state to remove from UI
-    })
-    .catch(err => {
-        console.error(err);
-        alert('Failed to delete course');
-    });
+        axios.patch(`http://localhost:4040/api/v1/board/deletemycourse/${boardNo}`, {
+            boardNo: boardNo
+        }, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+        .then(res => {
+            setMyCourse([]); // Clear myCourse state to remove from UI
+        })
+        .catch(err => {
+            console.error(err);
+            alert('Failed to delete course');
+        });
     };
 
     return (
@@ -235,13 +218,30 @@ function EditPostBoard() {
                 </div>
                 <hr className="PostWrite-header-line" />
                 <div className='board-write-content'>
-                    <textarea className='board-write-content-textarea' name="content" value={content} onChange={onChange} placeholder='본문을 작성해주세요.' ></textarea>
+                    <textarea className='board-write-content-textarea' name="content" value={content} onChange={onChange} placeholder='본문을 작성해주세요.' >
+                    {content.split("\n").map((line) => { 
+                        return (
+                        <span>
+                            {line}
+                            <br />
+                        </span>
+                    );})}   
+                    </textarea>
                     <div className='mycourse-image-upload-button'>
-                    <button className="upload-button" onClick={openModal}>나만의 코스 불러오기</button><br />{isModalOpen && <LoadMyCourse closeModal={closeModal} onCourseSelect={handleCourseSelect} />}
+                        <button className="upload-button" onClick={openModal}>나만의 코스 불러오기</button><br />
+                        {isModalOpen && <LoadMyCourse closeModal={closeModal} onCourseSelect={handleCourseSelect} />}
                         <input type="file" multiple onChange={handleImageChange} />
                     </div>
                 </div>
                 <div className='board-write-image'>
+                    {existingFileUrls.map((src, index) => (
+                        <div key={index} className="write-image-container">
+                            <img src={src} alt={`img-${index}`} className="write-image" />
+                            <span className="close-btn" onClick={() => {
+                                removeImage(index);
+                            }}>X</span>
+                        </div>
+                    ))}
                     {fileUrls.map((src, index) => (
                         <div key={index} className="write-image-container">
                             <img src={src} alt={`img-${index}`} className="write-image" />
