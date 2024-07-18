@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../../assets/styles/Report.css';
+import { useNavigate } from 'react-router-dom';
 
 function Report() {
+    const navigate = useNavigate();
     const [reportedData, setReportedData] = useState([]);
     const [selectedReports, setSelectedReports] = useState([]);
 
@@ -29,6 +31,7 @@ function Report() {
                 setSelectedReports([]);
             } catch (error) {
                 console.error('Error deleting reported data:', error);
+                navigate('/report');
             }
         }
     };
