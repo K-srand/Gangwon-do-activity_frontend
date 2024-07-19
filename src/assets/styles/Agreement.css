@@ -1,0 +1,79 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+.agreement-container {
+    top :25%;
+    width: 50%;
+    margin: auto;
+    border: 1px solid #ccc;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.agreement-section-container {
+    margin-bottom: 20px;
+}
+
+.agreement-checkbox-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.agreement-checkbox-container input {
+    margin-right: 10px;
+}
+
+.agreement-section {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    overflow-x: auto;
+    white-space: nowrap;
+}
+
+.agreement-section label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.agreement-content {
+    display: inline-block;
+    min-width: 100%;
+    text-align: left; /* 왼쪽 정렬 */
+}
+
+.agreement-label {
+    width: 40%;
+    display: block;
+    margin-bottom: 0px;
+    font-weight: bold;
+    text-align: start;
+    font-family: 'BMHANNAAir', sans-serif;
+    color: gray;
+    font-size: 18px;
+}
+
+.agreement-buttons{
+    display: flex;
+    align-items: center;
+    position: relative;
+    left: 37%;
+}
+
+.agreement-button {
+    width: 10%;
+    padding: 15px;
+    background-color: white;
+    border: 2px solid #01aaf3af;
+    font-family: 'BMHANNAPro', sans-serif;
+    font-size: 18px;
+    color: black;
+    cursor: pointer;
+    margin: 30px;
+    border-radius: 10px;
+    gap: 15%
+}
