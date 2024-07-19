@@ -7,6 +7,7 @@ import likeIcon from '../../assets/images/likeIcon.png';
 import like from '../../assets/images/like.png';
 import dislike from '../../assets/images/disLike.png';
 import Comment from './Comment'; // Comment 컴포넌트 임포트
+import defaultImage from '../../assets/images/Icon_No_Image.png';
 
 function BoardDetail() {
     const { boardNo } = useParams(); // 게시물 번호를 URL에서 추출
@@ -450,7 +451,7 @@ function BoardDetail() {
                         <div className='myCourse'>
                         {myCourse.length > 0 ? myCourse.map((course, index) => ( 
                             <div className="course-container" key={index}>
-                                <img className="course-images" src={course.imageUrl} alt={`image-${index}`} />
+                                <img className="course-images" src={course.imageUrl || defaultImage} alt={`image-${index}`} />
                                 <h4>{course.placeTitle}</h4>
                                 </div>
                         )) : null}   
