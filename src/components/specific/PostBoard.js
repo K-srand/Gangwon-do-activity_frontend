@@ -78,7 +78,20 @@ function PostBoard(){
             throw error; // 업로드 실패 시 에러 처리
         }
     };
-       
+
+    // 작성글 점수 올리기
+    const increExp = async () => {
+        try{
+        const token = localStorage.getItem('token'); // 토큰 가져오기
+        await axios.get('http://localhost:4040/api/v1/board/increment3/',{
+        headers:{
+            Authorization: `Bearer ${token}`
+        }
+        })
+        } catch (error) {
+        console.error('update exp error:', error);
+        }
+};
 
     const handleSubmit = async () => {
         try {
@@ -99,9 +112,10 @@ function PostBoard(){
                     Authorization: `Bearer ${token}`
                 }
             });
-    
+            increExp();
             console.log('Post submitted successfully:', response);
             // 페이지 이동 등 추가 작업 수행
+            alert("글 작성으로 경험치 3점을 얻었습니다.");
             nav('/community');
         } catch (error) {
             console.error('Error submitting post:', error);

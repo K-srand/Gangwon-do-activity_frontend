@@ -202,16 +202,16 @@ const MyPage = () => {
       setUserExp(expUser);
       if(expUser < 10){
         setRankImg(rank1);
-        setRankName("씨앗");
+        setRankName("응애감자");
       }else if(expUser < 50){
         setRankImg(rank2);
-        setRankName("새싹");
+        setRankName("청년감자");
       }else if(expUser < 100){
         setRankImg(rank3);
-        setRankName("감자");
+        setRankName("겉멋감자");
       }else if(expUser < 150){
         setRankImg(rank4);
-        setRankName("돼지감자");
+        setRankName("파티감자");
       }else {
         setRankImg(rank5);
         setRankName("왕감자");

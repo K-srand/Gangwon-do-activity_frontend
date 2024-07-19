@@ -2,11 +2,15 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams, useLocation, useNavigate } from 'react-router-dom';
 import '../../assets/styles/BoardDetail.css';
-import role from '../../assets/images/gamja.png';
 import likeIcon from '../../assets/images/likeIcon.png';
 import like from '../../assets/images/like.png';
 import dislike from '../../assets/images/disLike.png';
 import Comment from './Comment'; // Comment 컴포넌트 임포트
+import rank1 from '../../assets/images/Rank1.png';
+import rank2 from '../../assets/images/Rank2.png';
+import rank3 from '../../assets/images/Rank3.png';
+import rank4 from '../../assets/images/Rank4.png';
+import rank5 from '../../assets/images/Rank5.png';
 
 function BoardDetail() {
     const { boardNo } = useParams(); // 게시물 번호를 URL에서 추출
@@ -31,6 +35,7 @@ function BoardDetail() {
 
     const [reportedPosts, setReportedPosts] = useState(new Set());
     const [reportedComments, setReportedComments] = useState(new Set());
+    const [userExp, setUserExp] = useState("");
 
     const location = useLocation();
     const navigate = useNavigate();
@@ -129,6 +134,7 @@ function BoardDetail() {
             } else {
                 setBoardDetail(res.data);
                 setBoardNick(res.data.userNick);
+                setUserExp(res.data.userExp);
          
                 if (res.data.firstImage2 && Array.isArray(res.data.firstImage2)) {
                     const courseDetails = res.data.firstImage2.map(imageObj => ({
@@ -180,7 +186,7 @@ function BoardDetail() {
         // 여긴 게시글의 닉네임
         console.log("getBoardDetail.userNick", boardNick);
         if(userName !== boardNick){
-            alert("너꺼 아님");
+            alert("본인 작성글이 아닙니다.");
         }else{
             window.location.href = `/patch/${boardNo}`;
         }
@@ -224,6 +230,8 @@ function BoardDetail() {
             console.log('댓글 등록 성공:', res);
             fetchComments(); // 댓글을 다시 불러와서 페이지 갱신
             setNewComment('');
+            increExp1();
+            alert("댓글 작성으로 경험치 1점을 얻었습니다.")
         })
         .catch(function(error) {
             console.error("에러 발생!", error);
@@ -386,6 +394,35 @@ function BoardDetail() {
         }
     }, [boardNo]);
 
+    // 유저 등급 이미지
+    const getRankInfo = (expUser) => {
+        if (expUser < 10) {
+          return rank1 ;
+        } else if (expUser < 50) {
+          return  rank2 ;
+        } else if (expUser < 100) {
+          return  rank3 ;
+        } else if (expUser < 150) {
+          return  rank4 ;
+        } else {
+          return  rank5 ;
+        }
+      };
+
+      // 댓글 점수 올리기
+    const increExp1 = async () => {
+        try{
+        const token = localStorage.getItem('token'); // 토큰 가져오기
+        await axios.get('http://localhost:4040/api/v1/board/increment1/',{
+        headers:{
+            Authorization: `Bearer ${token}`
+        }
+        })
+        } catch (error) {
+        console.error('update exp error:', error);
+        }
+    };
+
     return (
         <div className="boardDetail">
             {boardDetail && (
@@ -401,7 +438,7 @@ function BoardDetail() {
                     </div>
                     <div className="boardDetail-header-body">
                         <div className="profile">
-                            <img src={role} alt="ProfileImage" />
+                            <img src={getRankInfo(userExp)} alt="ProfileImage" />
                             <span>{boardDetail.userNick}</span> {/* 작성자 닉네임 표시 */}
                         </div>
                         <div className="liked">
