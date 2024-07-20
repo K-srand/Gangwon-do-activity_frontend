@@ -12,6 +12,8 @@ import rank5 from '../../assets/images/Rank5.png';
 
 import defaultImage from '../../assets/images/Icon_No_Image.png';
 
+import { useNavigate } from 'react-router-dom';
+
 const PaginatedList = ({ title, fetchUrl, renderItem, itemsPerPage }) => {
   const [data, setData] = useState([]);
   const [totalPages, setTotalPages] = useState(0);
@@ -144,6 +146,7 @@ const MyPage = () => {
   const [rankImg, setRankImg] = useState("");
   const [rankName, setRankName] = useState("");
   const token = localStorage.getItem('token');
+  const navigate = useNavigate();
 
   const handleDelete = async (placeNo) => {
     try {
@@ -250,6 +253,14 @@ const MyPage = () => {
     console.log('????????????',rankImg);
   }, []);
 
+  const modify = () => {
+    navigate('/modify');
+  };
+
+  const withdraw = () => {
+    navigate('/withdraw');
+  };
+
   return (
     <div className="mypage">
 
@@ -261,7 +272,12 @@ const MyPage = () => {
               <div className="profile-rank">등급 : {rankName}</div>
               <div className="profile-name">경험치 : {userExp}</div>
             </div>
+            <div className='mypage-info-function'>
+              <button className='mypage-info-modify' onClick={modify}>회원 정보 수정</button>
+              <button className='mypage-info-withdraw' onClick={withdraw}>회원 탈퇴</button>
+            </div>
       </div>
+    
       <PaginatedList 
         title="내가 쓴 글"
         fetchUrl="http://localhost:4040/api/v1/mypage/getmyboardlist"
