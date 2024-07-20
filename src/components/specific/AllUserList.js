@@ -151,6 +151,7 @@ function AllUserList() {
             <div className="user-desanction">
                 <button className="login-restriction" onClick={handleUserRestriction}>로그인 정지</button>
                 <button className="report-desanction" onClick={handleDesanction}>유저 제재 해제</button>
+                {/* <button className="report-desanction" onClick={handleDesanction}>유저 탈퇴 해제</button> */}
             </div>
 
             <div className="user-pagination">
