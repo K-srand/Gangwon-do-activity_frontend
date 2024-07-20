@@ -10,6 +10,7 @@ import rank3 from '../../assets/images/Rank3.png';
 import rank4 from '../../assets/images/Rank4.png';
 import rank5 from '../../assets/images/Rank5.png';
 
+import defaultImage from '../../assets/images/Icon_No_Image.png';
 
 const PaginatedList = ({ title, fetchUrl, renderItem, itemsPerPage }) => {
   const [data, setData] = useState([]);
@@ -161,6 +162,22 @@ const MyPage = () => {
     }
   };
 
+  const courseDelete = async (myCourseNo) => {
+    try {
+      const response = await axios.delete(`http://localhost:4040/api/v1/mypage/deletemycourse/${myCourseNo}`, {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+
+      if (response.data.code === 'SU' && response.data.message === 'Success.') {
+        alert("내가 만든 코스가 삭제되었습니다");
+      }
+
+      window.location.reload();
+    } catch (error) {
+      console.error('Error deleting course:', error);
+    }
+  };
+
   const renderMyPostItem = (item) => (
     <div className="post-item-mypage" key={item.boardNo}>
       <p>{item.boardTitle}</p>
@@ -171,7 +188,7 @@ const MyPage = () => {
 
   const renderFavoriteItem = (item) => (
     <div className="carousel-item" key={item.placeNo}>
-      <img src={item.firstImage} alt={item.placeTitle} />
+      <img src={item.firstImage || defaultImage} alt={item.placeTitle} />
       <p>{item.placeTitle}</p>
       <button 
         className="delete-button"
@@ -183,11 +200,17 @@ const MyPage = () => {
   );
 
   const renderMyCourseItem = (items) => (
-    <div className="course-options">
+    <div className="mypage-course-options">
       {items.map((course, index) => (
-        <div key={index} className="course-item">
-          <img src={course.firstImage2} alt={course.placeTitle} className="course-image" />
+        <div key={index} className="mypage-course-item">
+          <img src={course.firstImage2 || defaultImage} alt={course.placeTitle} className="course-image" />
           <div>{course.placeTitle}</div>
+          <button 
+            className="delete-button"
+            onClick={() => courseDelete(course.myCourseNo)}
+          >
+            <img src={deleteIcon} alt="Delete" />
+          </button>
         </div>
       ))}
     </div>
@@ -249,7 +272,7 @@ const MyPage = () => {
         title="내가 찜한 곳"
         fetchUrl="http://localhost:4040/api/v1/mypage/getmyfavoritelist"
         renderItem={renderFavoriteItem}
-        itemsPerPage={5}
+        itemsPerPage={4}
       />
       <PaginatedList2 
         title="마이 코스"

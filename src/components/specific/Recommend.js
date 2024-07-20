@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import '../../assets/styles/Recommend.css';
+import defaultImage from '../../assets/images/Icon_No_Image.png';
 import axios from 'axios';
 
 function Recommend(){
@@ -71,7 +72,7 @@ function Recommend(){
                     <div className='recommend-course-options'>
                         {myCourse[index] && myCourse[index].map((course, i) => (
                             <div key={i} className='recommend-course-item'>
-                                <img src={course.firstImage2} alt={course.placeTitle} onClick={() => recommendBoard(boardNo[index])}  className='course-image' />
+                                <img src={course.firstImage2 || defaultImage} alt={course.placeTitle} onClick={() => recommendBoard(boardNo[index])}  className='course-image' />
                                 <div>{course.placeTitle}</div>
                             </div>
                         ))}

@@ -6,7 +6,6 @@ import LeftArrow from '../../assets/images/MainLeftArrow.png';
 import RightArrow from '../../assets/images/MainRightArrow.png';
 import defaultImage from '../../assets/images/Icon_No_Image.png';
 
-
 const CreateMyCourse = ({ token }) => {
     const [images, setImages] = useState([]);
     const [selectedImages, setSelectedImages] = useState([]);
@@ -34,7 +33,6 @@ const CreateMyCourse = ({ token }) => {
             });
     }, [token]);
 
-    // 카테고리별 찜 리스트
     const category = (value) => {
         axios.post('http://localhost:4040/api/v1/getmycourse/getplacecat', {
             userId: userId,
@@ -47,10 +45,10 @@ const CreateMyCourse = ({ token }) => {
             })
             .catch(error => {
                 console.error('오류가 발생했습니다!', error);
+                alert('찜 리스트를 가져오는 데 오류가 발생했습니다.');
             });
     }
 
-    // 이미지 선택
     const selectImage = (image) => {
         if (selectedImages.length < 4) {
             const saveSelectedImages = [...selectedImages, image];
@@ -66,7 +64,6 @@ const CreateMyCourse = ({ token }) => {
         }
     }
 
-    // 취소
     const clearSelectedImages = () => {
         setSelectedImages([]);
         setDurations([]);
@@ -83,7 +80,6 @@ const CreateMyCourse = ({ token }) => {
         }
     }
 
-    // 맵 초기화
     useEffect(() => {
         const initMap = () => {
             const { naver } = window;
@@ -96,7 +92,6 @@ const CreateMyCourse = ({ token }) => {
             mapRef.current = map;
         };
 
-        // 서버에서 네이버 맵 스크립트 가져오기
         axios.get('http://localhost:4040/api/v1/getmap')
             .then(response => {
                 const script = document.createElement('script');
@@ -108,7 +103,6 @@ const CreateMyCourse = ({ token }) => {
             .catch(error => console.error('Error fetching map script:', error));
     }, []);
 
-    // 이미지 4개 선택 시 맵 업데이트
     const handleSave = (saveSelectedImages) => {
         const imagesToUse = saveSelectedImages || selectedImages;
         if (imagesToUse.length === 4 && window.naver) {
@@ -121,17 +115,14 @@ const CreateMyCourse = ({ token }) => {
                 return;
             }
 
-            // 기존 선 제거
             if (lineRefs.current.length > 0) {
                 lineRefs.current.forEach(line => line.setMap(null));
                 lineRefs.current = [];
             }
 
-            // 기존 마커 제거
             markersRef.current.forEach(marker => marker.setMap(null));
             markersRef.current = [];
 
-            // 각 경로별로 폴리라인을 생성하여 지도에 추가
             pathData.current.forEach(path => {
                 const pathCoordinates = path.map(point => new naver.maps.LatLng(point[1], point[0]));
                 const polyline = new naver.maps.Polyline({
@@ -144,7 +135,6 @@ const CreateMyCourse = ({ token }) => {
                 lineRefs.current.push(polyline);
             });
 
-            // 마커 추가
             coordinates.forEach((coord, index) => {
                 const marker = new naver.maps.Marker({
                     position: coord,
@@ -164,12 +154,10 @@ const CreateMyCourse = ({ token }) => {
         }
     };
 
-    // 경로 소요시간 계산 및 저장
     const calculateDurations = (images) => {
         const durationPromises = [];
         const updatedPathData = [];
 
-        // 각 경로를 올바르게 계산하고 저장
         for (let i = 0; i < images.length - 1; i++) {
             const start = images[i];
             const end = images[i + 1];
@@ -198,12 +186,11 @@ const CreateMyCourse = ({ token }) => {
             console.log('Durations:', durations);
             console.log('Updated Path Data:', updatedPathData);
 
-            setDurations(durations); // durations 상태 업데이트
-            pathData.current = updatedPathData; // pathData 업데이트
+            setDurations(durations);
+            pathData.current = updatedPathData;
         }).catch(error => console.error('Error fetching durations:', error));
     }
 
-    // 소요시간을 읽기 쉽게 변환하는 함수 추가
     const formatDuration = (milliseconds) => {
         const totalMinutes = Math.floor(milliseconds / 60000);
         const hours = Math.floor(totalMinutes / 60);
@@ -215,17 +202,14 @@ const CreateMyCourse = ({ token }) => {
         }
     }
 
-    // 이미지 리스트를 왼쪽으로 스크롤
     const scrollLeft = () => {
         setCurrentImageIndex(prevIndex => Math.max(prevIndex - 1, 0));
     }
 
-    // 이미지 리스트를 오른쪽으로 스크롤
     const scrollRight = () => {
         setCurrentImageIndex(prevIndex => Math.min(prevIndex + 1, Math.ceil(images.length / 4) - 1));
     }
 
-    // 코스 저장
     const saveSelectedImages = () => {
         if (selectedImages.length !== 4) {
             alert("4개의 플레이스를 선택해야 합니다.");
@@ -237,7 +221,6 @@ const CreateMyCourse = ({ token }) => {
             orderNo: index + 1,
         }));
 
-        // 디버깅: courseData 콘솔 출력
         console.log('Course Data:', courseData);
 
         axios.post('http://localhost:4040/api/v1/getmycourse/getcourse', {
@@ -245,16 +228,28 @@ const CreateMyCourse = ({ token }) => {
             courseData: courseData
         })
             .then(response => {
-                if (response.data === "Course already exists.") {
-                    alert('이미 존재하는 코스입니다.');
-                } else {
+                const responseData = response.data;
+              
+                if (responseData.code === 'SU') { // SUCCESS
                     alert('코스가 저장되었습니다.');
+                } else {
+                    alert(responseData.message || '알 수 없는 오류가 발생했습니다.');
                 }
-                console.log(response.data);
             })
             .catch(error => {
-                console.error('오류가 발생했습니다!', error);
-                alert('코스 저장에 실패했습니다.');
+                if (error.response) {
+                    const responseData = error.response.data;
+                    console.log('Error Response Data:', responseData); // 에러 응답 데이터 디버그 출력
+                    let alertMessage = responseData.message;
+                    if (responseData.code === 'CE') {
+                        alertMessage = '이미 존재하는 코스입니다.';
+                    } else if (responseData.code === 'SU') {
+                        alertMessage = '코스가 저장되었습니다.';
+                    } else {
+                        alertMessage = alertMessage || '코스 저장에 실패했습니다.';
+                    }
+                    alert(alertMessage);
+                } 
             });
     }
 

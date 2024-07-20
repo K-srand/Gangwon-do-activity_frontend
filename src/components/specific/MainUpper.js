@@ -14,6 +14,11 @@ function MainUpper({ token }) {
   const [items, setItems] = useState([]);
   const [mapInitialized, setMapInitialized] = useState(false);
   const [userId, setUserId] = useState(null);
+  //사용자 추천 코스
+  const [myCourseNo, setMyCourseNo] = useState(null);
+  const [myCourse, setMyCourse] = useState([]);
+  const [userNick, setUserNick] = useState([]);
+  const [boardNo, setBoardNo] = useState([]);
 
   // 로그인 여부 확인
   useEffect(() => {
@@ -167,19 +172,79 @@ function MainUpper({ token }) {
         userId: userId
       })
         .then(response => {
-          if (response.data === "already favorited") {
+          if (response.data.code === 'FE') {
             alert("이미 찜한 장소입니다!");
-          } else if (response.data === "success favorite") {
+          } else if (response.data.code === 'SU') {
             alert("성공적으로 찜하였습니다!");
           }
         })
         .catch(error => {
+          const responseData = error.response.data;
+          if (responseData.code === 'FE') {
+            alert("이미 찜한 장소입니다!");
+          }
           console.error("찜 처리 중 오류가 발생했습니다:", error);
         });
     } else {
       alert("로그인 후 이용가능합니다!");
     }
   };
+
+  
+  //사용자 추천 코스
+  // 첫 번째 요청을 보내는 비동기 함수를 정의합니다.
+  const fetchFirstData = async () => {
+      try {
+          const firstResponse = await axios.post('http://localhost:4040/api/v1/recommend', {});
+          const courseNo = firstResponse.data.slice(0, 3).map(item => item.myCourseNo);
+          const nickname = firstResponse.data.slice(0, 3).map(item => item.userNick);
+          const noBoard = firstResponse.data.slice(0, 3).map(item => item.boardNo);
+          setMyCourseNo(courseNo);
+          setUserNick(nickname);
+          console.log("data " , firstResponse.data);
+          console.log("no", typeof(firstResponse.data[0].boardNo));
+          setBoardNo(noBoard);
+          console.log("!!!!!!!!!!!!!!!", courseNo);
+
+      } catch (err) {
+          console.error('첫 번째 요청 중 오류 발생:', err);
+      }
+  };
+
+  // myCourseNo가 변경될 때 두 번째 요청을 보내는 비동기 함수를 정의합니다.
+  const fetchSecondData = async () => {
+      try {
+          const allCourseDetails = [];
+
+          for (let i = 0; i < myCourseNo.length; i++) {
+              const courseNo = myCourseNo[i];
+              const secondResponse = await axios.get(`http://localhost:4040/api/v1/recommend/${courseNo}`);
+              const courseDetails = secondResponse.data.slice(0, 4).map(imageObj => ({
+                  placeTitle: imageObj.placeTitle,
+                  firstImage2: imageObj.firstImage2,
+              }));
+
+              allCourseDetails.push(courseDetails);
+          }
+
+          setMyCourse(allCourseDetails);
+      } catch (err) {
+          console.error('두 번째 요청 중 오류 발생:', err);
+      }
+  };
+
+  useEffect(() => {
+      fetchFirstData();
+  }, []);
+
+  useEffect(() => {
+      fetchSecondData();
+  }, [myCourseNo]);
+  
+  const recommend = () => {
+      window.location.href = `/recommend`;
+  }
+
 
   return (
     <div className='mainupper'>
@@ -201,14 +266,14 @@ function MainUpper({ token }) {
 
       {/* 장소 리스트 */}
       <div className="main-cards-container">
-        <div className="carousel-container">
+        <div className="mainpage-carousel-container">
           <button className={`prev-button ${currentIndex === 0 ? 'hidden' : ''}`} onClick={prevItems}>
             <img src={leftArrow} alt="Previous" />
           </button>
 
           <div className="carousel">
             {items.slice(currentIndex, currentIndex + 4).map((item) => (
-              <div key={item.id} className="carousel-item">
+              <div key={item.id} className="mainpage-carousel-item">
                 <div className="image-container">
                   <img className="place" src={item.img || defaultImage} alt={item.title} onError={(e) => e.target.style.display = 'none'} />
                   <img className="favoriteplace" src={favorite} alt="favorite" onClick={() => favoriteplace(item)} />
@@ -221,6 +286,26 @@ function MainUpper({ token }) {
             <img src={rightArrow} alt="Next" />
           </button>
         </div>
+      </div>
+
+      {/* 사용자 추천 코스 */}
+      <div className='recommend-course'>
+        <div className='recommendplace'>
+          <h2>사용자 추천 코스</h2>
+        </div>
+          {userNick.map((nick, index) => (
+              <div key={index} className='user-course'>
+                  <p className='user-nickname'>{nick} 님의 추천 !</p>
+                  <div className='recommend-course-options'>
+                      {myCourse[index] && myCourse[index].map((course, i) => (
+                          <div key={i} className='recommend-course-item'>
+                              <img src={course.firstImage2 || defaultImage} alt={course.placeTitle} onClick={() => recommend()}  className='course-image' />
+                              <div>{course.placeTitle}</div>
+                          </div>
+                      ))}
+                  </div>
+              </div>
+          ))}
       </div>
 
       <div className='Weather'>
