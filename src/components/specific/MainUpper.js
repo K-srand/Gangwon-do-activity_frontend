@@ -241,8 +241,8 @@ function MainUpper({ token }) {
       fetchSecondData();
   }, [myCourseNo]);
   
-  const recommendBoard = (boardNo) => {
-      window.location.href = `/BoardDetail/${boardNo}`;
+  const recommend = () => {
+      window.location.href = `/recommend`;
   }
 
 
@@ -299,7 +299,7 @@ function MainUpper({ token }) {
                   <div className='recommend-course-options'>
                       {myCourse[index] && myCourse[index].map((course, i) => (
                           <div key={i} className='recommend-course-item'>
-                              <img src={course.firstImage2 || defaultImage} alt={course.placeTitle} onClick={() => recommendBoard(boardNo[index])}  className='course-image' />
+                              <img src={course.firstImage2 || defaultImage} alt={course.placeTitle} onClick={() => recommend()}  className='course-image' />
                               <div>{course.placeTitle}</div>
                           </div>
                       ))}
