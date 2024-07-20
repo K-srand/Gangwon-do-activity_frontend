@@ -7,7 +7,7 @@ import logo from '../../assets/images/MainLogo.png';
 const LoginDetail = () => {
     const [userId, setUserId] = useState('');
     const [userPassword, setUserPassword] = useState('');
-    const navigate = useNavigate(); // useNavigate 훅 사용
+    const navigate = useNavigate();
 
     useEffect(() => {
         const token = localStorage.getItem('token');
@@ -25,16 +25,25 @@ const LoginDetail = () => {
             userPassword: userPassword
         })
         .then(function(res){
-            const token = res.data.token; // 서버에서 반환된 JWT 토큰
-            const userIdFromResponse = res.data.userId; // 서버에서 반환된 사용자 ID
-            localStorage.setItem('token', token); // 토큰 저장
-            localStorage.setItem('userId', userIdFromResponse); // 사용자 ID 저장
+            const token = res.data.token;
+            const userIdFromResponse = res.data.userId;
+            const userRole = res.data.role;
+
+            localStorage.setItem('token', token);
+            localStorage.setItem('userId', userIdFromResponse);
+            localStorage.setItem('userRole',userRole);
             console.log('Logged in successfully:', res);
-            navigate('/'); // 메인페이지로 리다이렉트
+
+            if(userRole === 'ROLE_ADMIN'){
+                navigate('/Admin');
+            } else {
+                navigate('/');
+            }
+            
             window.location.reload();
         })
         .catch(function(error) {
-            alert("로그인 정보가 틀렸습니다"); 
+            alert("로그인 정보가 틀렸습니다");
             console.error("There was an error!", error);
         });
     }

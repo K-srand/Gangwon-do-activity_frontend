@@ -171,10 +171,18 @@
     padding: 20px;
   }
 
-  .board-write-course .course-options {
-
+  .report-pagination {
+    display: flex;
+    justify-content: center;
+    max-width: 1440px;
+    font-size: 18px;
+    margin: 0 0 50px 0;
   }
 
-  .board-write-course .course-options .course-item {
-    
+  .report-page-number, .report-page-button {
+    padding: 0;
+    cursor: pointer;
+    margin-top: 20px 0;
+    width: 5%;
+    color: black;
   }

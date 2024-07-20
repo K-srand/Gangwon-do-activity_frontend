@@ -122,15 +122,16 @@ function BoardDetail() {
 
     const getBoardDetail = () => {
         const token = localStorage.getItem('token');
-        
+    
         axios.get(`http://localhost:4040/api/v1/board/${boardNo}`, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
         })
         .then(function(res){
-            if (res.data.deletedTime !== null) {
-                window.location.href = '/ErrorPage';
+            if (res.data.deletedTime !== null || res.data.censoredTime !== null) {
+                // deletedTime 또는 censoredTime이 존재하면 ErrorPage로 이동
+                navigate('/ErrorPage');
             } else {
                 setBoardDetail(res.data);
                 setBoardNick(res.data.userNick);
@@ -145,7 +146,6 @@ function BoardDetail() {
                 } else {
                     setMyCourse([]);
                 }
-
                 console.log('이미지', res.data.firstImage2);
                 console.log('게시물 상세정보:', res);
             }

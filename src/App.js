@@ -21,6 +21,9 @@ import IntroducePage from './pages/IntroducePage';
 import ErrorPage from './pages/ErrorPage';
 import MyPage from './components/specific/MyPage';
 import ReportPage from './pages/ReportPage';
+import AllUserListPage from './pages/AllUserListPage';
+import AdminPage from './pages/AdminPage';
+
 
 // 수정, 탈퇴
 import Modify from './components/specific/Modify';
@@ -83,6 +86,8 @@ function App() {
         <Route path="/ErrorPage" element={<ErrorPage />} />
         <Route path="/modify" element={<Modify/>}/>
         <Route path="/withdraw" element={<Withdraw/>}/>
+        <Route path="/AllUserList" element={<AllUserListPage/>}/>
+        <Route path="/Admin" element={<AdminPage/>}/>
         
       </Routes>
       <Modal isOpen={isModalOpen} onClose={closeModal}>
