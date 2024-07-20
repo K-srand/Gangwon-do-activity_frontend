@@ -15,6 +15,17 @@ function Report() {
     const [currentPage, setCurrentPage] = useState(page);
 
     useEffect(() => {
+        const token = localStorage.getItem('token');
+        const userRole = localStorage.getItem('userRole');
+
+        // 토큰과 역할이 모두 존재해야 하며, 역할이 관리자여야 함
+        if (!token || userRole !== 'ROLE_ADMIN') {
+            alert('접근 권한이 없습니다.');
+            navigate('/ErrorPage');
+        }
+    }, [navigate]);
+
+    useEffect(() => {
         setCurrentPage(page);
     }, [page]);
 
@@ -84,9 +95,30 @@ function Report() {
                 }));
                 // 제재 후 필요한 추가 작업 수행
                 alert('콘텐츠가 제재되었습니다.');
+                navigate(0);
             } catch (error) {
                 console.error('Error sanctioning content:', error);
                 alert('콘텐츠 제재에 실패했습니다.');
+            }
+        }
+    };
+
+    const handledesanctionContent = async () => {
+        if (window.confirm('해당 콘텐츠를 제재 해제하시겠습니까?')) {
+            try {
+                await Promise.all(selectedReports.map(reportedContentNo => {
+                    return axios.patch('http://localhost:4040/api/v1/admin/desanctioncontent', reportedContentNo, {
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    });
+                }));
+                // 제재 후 필요한 추가 작업 수행
+                alert('콘텐츠가 제재 해제되었습니다.');
+                navigate(0);
+            } catch (error) {
+                console.error('Error sanctioning content:', error);
+                alert('콘텐츠 제재 해제에 실패했습니다.');
             }
         }
     };
@@ -113,7 +145,8 @@ function Report() {
                         <th>ID</th>
                         <th>분류</th>
                         <th>내용</th>
-                        <th>작성일</th>
+                        <th>신고</th>
+                        <th>콘텐츠 제재 여부</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -133,6 +166,7 @@ function Report() {
                             <td>{report.boardNo ? "글" : "댓글"}</td>
                             <td>{report.content}</td>
                             <td>{new Date(report.reportedTime).toLocaleDateString()}</td>
+                            <td>{report.censoredTime?report.censoredTime.split('T')[0] : ''}</td>
                         </tr>
                     ))}
                 </tbody>
@@ -140,7 +174,7 @@ function Report() {
             <div className="report-actions">
                 <button className="report-delete" onClick={handleDelete}>삭제</button>
                 <button className="cencored" onClick={handleContentRestriction}>제재</button>
-                <button className="desanctionContent" onClick={"#"}>제재 해제</button>
+                <button className="desanctionContent" onClick={handledesanctionContent}>제재 해제</button>
             </div>
 
             <div className="report-pagination">

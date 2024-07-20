@@ -14,6 +14,17 @@ function AllUserList() {
     const [currentPage, setCurrentPage] = useState(page); // 현재 페이지 설정
 
     useEffect(() => {
+        const token = localStorage.getItem('token');
+        const userRole = localStorage.getItem('userRole');
+
+        // 토큰과 역할이 모두 존재해야 하며, 역할이 관리자여야 함
+        if (!token || userRole !== 'ROLE_ADMIN') {
+            alert('접근 권한이 없습니다.');
+            navigate('/ErrorPage');
+        }
+    }, [navigate]);
+    
+    useEffect(() => {
         setCurrentPage(page);
     }, [page]);
 
@@ -70,6 +81,29 @@ function AllUserList() {
             }
         }
     };
+
+    const handleReuser = async () => {
+        if (window.confirm('선택된 유저를 탈퇴 해제하시겠습니까?')) {
+            try {
+                await Promise.all(selectedUsers.map(userNo => {
+                    const user = userList.find(user => user.userNo === userNo);
+                    return fetch('http://localhost:4040/api/v1/admin/reuser', {
+                        method: 'PATCH',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ userId: user.userId }),
+                    })
+                }));
+                alert('선택된 유저가 탈퇴 해제되었습니다.');
+                setSelectedUsers([]); // 선택된 사용자 목록 초기화
+                navigate(0); 
+            } catch (error) {
+                console.error('Error desanctioning users:', error);
+                alert('유저 탈퇴 해제에 실패했습니다.');
+            }
+        }
+    }
 
     const handleDesanction = async () => {
         if (window.confirm('선택된 유저를 제재 해제하시겠습니까?')) {
@@ -151,7 +185,7 @@ function AllUserList() {
             <div className="user-desanction">
                 <button className="login-restriction" onClick={handleUserRestriction}>로그인 정지</button>
                 <button className="report-desanction" onClick={handleDesanction}>유저 제재 해제</button>
-                {/* <button className="report-desanction" onClick={handleDesanction}>유저 탈퇴 해제</button> */}
+                <button className="reuser" onClick={handleReuser}>유저 탈퇴 해제</button>
             </div>
 
             <div className="user-pagination">

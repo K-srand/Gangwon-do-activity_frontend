@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../../assets/styles/Admin.css';
 
@@ -12,6 +12,17 @@ function Admin() {
     const handleUserListClick = () => {
         navigate('/AllUserList');
     };
+
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        const userRole = localStorage.getItem('userRole');
+
+        // 토큰과 역할이 모두 존재해야 하며, 역할이 관리자여야 함
+        if (!token || userRole !== 'ROLE_ADMIN') {
+            alert('접근 권한이 없습니다.');
+            navigate('/ErrorPage');
+        }
+    }, [navigate]);
 
     return (
         <div className='Admin'>

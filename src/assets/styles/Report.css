@@ -55,7 +55,8 @@
 }
 
 .report-delete,
-.cencored {
+.cencored,
+.desanctionContent {
     margin: 0 10px; /* 버튼 간의 간격 좌우*/
     padding: 10px; 
     width: 100px; 
@@ -74,7 +75,8 @@
 }
 
 .report-delete:hover,
-.cencored:hover {
+.cencored:hover,
+.desanctionContent:hover {
     background-color: #D7DFE6; /* 약간 더 밝은 회색으로 변경 */
     border-radius: 0px; /* 모서리를 둥글게 하지 않음 */
 }

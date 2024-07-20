@@ -40,7 +40,8 @@
 }
 
 .report-desanction,
-.login-restriction {
+.login-restriction,
+.reuser {
     max-width: 1440px;
     margin: 20px 0;
     height: 40px; 
@@ -58,7 +59,8 @@
 }
 
 .report-desanction:hover,
-.login-restriction:hover {
+.login-restriction:hover,
+.reuser:hover {
     background-color: #D7DFE6; /* 약간 더 밝은 회색으로 변경 */
     border-radius: 0px; /* 모서리를 둥글게 하지 않음 */
 }
