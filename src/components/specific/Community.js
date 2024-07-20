@@ -5,6 +5,11 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import '../../assets/styles/Community.css';
 import { Link } from 'react-router-dom';
+import rank1 from '../../assets/images/Rank1.png';
+import rank2 from '../../assets/images/Rank2.png';
+import rank3 from '../../assets/images/Rank3.png';
+import rank4 from '../../assets/images/Rank4.png';
+import rank5 from '../../assets/images/Rank5.png';
 
 function Community() {
   const [posts, setPosts] = useState([]); // 현재 페이지의 게시글 목록을 저장
@@ -17,6 +22,7 @@ function Community() {
   const query = new URLSearchParams(location.search);
   const page = parseInt(query.get('page')) || 1; // 기본 페이지를 1로 설정
   const [postCount,setPostCount] = useState(0);
+  const [userExp, setUserExp] = useState([]);
 
   useEffect(() => {
     setCurrentPage(page);
@@ -46,9 +52,11 @@ function Community() {
               date: post.writtenTime.split('T')[0], // 날짜만 사용
               countViews: post.boardCount, // 조회수 필드 추가
               notice: false, // 백엔드 데이터에 따라 설정
-              best: false // 백엔드 데이터에 따라 설정
+              best: false, // 백엔드 데이터에 따라 설정
+              userExp : post.userExp
             }));
-          setPosts(fetchedPosts); // 게시글 목록 상태
+          setUserExp(pageData.content.userExp);
+          setPosts(fetchedPosts);// 게시글 목록 상태
         }
       } catch (error) {
         console.error('데이터를 가져오는 중 오류 발생:', error);
@@ -66,7 +74,8 @@ function Community() {
           date: post.writtenTime.split('T')[0],
           countViews: post.boardCount,
           notice: false,
-          best: true
+          best: true,
+          userExp : post.userExp
         }));
         setBestPosts(fetchedBestPosts); // 주간 베스트 게시글 목록 상태
       } catch (error) {
@@ -84,6 +93,19 @@ function Community() {
     }
   };
 
+  const getRankInfo = (expUser) => {
+    if (expUser < 10) {
+      return { img: rank1 };
+    } else if (expUser < 50) {
+      return { img: rank2 };
+    } else if (expUser < 100) {
+      return { img: rank3 };
+    } else if (expUser < 150) {
+      return { img: rank4 };
+    } else {
+      return { img: rank5 };
+    }
+  };
   return (
     <div className="community-container">
       <div className="header">
@@ -97,10 +119,14 @@ function Community() {
         <h3 className="right">작성일</h3>
       </div>
       <div className="post-list">
-        {bestPosts.map(post => ( // 주간 베스트 게시글 목록 추가
-            <div key={post.id} className="post-item">
-              <div className="post-avatar"></div>
-              <div className="post-content">
+        {bestPosts.map(post => {
+        const { img } = getRankInfo(post.userExp);
+        return (
+          <div key={post.id} className="post-item">
+            <div className="post-avatar">
+              <img src={img} alt="dd" />
+            </div>
+            <div className="post-content">
                 <span className="post-author">{post.author}</span>
                 {post.best && <span className="post-best">베스트</span>}
                 <Link to={`/BoardDetail/${post.id}`} className="post-text">
@@ -109,11 +135,16 @@ function Community() {
               </div>
               <div className="post-date">{post.date}</div>
               <div className="post-views">조회수: {post.countViews}</div>
-            </div>
-        ))}
-        {posts.map(post => (
+          </div>
+        );
+      })}
+        {posts.map(post => {
+        const { img } = getRankInfo(post.userExp);
+        return (
           <div key={post.id} className="post-item">
-            <div className="post-avatar"></div>
+            <div className="post-avatar">
+              <img src={img} alt="dd" />
+            </div>
             <div className="post-content">
               <span className="post-author">{post.author}</span>
               <Link to={`/BoardDetail/${post.id}`} className="post-text">
@@ -123,7 +154,8 @@ function Community() {
             <div className="post-date">{post.date}</div>
             <div className="post-views">조회수: {post.countViews}</div>
           </div>
-        ))}
+        );
+      })}
       </div>
       <div className="pagination">
         <button 
