@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import '../../assets/styles/PatchBoard.css';
 import LoadMyCourse from '../specific/LoadMyCourse';
+import defaultImage from '../../assets/images/Icon_No_Image.png';
 import axios from 'axios';
 
 function EditPostBoard() {
@@ -259,7 +260,7 @@ function EditPostBoard() {
                 <div className='myCourse'>
                     {myCourse.length > 0 ? myCourse.map((course, index) => (
                         <div className="course-container" key={index}>
-                            <img className="course-images" src={course.imageUrl} alt={`image-${index}`} />
+                            <img className="course-images" src={course.imageUrl || defaultImage} alt={`image-${index}`} />
                             <h4>{course.placeTitle}</h4>
                         </div>
                     )) : null}   

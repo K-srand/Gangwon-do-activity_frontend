@@ -3,6 +3,7 @@ import React, {  useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../../assets/styles/PostBoard.css';
 import LoadMyCourse from '../specific/LoadMyCourse';
+import defaultImage from '../../assets/images/Icon_No_Image.png';
 import axios from 'axios';
 
 function PostBoard(){
@@ -179,7 +180,7 @@ function PostBoard(){
                         <div className="course-options">
                             {selectedCourseInfo.map((course, index) => (
                             <div key={index} className="course-item">
-                                <img src={course.firstImage2} alt={course.placeTitle} className="course-image" />
+                                <img src={course.firstImage2 || defaultImage} alt={course.placeTitle} className="course-image" />
                                 <div>{course.placeTitle}</div>
                             </div>
                             ))}

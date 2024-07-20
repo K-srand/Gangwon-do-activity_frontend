@@ -23,7 +23,7 @@ function Withdraw() {
           Authorization: `Bearer ${token}`
         }
       });
-
+   
       // 여기서 응답 코드가 SU인지 확인
       if (response.data.code === 'SU') {
         alert('탈퇴가 완료되었습니다.');

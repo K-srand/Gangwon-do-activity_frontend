@@ -109,7 +109,7 @@ function Community() {
   return (
     <div className="community-container">
       <div className="header">
-        <h3>전체글 {postCount+3}개의 글</h3>
+        <h3>전체글 {postCount}개의 글</h3>
         <LinkContainer className="write-button" to="/post">
           <Nav.Link>글 작성</Nav.Link>
         </LinkContainer>
