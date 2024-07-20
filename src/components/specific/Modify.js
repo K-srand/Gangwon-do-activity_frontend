@@ -23,7 +23,7 @@ function Modify() {
   const [isPasswordMatched, setIsPasswordMatched] = useState(null); // 비밀번호 일치 여부 상태 추가
   const [isNickValid, setIsNickValid] = useState(null); // 닉네임 유효성 상태 추가
   const [isPasswordConfirmed, setIsPasswordConfirmed] = useState(false); // 비밀번호 확인 상태 추가
-  const [isNickChecked, setIsNickChecked] = useState(true); // 닉네임 체크 여부 상태 추가, 초기값 true로 설정
+  const [isNickChecked, setIsNickChecked] = useState(false); // 닉네임 체크 여부 상태 추가, 초기값 false로 설정
 
   useEffect(() => {
     // LocalStorage에서 토큰 가져오기
@@ -130,7 +130,7 @@ function Modify() {
       return;
     }
     try {
-      const response = await axios.post('http://localhost:4040/api/v1/mypage/modify', {
+      const response = await axios.patch('http://localhost:4040/api/v1/mypage/modify', {
         userId: formData.userId,
         userPassword: formData.userNewPassword,
         userNick: formData.userNick
@@ -151,6 +151,22 @@ function Modify() {
       console.error('Error modifying user data:', error);
       alert('정보 수정 중 오류가 발생했습니다.');
     }
+  };
+
+  const checkDisable = () => {
+    // 기존 비밀번호가 확인되지 않았으면 버튼을 비활성화
+    if (!isPasswordMatched) {
+      return true;
+    }
+    // 수정 비밀번호가 입력되었는데 비밀번호 확인이 일치하지 않으면 버튼을 비활성화
+    if (formData.userNewPassword && !isPasswordConfirmed) {
+      return true;
+    }
+    // 닉네임이 입력되었는데 닉네임 체크가 완료되지 않았으면 버튼을 비활성화
+    if (formData.userNick && !isNickChecked) {
+      return true;
+    }
+    return false;
   };
 
   return (
@@ -249,7 +265,7 @@ function Modify() {
             />
             <button type="button" onClick={handleNickCheck}>닉네임 체크</button>
           </div>
-          <button type="submit" disabled={!isPasswordConfirmed || (formData.userNick && !isNickChecked)}>정보 수정</button>
+          <button type="submit" disabled={checkDisable()}>정보 수정</button>
         </form>
       </div>
     </div>
