@@ -63,7 +63,7 @@ function PostBoard(){
 
         try {
             const token = localStorage.getItem('token'); // 토큰 가져오기
-            const response = await axios.post('http://localhost:4040/file/upload', formData, {
+            const response = await axios.post('http://localhost:4040/localfile/upload', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     Authorization: `Bearer ${token}`

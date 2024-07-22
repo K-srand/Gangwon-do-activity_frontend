@@ -89,7 +89,7 @@ function EditPostBoard() {
 
         try {
             const token = localStorage.getItem('token'); // 토큰 가져오기
-            const response = await axios.post('http://localhost:4040/file/upload', formData, {
+            const response = await axios.post('http://localhost:4040/localfile/upload', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     Authorization: `Bearer ${token}`
@@ -113,7 +113,7 @@ function EditPostBoard() {
             }
             await axios({
                 method: 'delete',
-                url: 'http://localhost:4040/file/delete',
+                url: 'http://localhost:4040/localfile/delete',
                 headers: {
                     Authorization: `Bearer ${token}`, // 백틱(`) 사용
                     'Content-Type': 'application/json'
@@ -122,12 +122,12 @@ function EditPostBoard() {
                     fileUrl: removeAddress[index]
                 }
             });
-            nav(`/patch/${boardNo}`)
             console.log("Image removed: ", removeAddress);
         } catch (error) {
             console.error('Error deleting file:', error);
             throw error; // 삭제 실패 시 에러 처리
         }
+        window.location.reload();
     };
 
     const [postData, setPostData] = useState({
