@@ -44,12 +44,10 @@
 
 .save{
     max-width: 1440px;
-    display: flex;
-    text-align:left;
     font-family: 'BMHANNAAir', sans-serif;
     font-size: 20px;
     font-weight: 900;
-    margin: 50px 0 100px 50px;
+    margin-bottom: 50px;
 }
 
 
@@ -70,14 +68,11 @@
 }
 
 .gangwondo-course {
-    position: relative;
     max-width: 1440px;
-    display: flex;
-    text-align:left;
     font-family: 'BMHANNAAir', sans-serif;
     font-size: 20px;
     font-weight: 900;
-    margin-left: 50px;
+    margin-bottom: 50px;
 }
 
 .bestcourse {
@@ -91,13 +86,10 @@
 
 .community {
     max-width: 1440px;
-    display: flex;
-    margin-left: 50px;
-    text-align:left;
+    font-family: 'BMHANNAAir', sans-serif;
     font-size: 20px;
     font-weight: 900;
-    padding-bottom: 50px;
-    font-family: 'BMHANNAAir', sans-serif;
+    margin-bottom: 50px;
 }
 
 .userRole {
