@@ -1,5 +1,5 @@
 import React from "react";
-import welcome2 from '../../assets/images/Welcome2.png';
+import welcome from '../../assets/images/welcome.png';
 import '../../assets/styles/Introduce.css';
 import favoriteslist from '../../assets/images/FavoritesList.png';
 import course from '../../assets/images/Course.png';
@@ -15,7 +15,10 @@ import Rank1 from '../../assets/images/Rank1.png';
 const Introduce = () => {
     return (
         <div className="introduce">
-            <img className="welcome" src={welcome2}/> 
+            <div className="welcomGangwondo">
+            <img className="welcome" src={welcome}/> 
+            <h2 className="welcomeText">강원도로 오세요!</h2>
+            </div>
             <p>안녕하세요. 강원도 여행을 꿈꾸는 분들을 위한 최고의 웹사이트 '강추!'에 오신 것을 환영합니다.<br/>
 저희 사이트는 여행자들이 서로 평점과 실제 리뷰를 공유하며, 사실적인 경험을 바탕으로 다양한 액티비티를 쉽게 접할 수 있도록 돕고 있습니다.</p>
             <h2>왜 강원도인가요?</h2>
@@ -37,7 +40,7 @@ const Introduce = () => {
             <h3 className="userRole">커뮤니티 글과 댓글을 작성하면 경험치가 올라가요! <br/>대홍단 왕감자가 되어보세요!</h3>
             
             <div className="communitywagmaja">
-                <img className="user-community" src={community}/>
+            <img className="user-community" src={community}/>
 
                 <div className="rank">
                 <article><img src={Ranksuper}/></article>
@@ -47,6 +50,7 @@ const Introduce = () => {
                 <article><img src={Rank2}/></article>
                 <article><img src={Rank1}/></article>
                 </div>
+
             </div>
 
             

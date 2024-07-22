@@ -1,10 +1,31 @@
-.welcome {
+
+.welcomGangwondo {
+    position: relative;
     max-width: 1440px;
     margin: 0 auto;
-    width: 60%;
+}
+
+.welcome {
+    width: 100%;
+    height: auto;
+}
+
+.welcomeText {
+    position: absolute;
+    bottom: 70px; /* 텍스트 위치를 이미지 하단에서 조정 */
+    left: 50%;
+    transform: translateX(-50%); /* 텍스트를 가로로 가운데 정렬 */
+    font-size: 90px !important; /* 폰트 크기 설정 */
+    font-weight: bold;
+    color: rgb(242, 243, 246); /* 텍스트 색상 설정 */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* 텍스트 그림자 설정 */
+    text-align: center;
+    width: 100%;
 }
 
 .introduce {
+    max-width: 1440px;
+    margin: 0 auto;
     position: relative;
     margin-top: 40px;
 }
@@ -24,11 +45,11 @@
 .save{
     max-width: 1440px;
     display: flex;
-    margin-left: 20%;
     text-align:left;
     font-family: 'BMHANNAAir', sans-serif;
     font-size: 20px;
     font-weight: 900;
+    margin: 50px 0 100px 50px;
 }
 
 
@@ -44,20 +65,19 @@
 .favoriteslist, .course {
     position: relative;
     max-width: 1440px;
-    width: 100%; /* 이미지의 너비를 전체 컨테이너에 맞춤 */
     height: auto;
-    margin-bottom: 20px; /* 이미지 간 간격 조정 */
+    margin-bottom: 50px; /* 이미지 간 간격 조정 */
 }
 
 .gangwondo-course {
     position: relative;
     max-width: 1440px;
     display: flex;
-    margin-left: 20%;
     text-align:left;
     font-family: 'BMHANNAAir', sans-serif;
     font-size: 20px;
     font-weight: 900;
+    margin-left: 50px;
 }
 
 .bestcourse {
@@ -72,7 +92,7 @@
 .community {
     max-width: 1440px;
     display: flex;
-    margin-left: 20%;
+    margin-left: 50px;
     text-align:left;
     font-size: 20px;
     font-weight: 900;
@@ -85,10 +105,11 @@
     display: flex;
     justify-content: right; 
     text-align: center;
+    align-items: center;
     font-size: 15px;
     font-weight: 900;
     font-family: 'BMHANNAAir', sans-serif;
-    margin: 0 250px 40px auto; /* 가운데 정렬 및 하단 여백 조정 */
+    margin: 0 180px 40px auto; 
 }
 
 .user-community {
