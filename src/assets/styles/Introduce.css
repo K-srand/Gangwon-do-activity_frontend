@@ -1,3 +1,9 @@
+.welcome {
+    max-width: 1440px;
+    margin: 0 auto;
+    width: 60%;
+}
+
 .introduce {
     position: relative;
     margin-top: 40px;
@@ -5,40 +11,145 @@
 
 .introduce p {
     font-family: 'BMHANNAPro', sans-serif;
-    font-size: 10px;
+    font-size: 15px;
+    margin: 50px;
 }
 
-.introduce h2 {
+.introduce h2{
     font-family: 'BMHANNAPro', sans-serif;
-    font-size: 20px;
+    font-size: 25px;
+    margin: 50px;
 }
 
-.introduce h3 {
-    position: relative;
-    margin-top: 50px;
-    left: -10%;
+.save{
+    max-width: 1440px;
+    display: flex;
+    margin-left: 20%;
+    text-align:left;
     font-family: 'BMHANNAAir', sans-serif;
-    font-size: 10px;
+    font-size: 20px;
+    font-weight: 900;
 }
+
 
 .how-about-this-service {
-    margin-top: 70px;
-    position: relative;
-    width: 200px;
-    height: 100px;
+    max-width: 1440px;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
-    left: 25%;
-    margin-bottom: 200px;
+    align-items: center; /* 중앙 정렬 */
+    margin: 0px auto 50px auto; /* 상단과 하단 여백 조정, 가운데 정렬 */
+    width: 80%; /* 전체 너비 조정 */
 }
 
-.how-about-this-service .favoriteslist {
-    margin-top: 20px;
+.favoriteslist, .course {
+    position: relative;
+    max-width: 1440px;
+    width: 100%; /* 이미지의 너비를 전체 컨테이너에 맞춤 */
+    height: auto;
+    margin-bottom: 20px; /* 이미지 간 간격 조정 */
 }
 
-.how-about-this-service .course {
-    width: 300px;
-    height: 200px;
-    margin-top: -100px;
+.gangwondo-course {
+    position: relative;
+    max-width: 1440px;
+    display: flex;
+    margin-left: 20%;
+    text-align:left;
+    font-family: 'BMHANNAAir', sans-serif;
+    font-size: 20px;
+    font-weight: 900;
+}
+
+.bestcourse {
+    max-width: 1440px;
+    align-items: center;
+    margin: 0 auto;
+    width: auto;
+    height: 40%;
+    padding-bottom: 50px;
+}
+
+.community {
+    max-width: 1440px;
+    display: flex;
+    margin-left: 20%;
+    text-align:left;
+    font-size: 20px;
+    font-weight: 900;
+    padding-bottom: 50px;
+    font-family: 'BMHANNAAir', sans-serif;
+}
+
+.userRole {
+    max-width: 1440px;
+    display: flex;
+    justify-content: right; 
+    text-align: center;
+    font-size: 15px;
+    font-weight: 900;
+    font-family: 'BMHANNAAir', sans-serif;
+    margin: 0 250px 40px auto; /* 가운데 정렬 및 하단 여백 조정 */
+}
+
+.user-community {
+    max-width: 1440px;
+    display: flex;
+}
+
+.communitywagmaja {
+    max-width: 1440px;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    gap: 50px; /* 간격 조정 */
+    margin: 0 auto; /* 가운데 정렬 */
+    width: 80%;
+    padding-bottom: 50px;
+}
+
+/* 감자그림 */
+.rank {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: auto auto auto;
+    justify-items: center; /* 중앙 정렬 */
+    align-items: center; /* 중앙 정렬 */
+    gap: 5px;
+    max-width: 5%; /* 전체 너비 조정 */
+    height: auto;
+}
+
+.rank article:nth-child(1) {
+    grid-column: 3 / span 1;
+    grid-row: 1;
+}
+
+.rank article:nth-child(2) {
+    grid-column: 2 / span 1;
+    grid-row: 2;
+}
+
+.rank article:nth-child(3) {
+    grid-column: 4 / span 1;
+    grid-row: 2;
+}
+
+.rank article:nth-child(4) {
+    grid-column: 1 / span 1;
+    grid-row: 3;
+}
+
+.rank article:nth-child(5) {
+    grid-column: 3 / span 1;
+    grid-row: 3;
+}
+
+.rank article:nth-child(6) {
+    grid-column: 5 / span 1;
+    grid-row: 3;
+}
+
+.rank img {
+    max-width: 100px; /* 원하는 크기에 맞게 조정 */
+    height: auto;
 }

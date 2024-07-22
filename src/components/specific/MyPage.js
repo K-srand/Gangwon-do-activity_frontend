@@ -261,6 +261,10 @@ const MyPage = () => {
               <div className="profile-rank">등급 : {rankName}</div>
               <div className="profile-name">경험치 : {userExp}</div>
             </div>
+            <div className="profile-Submit">
+            <button className="modify" onClick={"#"}>회원 정보 수정</button>
+            <button className="usedelete" onClick={"#"}>회원 탈퇴</button>
+            </div>
       </div>
       <PaginatedList 
         title="내가 쓴 글"

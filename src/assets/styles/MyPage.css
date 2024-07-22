@@ -176,6 +176,7 @@
 }
 
 .profile-info {
+
   text-align: center;
   position: relative;
 
@@ -200,4 +201,49 @@
   border-radius: 10px;
   overflow: hidden;
   gap: 10px;
+}
+
+
+.profile-Submit{
+  display: flex; 
+  width: 0 auto; 
+  max-width: 1440px; 
+  justify-content: center;
+  flex-direction: column;
+}
+
+.modify {
+  display: inline-block; /* 요소를 가로로 배치 */
+  width: 150px; /* 버튼의 너비를 넓게 설정 */
+  text-align: center; /* 텍스트를 중앙으로 정렬 */
+  padding: 10px 20px; 
+  margin: 0 0 17px 10px;
+  background-color: #D5E6F5; 
+  color: #000; /* 텍스트 색상을 검은색으로 설정 */
+  border: none; /* 테두리를 없앰 */
+  border-radius: 5px; /* 모서리를 둥글게 처리 */
+  cursor: pointer; /* 커서를 포인터로 변경하여 클릭 가능함을 나타냄 */
+  font-size: 18px; 
+}
+
+.modify:hover {
+  background-color: #b5cce5;
+}
+
+.usedelete {
+  display: inline-block; /* 요소를 가로로 배치 */
+  width: 150px; /* 버튼의 너비를 넓게 설정 */
+  text-align: center; /* 텍스트를 중앙으로 정렬 */
+  padding: 10px 20px; 
+  margin: 0 0 17px 10px;
+  background-color: #D5E6F5; 
+  color: #000; /* 텍스트 색상을 검은색으로 설정 */
+  border: none; /* 테두리를 없앰 */
+  border-radius: 5px; /* 모서리를 둥글게 처리 */
+  cursor: pointer; /* 커서를 포인터로 변경하여 클릭 가능함을 나타냄 */
+  font-size: 18px; 
+}
+
+.usedelete:hover {
+  background-color: #b5cce5;
 }
