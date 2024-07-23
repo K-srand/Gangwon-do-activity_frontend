@@ -279,6 +279,7 @@ const MyPage = () => {
     <div className="mypage">
 
       <div className="profile-card">
+<<<<<<< HEAD
         <div className="profile-image-container">
           <img src={rankImg} alt="Profile" className="profile-image" />
         </div>
@@ -290,6 +291,19 @@ const MyPage = () => {
           <button className='mypage-info-modify' onClick={modify}>회원 정보 수정</button>
           <button className='mypage-info-withdraw' onClick={withdraw}>회원 탈퇴</button>
         </div>
+=======
+            <div className="profile-image-container">
+              <img src={rankImg} alt="Profile" className="profile-image" />
+            </div>
+            <div className="profile-info">
+              <div className="profile-rank">등급 : {rankName}</div>
+              <div className="profile-name">경험치 : {userExp}</div>
+            </div>
+            <div className="profile-Submit">
+            <button className="modify" onClick={"#"}>회원 정보 수정</button>
+            <button className="usedelete" onClick={"#"}>회원 탈퇴</button>
+            </div>
+>>>>>>> d618215900b94f7cd7259695d606786b79b03294
       </div>
 
       <PaginatedList

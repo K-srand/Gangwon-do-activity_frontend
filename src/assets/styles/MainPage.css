@@ -154,6 +154,7 @@ button img {
   padding: 3px;
   font-family: 'BMHANNAPro', sans-serif;
   font-size: 25px;
+  margin-top: 80PX;
 }
 
 .mainupper {
@@ -191,9 +192,26 @@ button img {
   display: none;
 }
 
-.mainupper .welcome {
-  width: 700px;
-  height: 500px;
+.main-image {
   position: relative;
-  left: 21%;
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+.main {
+  width: 100%;
+  height: auto;
+}
+
+.gangchu {
+  position: absolute;
+  bottom: 150px; /* 텍스트 위치를 이미지 하단에서 조정 */
+  left: 50%;
+  transform: translateX(-50%); /* 텍스트를 가로로 가운데 정렬 */
+  font-size: 70px; /* 폰트 크기 설정 */
+  font-weight: bold;
+  color: rgb(242, 243, 246); /* 텍스트 색상 설정 */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* 텍스트 그림자 설정 */
+  text-align: center;
+  width: 100%;
 }

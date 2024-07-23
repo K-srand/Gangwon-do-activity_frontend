@@ -8,19 +8,24 @@ const AUTO_LOGOUT_TIME = 3600000; // 60분을 밀리초로 표현한 값
 const Navbar = () => {
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userRole, setUserRole] = useState('');
 
   const logout = useCallback(() => {
     localStorage.removeItem('token');
     localStorage.removeItem('userId');
+    localStorage.removeItem('userRole');
     setIsLoggedIn(false);
+    setUserRole('');
     navigate('/');
   }, [navigate]);
 
   useEffect(() => {
     const token = localStorage.getItem('token');
     const userId = localStorage.getItem('userId');
-    if (token && userId) {
+    const role = localStorage.getItem('userRole');
+    if (token && userId && role) {
       setIsLoggedIn(true);
+      setUserRole(role);
     }
 
     let logoutTimer;
@@ -55,12 +60,20 @@ const Navbar = () => {
     }
   };
 
+  const handleMyPageClick = () => {
+    if (userRole === 'ROLE_ADMIN') {
+      navigate('/Admin');
+    } else {
+      navigate('/mypage');
+    }
+  };
+
   return (
     <nav className="navbar">
       <div className="navbar-user">
         {isLoggedIn ? (
           <>
-            <a href="/mypage">마이페이지</a>
+            <a onClick={handleMyPageClick} style={{ cursor: 'pointer' }}>마이페이지</a>
             <button className='nav-button' onClick={handleLogout}>로그아웃</button>
           </>
         ) : (
