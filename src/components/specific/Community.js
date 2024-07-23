@@ -10,12 +10,14 @@ import rank2 from '../../assets/images/Rank2.png';
 import rank3 from '../../assets/images/Rank3.png';
 import rank4 from '../../assets/images/Rank4.png';
 import rank5 from '../../assets/images/Rank5.png';
+import rankSuper from '../../assets/images/Ranksuper.png';
 
 function Community() {
   const [posts, setPosts] = useState([]); // 현재 페이지의 게시글 목록을 저장
   const [totalPages, setTotalPages] = useState(0); // 전체 페이지 수
   const [currentPage, setCurrentPage] = useState(1); // 현재 페이지를 1로 설정
   const [bestPosts, setBestPosts] = useState([]); // 주간 베스트 게시글 목록을 저장
+  const [noticePost, setNoticePost] = useState([]); // 주간 베스트 게시글 목록을 저장
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -85,9 +87,33 @@ function Community() {
       }
     };
 
+    fetchNoticePosts(); // 공지글 가져오기
     fetchPosts(); // 게시글 목록을 가져옴
     fetchBestPosts(); // 주간 베스트 게시글을 가져옴
   }, [currentPage, navigate]);
+
+  const fetchNoticePosts = async () => { // 공지글 가져오는 함수
+    try {
+      const response = await axios.get('http://localhost:4040/api/v1/board/notice');
+      const fetchedNoticePosts = response.data.map(post => ({
+        id: post.boardNo,
+        author: post.userNick,
+        content: post.content,
+        title: post.boardTitle,
+        date: post.writtenTime.split('T')[0],
+        countViews: post.boardCount,
+        notice: true,
+        best: false,
+        userExp : post.userExp,
+        userRole : post.userRole
+      }));
+      setNoticePost(fetchedNoticePosts); // 공지글 목록 상태
+    } catch (error) {
+      console.error('데이터를 가져오는 중 오류 발생:', error);
+    }
+  };
+
+  
 
   const handlePageChange = (newPage) => {
     if (newPage >= 1 && newPage <= totalPages) {
@@ -121,6 +147,24 @@ function Community() {
         <h3 className="right">작성일</h3>
       </div>
       <div className="post-list">
+        {noticePost.map(post => {
+          return (
+            <div key={post.id} className="post-item">
+              <div className="post-avatar">
+                <img src={rankSuper} alt="dd" />
+              </div>
+              <div className="post-content">
+                  <span className="post-author">{post.author}</span>
+                  {post.notice && <span className="post-notice">공지</span>}
+                  <Link to={`/BoardDetail/${post.id}`} className="post-text">
+                    {post.title}
+                  </Link>
+                </div>
+                <div className="post-date">{post.date}</div>
+                <div className="post-views">조회수: {post.countViews}</div>
+            </div>
+          );
+        })}
         {bestPosts.map(post => {
         const { img } = getRankInfo(post.userExp);
         return (

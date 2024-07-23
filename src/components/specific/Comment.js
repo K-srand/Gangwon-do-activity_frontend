@@ -4,6 +4,7 @@ import rank2 from '../../assets/images/Rank2.png';
 import rank3 from '../../assets/images/Rank3.png';
 import rank4 from '../../assets/images/Rank4.png';
 import rank5 from '../../assets/images/Rank5.png';
+import rankSuper from '../../assets/images/Ranksuper.png';
 
 const Comment = ({ comments, newComment, commentCount, handleCommentChange, handleCommentSubmit, handleCommentReport }) => {
     const handleKeyPress = (event) => {
@@ -12,17 +13,21 @@ const Comment = ({ comments, newComment, commentCount, handleCommentChange, hand
         }
     };
 
-const getRankInfo = (expUser) => {
-    if (expUser < 10) {
-        return  rank1 ;
-    } else if (expUser < 50) {
-        return rank2;
-    } else if (expUser < 100) {
-        return  rank3 ;
-    } else if (expUser < 150) {
-        return rank4 ;
-    } else {
-        return  rank5 ;
+const getRankInfo = (expUser, roleUser) => {
+    if(roleUser === 'ROLE_ADMIN'){
+        return rankSuper;
+    }else{
+        if (expUser < 10) {
+            return rank1 ;
+          } else if (expUser < 50) {
+            return  rank2 ;
+          } else if (expUser < 100) {
+            return  rank3 ;
+          } else if (expUser < 150) {
+            return  rank4 ;
+          } else {
+            return  rank5 ;
+          }
     }
     };
 
@@ -36,7 +41,7 @@ const getRankInfo = (expUser) => {
                 comments.map((comment, index) => (
                     <div key={index} className="comment">
                         <div className="comment-profile">
-                            <img src={getRankInfo(comments[index].userExp)} alt="ProfileImage" onError={(e) => { e.target.src = '/default/profile.png'; }} />
+                            <img src={getRankInfo(comments[index].userExp, comments[index].userRole)} alt="ProfileImage" onError={(e) => { e.target.src = '/default/profile.png'; }} />
                             <span>{comment.userNick}</span> {/* 작성자 닉네임 표시 */}
                         </div>
                         <div className="comment-content">
