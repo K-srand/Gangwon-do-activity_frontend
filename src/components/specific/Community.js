@@ -53,7 +53,8 @@ function Community() {
               countViews: post.boardCount, // 조회수 필드 추가
               notice: false, // 백엔드 데이터에 따라 설정
               best: false, // 백엔드 데이터에 따라 설정
-              userExp : post.userExp
+              userExp : post.userExp,
+              userRole : post.userRole
             }));
           setUserExp(pageData.content.userExp);
           setPosts(fetchedPosts);// 게시글 목록 상태
@@ -75,7 +76,8 @@ function Community() {
           countViews: post.boardCount,
           notice: false,
           best: true,
-          userExp : post.userExp
+          userExp : post.userExp,
+          userRole : post.userRole
         }));
         setBestPosts(fetchedBestPosts); // 주간 베스트 게시글 목록 상태
       } catch (error) {

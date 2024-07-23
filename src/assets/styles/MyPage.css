@@ -203,7 +203,6 @@
   gap: 10px;
 }
 
-<<<<<<< HEAD
 .mypage-info-function {
   position: relative;
   left: 30%;
@@ -224,7 +223,6 @@
   font-family: 'BMHANNAPro', sans-serif;
   font-size: 25px;
 }
-=======
 
 .profile-Submit{
   display: flex; 
@@ -269,4 +267,3 @@
 .usedelete:hover {
   background-color: #b5cce5;
 }
->>>>>>> d618215900b94f7cd7259695d606786b79b03294

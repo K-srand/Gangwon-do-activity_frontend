@@ -1,5 +1,5 @@
 import React from "react";
-import welcome from '../../assets/images/welcome.png';
+import welcome from '../../assets/images/Welcome.png';
 import '../../assets/styles/Introduce.css';
 import favoriteslist from '../../assets/images/FavoritesList.png';
 import course from '../../assets/images/Course.png';
