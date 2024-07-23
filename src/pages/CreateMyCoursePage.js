@@ -11,7 +11,7 @@ function CreateMyCoursePage() {
     useEffect(() => {
         if (!token) {
             alert("로그인 후 이용가능합니다!");
-            navigate('/loginDetail'); // 로그인 페이지 경로로 리디렉션
+            navigate('/logindetail'); // 로그인 페이지 경로로 리디렉션
         } 
     }, [token, navigate]);
 
