@@ -37,7 +37,7 @@ const Introduce = () => {
             <h3 className="gangwondo-course">강추! 사용자들이 추천하는 강원도 여행 코스</h3>
             <img className="bestcourse" src={bestcourse}/>
             <h3 className="community">강추 사용자들과 커뮤니티를 통해 경험을 나누어보세요!</h3>
-            <h3 className="userRole">커뮤니티 글과 댓글을 작성하면 경험치가 올라가요! <br/>대홍단 왕감자가 되어보세요!</h3>
+            <h3 className="userRole">커뮤니티 글과 댓글을 작성하면 경험치가 올라가요! <br/>왕감자가 되어보세요!</h3>
             
             <div className="communitywagmaja">
             <img className="user-community" src={community}/>

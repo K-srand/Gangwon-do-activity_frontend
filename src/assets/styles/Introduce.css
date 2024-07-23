@@ -83,7 +83,7 @@
     max-width: 1440px;
     align-items: center;
     margin: 0 auto;
-    width: auto;
+    width: 800px;
     height: 40%;
     padding-bottom: 50px;
 }
@@ -105,12 +105,13 @@
     font-size: 15px;
     font-weight: 900;
     font-family: 'BMHANNAAir', sans-serif;
-    margin: 0 180px 40px auto; 
+    margin: 0 250px 40px auto; 
 }
 
 .user-community {
     max-width: 1440px;
     display: flex;
+    width: 600px;
 }
 
 .communitywagmaja {
