@@ -59,7 +59,7 @@
   flex-direction: column;
 }
 
-.carousel-item {
+.mypage-carousel-item {
   flex: 0 0 20%;
   text-align: center;
   margin-right: 10px;
@@ -67,10 +67,29 @@
   padding: 10px;
   border-radius: 5px;
   position: relative;
+  width: 150px;
+  height: 150px;
 }
 
-.carousel-item img {
+.list-container3{
+  display: flex;
+  overflow: hidden;
   width: 100%;
+  justify-content: space-around;
+}
+.carousel-container3{
+  display: flex;
+  align-items: center;
+  position: relative;
+  background-color: #D5E6F5;
+  padding: 10px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.mypage-carousel-item img {
+  width: 150px;
+  height: 150px;
   height: auto;
   border-radius: 5px;
 }
@@ -266,4 +285,13 @@
 
 .usedelete:hover {
   background-color: #b5cce5;
+}
+
+.mypage-course-item{
+  flex: 0 0 20%;
+  text-align: center;
+  margin-right: 10px;
+  background-color: #D9D9D9;
+  padding: 10px;
+  border-radius: 5px;
 }

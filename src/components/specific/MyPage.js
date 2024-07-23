@@ -9,8 +9,9 @@ import rank2 from '../../assets/images/Rank2.png';
 import rank3 from '../../assets/images/Rank3.png';
 import rank4 from '../../assets/images/Rank4.png';
 import rank5 from '../../assets/images/Rank5.png';
-import rankAdmin from '../../assets/images/Ranksuper.png';
+
 import defaultImage from '../../assets/images/Icon_No_Image.png';
+
 import { useNavigate } from 'react-router-dom';
 
 const PaginatedList = ({ title, fetchUrl, renderItem, itemsPerPage }) => {
@@ -25,7 +26,7 @@ const PaginatedList = ({ title, fetchUrl, renderItem, itemsPerPage }) => {
   const fetchData = async (page) => {
     const token = localStorage.getItem('token');
     try {
-      const response = await axios.get(`${fetchUrl}?page=${page - 1}&size=${itemsPerPage}`, {
+      const response = await axios.get(`${fetchUrl}?page=${page-1}&size=${itemsPerPage}`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       setData(response.data.content);
@@ -46,8 +47,8 @@ const PaginatedList = ({ title, fetchUrl, renderItem, itemsPerPage }) => {
     <div className="paginated-list">
       <h2>{title}</h2>
       <div className="carousel-container">
-        <button
-          onClick={() => handlePageChange(currentPage - 1)}
+        <button 
+          onClick={() => handlePageChange(currentPage - 1)} 
           disabled={currentPage <= 1}
           className="carousel-button left"
         >
@@ -56,8 +57,8 @@ const PaginatedList = ({ title, fetchUrl, renderItem, itemsPerPage }) => {
         <div className="list-container">
           {data.map(renderItem)}
         </div>
-        <button
-          onClick={() => handlePageChange(currentPage + 1)}
+        <button 
+          onClick={() => handlePageChange(currentPage + 1)} 
           disabled={currentPage >= totalPages}
           className="carousel-button right"
         >
@@ -83,7 +84,7 @@ const PaginatedList2 = ({ title, fetchUrl, renderItem, itemsPerPage }) => {
   const fetchData = async (page) => {
     const token = localStorage.getItem('token');
     try {
-      const response = await axios.get(`${fetchUrl}?page=${page - 1}&size=${itemsPerPage}`, {
+      const response = await axios.get(`${fetchUrl}?page=${page-1}&size=${itemsPerPage}`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       const content = response.data.content;
@@ -109,8 +110,8 @@ const PaginatedList2 = ({ title, fetchUrl, renderItem, itemsPerPage }) => {
     <div className="paginated-list">
       <h2>{title}</h2>
       <div className="carousel-container">
-        <button
-          onClick={() => handlePageChange(currentPage - 1)}
+        <button 
+          onClick={() => handlePageChange(currentPage - 1)} 
           disabled={currentPage <= 1}
           className="carousel-button left"
         >
@@ -122,11 +123,68 @@ const PaginatedList2 = ({ title, fetchUrl, renderItem, itemsPerPage }) => {
               {renderItem(courseSet[currentPage - 1])}
             </div>
           ) : (
-            <p>아무것도 없습니다.</p>
+            <p>로딩 중이거나 코스가 없습니다.</p>
           )}
         </div>
-        <button
-          onClick={() => handlePageChange(currentPage + 1)}
+        <button 
+          onClick={() => handlePageChange(currentPage + 1)} 
+          disabled={currentPage >= totalPages}
+          className="carousel-button right"
+        >
+          <img src={rightArrow} alt="Next" />
+        </button>
+      </div>
+      <div className="pagination-controls">
+        <span>{currentPage} / {totalPages}</span>
+      </div>
+    </div>
+  );
+};
+const PaginatedList3 = ({ title, fetchUrl, renderItem, itemsPerPage }) => {
+  const [data, setData] = useState([]);
+  const [totalPages, setTotalPages] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
+
+  useEffect(() => {
+    fetchData(currentPage);
+  }, [currentPage]);
+
+  const fetchData = async (page) => {
+    const token = localStorage.getItem('token');
+    try {
+      const response = await axios.get(`${fetchUrl}?page=${page-1}&size=${itemsPerPage}`, {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      setData(response.data.content);
+      setTotalPages(response.data.totalPages);
+      console.log("Fetched data:", response.data.content);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
+
+  const handlePageChange = (newPage) => {
+    if (newPage >= 1 && newPage <= totalPages) {
+      setCurrentPage(newPage);
+    }
+  };
+
+  return (
+    <div className="paginated-list">
+      <h2>{title}</h2>
+      <div className="carousel-container3">
+        <button 
+          onClick={() => handlePageChange(currentPage - 1)} 
+          disabled={currentPage <= 1}
+          className="carousel-button left"
+        >
+          <img src={leftArrow} alt="Previous" />
+        </button>
+        <div className="list-container3">
+          {data.map(renderItem)}
+        </div>
+        <button 
+          onClick={() => handlePageChange(currentPage + 1)} 
           disabled={currentPage >= totalPages}
           className="carousel-button right"
         >
@@ -188,20 +246,16 @@ const MyPage = () => {
     </div>
   );
 
-  const renderFavoriteItem = (items) => (
-    <div className="mypage-course-options">
-      {items.map((item) => (
-        <div className="carousel-item" key={item.placeNo}>
-          <img src={item.firstImage || defaultImage} alt={item.placeTitle} />
-          <p>{item.placeTitle}</p>
-          <button
-            className="delete-button"
-            onClick={() => handleDelete(item.placeNo)}
-          >
-            <img src={deleteIcon} alt="Delete" />
-          </button>
-        </div>
-      ))}
+  const renderFavoriteItem = (item) => (
+    <div className="mypage-carousel-item" key={item.placeNo}>
+      <img src={item.firstImage || defaultImage} alt={item.placeTitle} />
+      <p>{item.placeTitle}</p>
+      <button 
+        className="delete-button"
+        onClick={() => handleDelete(item.placeNo)}
+      >
+        <img src={deleteIcon} alt="Delete" />
+      </button>
     </div>
   );
 
@@ -211,7 +265,7 @@ const MyPage = () => {
         <div key={index} className="mypage-course-item">
           <img src={course.firstImage2 || defaultImage} alt={course.placeTitle} className="course-image" />
           <div>{course.placeTitle}</div>
-          <button
+          <button 
             className="delete-button"
             onClick={() => courseDelete(course.myCourseNo)}
           >
@@ -224,47 +278,36 @@ const MyPage = () => {
 
   const getRank = async () => {
     try {
-      const token = localStorage.getItem('token');
-      const authResponse = await axios.get(`http://localhost:4040/api/v1/user`, {
-        headers: { 'Authorization': `Bearer ${token}` }
-      });
-
-      if (authResponse.data.userRole === 'ROLE_ADMIN') {
-        setRankImg(rankAdmin);
-        setRankName("관리자");
-        console.log("관리자입니디");
-        return;
-      }
-
       const response = await axios.get(`http://localhost:4040/api/v1/mypage/exp`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       const expUser = response.data;
       setUserExp(expUser);
-
-      if (expUser < 10) {
+      if(expUser < 10){
         setRankImg(rank1);
         setRankName("응애감자");
-      } else if (expUser < 50) {
+      }else if(expUser < 50){
         setRankImg(rank2);
         setRankName("청년감자");
-      } else if (expUser < 100) {
+      }else if(expUser < 100){
         setRankImg(rank3);
         setRankName("겉멋감자");
-      } else if (expUser < 150) {
+      }else if(expUser < 150){
         setRankImg(rank4);
         setRankName("파티감자");
-      } else {
+      }else {
         setRankImg(rank5);
         setRankName("왕감자");
       }
+      
     } catch (error) {
-      console.error('Error fetching rank:', error);
+      console.error('Error :', error);
     }
   };
 
   useEffect(() => {
     getRank();
+    console.log('????????????',rankImg);
   }, []);
 
   const modify = () => {
@@ -279,38 +322,38 @@ const MyPage = () => {
     <div className="mypage">
 
       <div className="profile-card">
-        <div className="profile-image-container">
-          <img src={rankImg} alt="Profile" className="profile-image" />
-        </div>
-        <div className="profile-info">
-          <div className="profile-rank">등급 : {rankName}</div>
-          <div className="profile-name">경험치 : {userExp}</div>
-        </div>
-        <div className='mypage-info-function'>
-          <button className='mypage-info-modify' onClick={modify}>회원 정보 수정</button>
-          <button className='mypage-info-withdraw' onClick={withdraw}>회원 탈퇴</button>
-        </div>
+            <div className="profile-image-container">
+              <img src={rankImg} alt="Profile" className="profile-image" />
+            </div>
+            <div className="profile-info">
+              <div className="profile-rank">등급 : {rankName}</div>
+              <div className="profile-name">경험치 : {userExp}</div>
+            </div>
+            <div className='mypage-info-function'>
+              <button className='mypage-info-modify' onClick={modify}>회원 정보 수정</button>
+              <button className='mypage-info-withdraw' onClick={withdraw}>회원 탈퇴</button>
+            </div>
       </div>
-
-      <PaginatedList
+    
+      <PaginatedList 
         title="내가 쓴 글"
         fetchUrl="http://localhost:4040/api/v1/mypage/getmyboardlist"
         renderItem={renderMyPostItem}
         itemsPerPage={5}
       />
-      <PaginatedList2
+      <PaginatedList3 
         title="내가 찜한 곳"
         fetchUrl="http://localhost:4040/api/v1/mypage/getmyfavoritelist"
         renderItem={renderFavoriteItem}
         itemsPerPage={4}
       />
-      <PaginatedList2
+      <PaginatedList2 
         title="마이 코스"
         fetchUrl="http://localhost:4040/api/v1/mypage/mycourse"
         renderItem={renderMyCourseItem}
         itemsPerPage={1}
       />
-    </div>
+    </div> 
   );
 };
 
