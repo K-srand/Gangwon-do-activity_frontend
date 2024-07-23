@@ -348,7 +348,7 @@ const MyPage = () => {
         itemsPerPage={4}
       />
       <PaginatedList2 
-        title="마이 코스"
+        title="나만의 코스"
         fetchUrl="http://localhost:4040/api/v1/mypage/mycourse"
         renderItem={renderMyCourseItem}
         itemsPerPage={1}

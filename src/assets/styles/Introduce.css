@@ -52,6 +52,7 @@
 
 
 .how-about-this-service {
+    justify-content: center;
     max-width: 1440px;
     display: flex;
     flex-direction: row;
@@ -64,7 +65,10 @@
     position: relative;
     max-width: 1440px;
     height: auto;
-    margin-bottom: 50px; /* 이미지 간 간격 조정 */
+}
+
+.course{
+    width: 500px;
 }
 
 .gangwondo-course {
