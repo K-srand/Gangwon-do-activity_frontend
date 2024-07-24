@@ -62,6 +62,7 @@ function Register() {
         headers: {
           'Content-Type': 'application/json',
         },
+        mode: 'cors',
         credentials: 'include',
         body: JSON.stringify({ userId: form.userId }),
       });
