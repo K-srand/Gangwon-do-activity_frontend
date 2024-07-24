@@ -1,0 +1,82 @@
+.AllUserList {
+    max-width: 1440px;
+    margin: 0 auto;
+}
+
+.UserList {
+    position: relative;
+    padding: 100px;
+}
+
+.UserList h2 {
+    width: 200px;
+    height: 50px;
+    background-color: #D5E6F5;
+    text-decoration: none;
+    color: black;
+    border-radius: 0px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3px;
+    font-family: 'BMHANNAPro', sans-serif;
+    font-size: 25px;
+}
+
+.arrow-image {
+    max-width: 1440px;
+    margin: 0 auto;
+    width: 50px;
+    height: 50px;
+    margin: 20px 50px 20px;
+}
+
+.user-desanction {
+    display: flex;
+    justify-content: flex-end; /* 버튼을 오른쪽 끝으로 정렬 */
+    margin: 20px 0;
+    gap: 20px; /* 버튼 사이의 간격 추가 */ 
+}
+
+.report-desanction,
+.login-restriction,
+.reuser {
+    max-width: 1440px;
+    margin: 20px 0;
+    height: 40px; 
+    background-color: #e0ecf6;
+    cursor: pointer; /* 커서를 포인터로 변경하여 클릭 가능함을 나타냄 */
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); /* 버튼 그림자 */
+    font-size: 18px; 
+    border: none; /* 테두리를 없앰 */
+    outline: none; /* 포커스 아웃라인을 없앰 */
+    display: flex; 
+    justify-content: center; /* 가로축 가운데 정렬 */
+    align-items: center; /* 세로축 가운데 정렬 */
+    border-radius: 0px; /* 모서리를 둥글게 하지 않음 */
+    color: #000;
+}
+
+.report-desanction:hover,
+.login-restriction:hover,
+.reuser:hover {
+    background-color: #D7DFE6; /* 약간 더 밝은 회색으로 변경 */
+    border-radius: 0px; /* 모서리를 둥글게 하지 않음 */
+}
+
+.user-pagination{
+    display: flex;
+    justify-content: center;
+    max-width: 1440px;
+    font-size: 18px;
+    margin: 0 auto; 
+}
+
+.page-number, .page-button {
+    padding: 0;
+    cursor: pointer;
+    margin-bottom: 20px;
+    width: 5%;
+    color: black;
+  }

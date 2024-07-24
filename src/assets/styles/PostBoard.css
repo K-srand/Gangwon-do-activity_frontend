@@ -1,0 +1,188 @@
+  #board-write{
+    /* background-color: white; */
+    border-top: 1px solid rgba(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: center;
+    /* background-color: rgba(0, 0, 0, 0.05); */
+    max-width: 1440px;
+    margin: auto;
+    width: 100%;
+  }
+
+  .PostWrite-header-line {
+    border: 0;
+    border-bottom: 1px solid #414141;
+    width: 100%;
+    padding: auto;
+    max-width: 1440px;
+    margin: 0;
+}
+  
+  .board-write-box{
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    margin-top: 100px;
+    
+  }
+
+  .board-write-title{
+    width: 100%;
+  }
+
+  .board-write-title-input{
+    width: 100%!important;
+    border: none!important;
+    outline: none!important;
+    background: none!important;
+    color: rgba(0,0,0,1)!important;
+    border-bottom: none !important;
+    font-size: 25px!important;
+    font-weight: 500!important;
+    line-height: 140%!important;
+  }
+
+
+  .board-write-divider{
+    border-top: 1px solid rgba(0,0,0,0.2);
+    width: 100%;
+  }
+
+  .board-write-content{
+    width: 100%;
+    display: flex;
+    gap: 20px;
+
+  }
+
+  .mycourse-image-upload-button button{
+    border-radius: 50% 50%;
+    width: 200px !important;
+    height: 40px !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    white-space: pre-wrap;
+    flex-direction: column;
+  }
+ 
+  .board-write-content-textarea{
+    flex : 1;
+    height: 200px;
+    outline: none;
+    background: none;
+    resize: none;
+    
+    color : rgba(0,0,0,0.7);
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 150%;
+
+  }
+  .upload-button{
+    height: 200px;
+    align-items: center;
+    justify-content: center;
+    background-color: #ccc; 
+  }
+
+  .upload-button:hover{
+    height: 200px;
+    align-items: center;
+    justify-content: center;
+    background-color: #007bff; 
+  }
+
+  .board-write-images-box{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    
+  }
+  .board-write-image-box{
+    width: 100%;
+    position: relative;
+  }
+
+  .board-write-image{
+    width: 100%;
+  }
+
+  .board-submit-cancel{
+    display: flex; 
+    gap: 10px; 
+    justify-content: flex-end; 
+  }
+  
+  .board-write-cancel, .board-write-submit {
+    color: black;
+    padding: 10px 20px; 
+    font-size: 15px;
+  }
+  /* .imgage-close{
+    position: absolute;
+    top: 20px;
+    right: 20px;
+  } */
+
+  .board-write-image{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    flex-direction: row;
+    justify-content: center;
+    padding: 20px;
+  }
+
+  .write-image-container{
+    position: relative;
+    display: inline-block;
+  }
+
+  .write-image{
+    display: block;
+    max-width: 200px;
+    max-height: 200px;
+    border: 1px solid #ccc;
+
+  }
+
+  .close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: rgb(240, 26, 26);
+    color: black;
+    border: none;
+    padding: 5px;
+    cursor: pointer;
+    font-size: 8px;
+    border-radius: 50%;
+  }
+
+  .board-write-course {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    flex-direction: row;
+    justify-content: center;
+    padding: 20px;
+  }
+
+  .report-pagination {
+    display: flex;
+    justify-content: center;
+    max-width: 1440px;
+    font-size: 18px;
+    margin: 0 0 50px 0;
+  }
+
+  .report-page-number, .report-page-button {
+    padding: 0;
+    cursor: pointer;
+    margin-top: 20px 0;
+    width: 5%;
+    color: black;
+  }
