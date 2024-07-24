@@ -6,6 +6,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
+                echo 'Checking out code...'
                 git branch: 'feature/jenkinstest', url: 'https://github.com/K-srand/Gangwon-do-activity_frontend.git'
             }
         }
@@ -14,6 +15,7 @@ pipeline {
                 branch 'feature/jenkinstest'
             }
             steps {
+                echo 'Installing dependencies...'
                 sh 'npm install'
             }
         }
@@ -22,6 +24,7 @@ pipeline {
                 branch 'feature/jenkinstest'
             }
             steps {
+                echo 'Building the project...'
                 sh 'npm run build'
             }
         }
@@ -30,8 +33,10 @@ pipeline {
                 branch 'feature/jenkinstest'
             }
             steps {
+                echo 'Building Docker image...'
                 script {
-                    dockerImage = docker.build(DOCKER_IMAGE)
+                    dockerImage = docker.build(env.DOCKER_IMAGE)
+                    echo "Docker image built successfully: ${dockerImage.id}"
                 }
             }
         }
@@ -40,10 +45,12 @@ pipeline {
                 branch 'feature/jenkinstest'
             }
             steps {
+                echo 'Deploying the application...'
                 script {
                     sh 'docker stop frontend-app || true'
                     sh 'docker rm frontend-app || true'
-                    sh 'docker run -d -p 3030:80 --name frontend-app frontend-app:latest'
+                    sh 'docker run -d -p 3030:80 --name frontend-app ' + env.DOCKER_IMAGE
+                    echo "Docker container started successfully"
                 }
             }
         }
