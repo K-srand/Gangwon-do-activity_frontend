@@ -2,6 +2,8 @@ pipeline {
     agent any
     environment {
         DOCKER_IMAGE = 'frontend-app:latest'
+        NODE_HOME = '/usr/bin'  // Node.js와 npm의 경로를 확인하고 수정
+        PATH = "${NODE_HOME}:${env.PATH}"
     }
     stages {
         stage('Checkout') {
