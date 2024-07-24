@@ -11,27 +11,18 @@ pipeline {
             }
         }
         stage('Install Dependencies') {
-            when {
-                branch 'feature/jenkinstest'
-            }
             steps {
                 echo 'Installing dependencies...'
                 sh 'npm install'
             }
         }
         stage('Build') {
-            when {
-                branch 'feature/jenkinstest'
-            }
             steps {
                 echo 'Building the project...'
                 sh 'npm run build'
             }
         }
         stage('Docker Build') {
-            when {
-                branch 'feature/jenkinstest'
-            }
             steps {
                 echo 'Building Docker image...'
                 script {
@@ -41,9 +32,6 @@ pipeline {
             }
         }
         stage('Deploy') {
-            when {
-                branch 'feature/jenkinstest'
-            }
             steps {
                 echo 'Deploying the application...'
                 script {
