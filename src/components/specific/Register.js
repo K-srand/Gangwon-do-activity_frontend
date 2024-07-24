@@ -57,10 +57,12 @@ function Register() {
       return;
     }
     try {
-      const response = await fetch('http://localhost:4040/api/v1/auth/check-id', {
+      const response = await fetch('http://223.130.138.174:4040/api/v1/auth/check-id', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin':'http://223.130.138.174:3000'
+
         },
         body: JSON.stringify({ userId: form.userId }),
         credentials: 'include', // 쿠키를 포함해야 할 경우
