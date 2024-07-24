@@ -65,8 +65,6 @@ function Register() {
 
         },
         body: JSON.stringify({ userId: form.userId }),
-        credentials: 'include', // 쿠키를 포함해야 할 경우
-        mode: 'cors' // CORS 모드 설정
       });
 
       const result = await response.json();
