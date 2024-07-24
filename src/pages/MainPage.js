@@ -13,7 +13,7 @@ function MainPage() {
   const [userId, setUserId] = useState(null);
 
   useEffect (() => {
-      axios.get('http://localhost:4040/api/v1/user', {
+      axios.get('http://223.130.138.174:4040/api/v1/user', {
           headers: {
               'Authorization': `Bearer ${token}` // 요청 헤더에 토큰 추가
           }

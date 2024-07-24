@@ -13,7 +13,7 @@ function Recommend(){
     // 첫 번째 요청을 보내는 비동기 함수를 정의합니다.
     const fetchFirstData = async () => {
         try {
-            const firstResponse = await axios.post('http://localhost:4040/api/v1/recommend', {});
+            const firstResponse = await axios.post('http://223.130.138.174:4040/api/v1/recommend', {});
             const courseNo = firstResponse.data.slice(0, 3).map(item => item.myCourseNo);
             const nickname = firstResponse.data.slice(0, 3).map(item => item.userNick);
             const noBoard = firstResponse.data.slice(0, 3).map(item => item.boardNo);
@@ -36,7 +36,7 @@ function Recommend(){
 
             for (let i = 0; i < myCourseNo.length; i++) {
                 const courseNo = myCourseNo[i];
-                const secondResponse = await axios.get(`http://localhost:4040/api/v1/recommend/${courseNo}`);
+                const secondResponse = await axios.get(`http://223.130.138.174:4040/api/v1/recommend/${courseNo}`);
                 const courseDetails = secondResponse.data.slice(0, 4).map(imageObj => ({
                     placeTitle: imageObj.placeTitle,
                     firstImage2: imageObj.firstImage2,
