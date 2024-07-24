@@ -17,6 +17,9 @@ RUN npm run build
 # Stage 2: Serve app with nginx
 FROM nginx:1.27.0-alpine
 
+# Remove default nginx website
+RUN rm -rf /usr/share/nginx/html/*
+
 # Copy the build output to Nginx's html directory
 COPY --from=build /app/build /usr/share/nginx/html
 
