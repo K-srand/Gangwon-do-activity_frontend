@@ -61,7 +61,7 @@ function Register() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': 'http://223.130.138.174:3030'
+          'Access-Control-Allow-Origin': 'http://223.130.138.174:4040'
         },
         body: JSON.stringify({ userId: form.userId }),
       });
