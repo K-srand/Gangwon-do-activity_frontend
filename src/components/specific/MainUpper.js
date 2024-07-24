@@ -5,7 +5,7 @@ import leftArrow from '../../assets/images/MainLeftArrow.png';
 import rightArrow from '../../assets/images/MainRightArrow.png';
 import favorite from '../../assets/images/Favorite.png';
 import defaultImage from '../../assets/images/Icon_No_Image.png';
-import welcome from '../../assets/images/Welcome.png';
+import main from '../../assets/images/main.png';
 
 function MainUpper({ token }) {
   const mapContainer = useRef(null);
@@ -248,7 +248,10 @@ function MainUpper({ token }) {
 
   return (
     <div className='mainupper'>
-      <img className='welcome' src={welcome} alt="Welcome" />
+      <div className='main-image'>
+      <img className='main' src={main} alt="main" />
+      <h2 className='gangchu'>강원도 액티비티 사이트 강추!</h2>
+      </div>
       <div className='recommendplace'>
         <h2>강추에서 추천하는 장소!</h2>
       </div>

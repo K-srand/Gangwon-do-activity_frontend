@@ -122,12 +122,12 @@ function EditPostBoard() {
                     fileUrl: removeAddress[index]
                 }
             });
+            nav(`/patch/${boardNo}`)
             console.log("Image removed: ", removeAddress);
         } catch (error) {
             console.error('Error deleting file:', error);
             throw error; // 삭제 실패 시 에러 처리
         }
-        window.location.reload();
     };
 
     const [postData, setPostData] = useState({

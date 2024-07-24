@@ -140,6 +140,63 @@ const PaginatedList2 = ({ title, fetchUrl, renderItem, itemsPerPage }) => {
     </div>
   );
 };
+const PaginatedList3 = ({ title, fetchUrl, renderItem, itemsPerPage }) => {
+  const [data, setData] = useState([]);
+  const [totalPages, setTotalPages] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
+
+  useEffect(() => {
+    fetchData(currentPage);
+  }, [currentPage]);
+
+  const fetchData = async (page) => {
+    const token = localStorage.getItem('token');
+    try {
+      const response = await axios.get(`${fetchUrl}?page=${page-1}&size=${itemsPerPage}`, {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      setData(response.data.content);
+      setTotalPages(response.data.totalPages);
+      console.log("Fetched data:", response.data.content);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
+
+  const handlePageChange = (newPage) => {
+    if (newPage >= 1 && newPage <= totalPages) {
+      setCurrentPage(newPage);
+    }
+  };
+
+  return (
+    <div className="paginated-list">
+      <h2>{title}</h2>
+      <div className="carousel-container3">
+        <button 
+          onClick={() => handlePageChange(currentPage - 1)} 
+          disabled={currentPage <= 1}
+          className="carousel-button left"
+        >
+          <img src={leftArrow} alt="Previous" />
+        </button>
+        <div className="list-container3">
+          {data.map(renderItem)}
+        </div>
+        <button 
+          onClick={() => handlePageChange(currentPage + 1)} 
+          disabled={currentPage >= totalPages}
+          className="carousel-button right"
+        >
+          <img src={rightArrow} alt="Next" />
+        </button>
+      </div>
+      <div className="pagination-controls">
+        <span>{currentPage} / {totalPages}</span>
+      </div>
+    </div>
+  );
+};
 
 const MyPage = () => {
   const [userExp, setUserExp] = useState("");
@@ -190,7 +247,7 @@ const MyPage = () => {
   );
 
   const renderFavoriteItem = (item) => (
-    <div className="carousel-item" key={item.placeNo}>
+    <div className="mypage-carousel-item" key={item.placeNo}>
       <img src={item.firstImage || defaultImage} alt={item.placeTitle} />
       <p>{item.placeTitle}</p>
       <button 
@@ -282,16 +339,16 @@ const MyPage = () => {
         title="내가 쓴 글"
         fetchUrl="http://localhost:4040/api/v1/mypage/getmyboardlist"
         renderItem={renderMyPostItem}
-        itemsPerPage={3}
+        itemsPerPage={5}
       />
-      <PaginatedList 
+      <PaginatedList3 
         title="내가 찜한 곳"
         fetchUrl="http://localhost:4040/api/v1/mypage/getmyfavoritelist"
         renderItem={renderFavoriteItem}
         itemsPerPage={4}
       />
       <PaginatedList2 
-        title="마이 코스"
+        title="나만의 코스"
         fetchUrl="http://localhost:4040/api/v1/mypage/mycourse"
         renderItem={renderMyCourseItem}
         itemsPerPage={1}

@@ -11,6 +11,7 @@ import rank2 from '../../assets/images/Rank2.png';
 import rank3 from '../../assets/images/Rank3.png';
 import rank4 from '../../assets/images/Rank4.png';
 import rank5 from '../../assets/images/Rank5.png';
+import rankSuper from '../../assets/images/Ranksuper.png';
 import defaultImage from '../../assets/images/Icon_No_Image.png';
 
 function BoardDetail() {
@@ -26,7 +27,7 @@ function BoardDetail() {
     const [totalPages, setTotalPages] = useState(0); // 전체 페이지 수
     const [currentPage, setCurrentPage] = useState(1); // 현재 페이지를 1로 설정
     const [commentCount, setCommentCount] = useState(0);
-
+    const [userRole, setUserRole] = useState('');
     //좋아요 싫어요 버튼 누름 표시
     const [isLiked, setIsLiked] = useState(false);
     const [isDisliked, setIsDisliked] = useState(false);
@@ -137,6 +138,7 @@ function BoardDetail() {
                 setBoardDetail(res.data);
                 setBoardNick(res.data.userNick);
                 setUserExp(res.data.userExp);
+                setUserRole(res.data.userRole);
          
                 if (res.data.firstImage2 && Array.isArray(res.data.firstImage2)) {
                     const courseDetails = res.data.firstImage2.map(imageObj => ({
@@ -396,17 +398,21 @@ function BoardDetail() {
     }, [boardNo]);
 
     // 유저 등급 이미지
-    const getRankInfo = (expUser) => {
-        if (expUser < 10) {
-          return rank1 ;
-        } else if (expUser < 50) {
-          return  rank2 ;
-        } else if (expUser < 100) {
-          return  rank3 ;
-        } else if (expUser < 150) {
-          return  rank4 ;
-        } else {
-          return  rank5 ;
+    const getRankInfo = (expUser, roleUser) => {
+        if(roleUser === 'ROLE_ADMIN'){
+            return rankSuper;
+        }else{
+            if (expUser < 10) {
+                return rank1 ;
+              } else if (expUser < 50) {
+                return  rank2 ;
+              } else if (expUser < 100) {
+                return  rank3 ;
+              } else if (expUser < 150) {
+                return  rank4 ;
+              } else {
+                return  rank5 ;
+              }
         }
       };
 
@@ -439,7 +445,7 @@ function BoardDetail() {
                     </div>
                     <div className="boardDetail-header-body">
                         <div className="profile">
-                            <img src={getRankInfo(userExp)} alt="ProfileImage" />
+                            <img src={getRankInfo(userExp, userRole)} alt="ProfileImage" />
                             <span>{boardDetail.userNick}</span> {/* 작성자 닉네임 표시 */}
                         </div>
                         <div className="liked">
