@@ -60,8 +60,9 @@ function Register() {
       const response = await fetch('http://223.130.138.174:4040/api/v1/auth/check-id', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'application/json'
         },
+        credentials: 'include',
         body: JSON.stringify({ userId: form.userId }),
       });
 
