@@ -61,7 +61,6 @@ function Register() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Content-Length': response.length
         },
         credentials: 'include',
         body: JSON.stringify({ userId: form.userId }),
