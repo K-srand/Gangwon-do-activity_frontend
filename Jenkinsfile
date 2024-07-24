@@ -21,7 +21,10 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building the project...'
-                sh 'npm run build'
+                sh '''
+                unset CI
+                npm run build
+                '''
             }
         }
         stage('Docker Build') {
