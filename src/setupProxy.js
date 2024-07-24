@@ -6,6 +6,7 @@ module.exports = function(app) {
     createProxyMiddleware({
       target: 'http://223.130.138.174:4040',	// 서버 URL or localhost:설정한포트번호
       changeOrigin: true,
+      pathRewrite: {'^/api' : ''}
     })
   );
 };
