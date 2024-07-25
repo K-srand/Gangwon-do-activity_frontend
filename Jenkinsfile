@@ -9,7 +9,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 echo 'Checking out code...'
-                git branch: 'feature/jenkinstest', url: 'https://github.com/K-srand/Gangwon-do-activity_frontend.git'
+                git branch: 'main', url: 'https://github.com/K-srand/Gangwon-do-activity_frontend.git'
             }
         }
         stage('Install Dependencies') {
