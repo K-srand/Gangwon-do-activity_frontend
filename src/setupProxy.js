@@ -5,7 +5,7 @@ module.exports = function(app) {
     '/api/v1',
     createProxyMiddleware({
       target: 'http://223.130.138.174:4040', // 서버 URL or localhost:설정한포트번호
-      changeOrigin: true, // 이 옵션을 true로 설정하여 요청의 origin을 대상 URL로 변경
+      changeOrigin: true // 이 옵션을 true로 설정하여 요청의 origin을 대상 URL로 변경
     })
   );
 };
