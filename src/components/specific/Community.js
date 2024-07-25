@@ -31,7 +31,7 @@ function Community() {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const response = await axios.get(`http://localhost:4040/api/v1/board/?page=${currentPage -1}&size=6`);
+        const response = await axios.get(`http://223.130.138.174:4040/api/v1/board/?page=${currentPage -1}&size=6`);
 
         const pageData = response.data; // 페이지 정보 추출
         setTotalPages(pageData.totalPages);
@@ -65,7 +65,7 @@ function Community() {
 
     const fetchBestPosts = async () => { // 주간 베스트 게시글을 가져오는 함수 추가
       try {
-        const response = await axios.get('http://localhost:4040/api/v1/board/best');
+        const response = await axios.get('http://223.130.138.174:4040/api/v1/board/best');
         const fetchedBestPosts = response.data.map(post => ({
           id: post.boardNo,
           author: post.userNick,

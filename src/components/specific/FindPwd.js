@@ -34,7 +34,7 @@ const FindPwd = () => {
             return;
         }
         try {
-            const response = await axios.post('http://localhost:4040/api/v1/auth/email-certification', {
+            const response = await axios.post('http://223.130.138.174:4040/api/v1/auth/email-certification', {
                 email: form.userEmail
             }, {
                 headers: {
@@ -77,7 +77,7 @@ const FindPwd = () => {
         }
 
         try {
-            const response = await axios.post('http://localhost:4040/api/v1/auth/findPwd-certification', {
+            const response = await axios.post('http://223.130.138.174:4040/api/v1/auth/findPwd-certification', {
                 userId: form.userId,
                 email: form.userEmail,
                 certificationNumber: certificationNumber

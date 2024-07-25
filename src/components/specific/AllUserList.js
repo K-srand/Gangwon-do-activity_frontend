@@ -64,7 +64,7 @@ function AllUserList() {
         if (window.confirm('해당 유저를 제재하시겠습니까?')) {
             try {
                 await Promise.all(selectedUsers.map(userNo =>
-                    fetch('http://localhost:4040/api/v1/admin/sanction', {
+                    fetch('http://223.130.138.174:4040/api/v1/admin/sanction', {
                         method: 'PATCH',
                         headers: {
                             'Content-Type': 'application/json',
@@ -87,7 +87,7 @@ function AllUserList() {
             try {
                 await Promise.all(selectedUsers.map(userNo => {
                     const user = userList.find(user => user.userNo === userNo);
-                    return fetch('http://localhost:4040/api/v1/admin/reuser', {
+                    return fetch('http://223.130.138.174:4040/api/v1/admin/reuser', {
                         method: 'PATCH',
                         headers: {
                             'Content-Type': 'application/json',
@@ -109,7 +109,7 @@ function AllUserList() {
         if (window.confirm('선택된 유저를 제재 해제하시겠습니까?')) {
             try {
                 await Promise.all(selectedUsers.map(userNo =>
-                    fetch('http://localhost:4040/api/v1/admin/desanction', {
+                    fetch('http://223.130.138.174:4040/api/v1/admin/desanction', {
                         method: 'PATCH',
                         headers: {
                             'Content-Type': 'application/json',

@@ -57,7 +57,7 @@ function Register() {
       return;
     }
     try {
-      const response = await fetch('http://localhost:4040/api/v1/auth/check-id', {
+      const response = await fetch('http://223.130.138.174:4040/api/v1/auth/check-id', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -87,7 +87,7 @@ function Register() {
       return;
     }
     try {
-      const response = await fetch('http://localhost:4040/api/v1/auth/check-nickname', {
+      const response = await fetch('http://223.130.138.174:4040/api/v1/auth/check-nickname', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -112,7 +112,7 @@ function Register() {
       return;
     }
     try {
-      const response = await axios.post('http://localhost:4040/api/v1/auth/email-certification', {
+      const response = await axios.post('http://223.130.138.174:4040/api/v1/auth/email-certification', {
         email: form.userEmail
       }, {
         headers: {
@@ -171,7 +171,7 @@ function Register() {
     }
 
     try {
-      const response = await fetch('http://localhost:4040/api/v1/auth/sign-up', {
+      const response = await fetch('http://223.130.138.174:4040/api/v1/auth/sign-up', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
