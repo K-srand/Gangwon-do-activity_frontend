@@ -58,7 +58,7 @@ function Register() {
     }
     try {
       const response = await fetch('http://223.130.138.174:4040/api/v1/auth/check-id', {
-        method: 'POST', mode: 'no-cors',
+        method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
