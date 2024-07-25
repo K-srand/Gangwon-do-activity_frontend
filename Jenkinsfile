@@ -2,6 +2,8 @@ pipeline {
     agent any
     environment {
         DOCKER_IMAGE = 'frontend-app:latest'
+        NODE_HOME = '/usr/bin'  // Node.js와 npm의 경로를 확인하고 수정
+        PATH = "${NODE_HOME}:${env.PATH}"
     }
     stages {
         stage('Checkout') {
@@ -12,10 +14,6 @@ pipeline {
         }
         stage('Install Dependencies') {
             steps {
-                echo 'Checking Node.js version...'
-                sh 'node -v'
-                echo 'Checking npm version...'
-                sh 'npm -v'
                 echo 'Installing dependencies...'
                 sh 'npm install'
             }
@@ -23,7 +21,10 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building the project...'
-                sh 'npm run build'
+                sh '''
+                unset CI
+                npm run build
+                '''
             }
         }
         stage('Docker Build') {
