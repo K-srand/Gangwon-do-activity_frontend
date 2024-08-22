@@ -16,7 +16,7 @@ function Withdraw() {
 
     try {
       const token = localStorage.getItem('token'); // 로컬 저장소에서 토큰 가져오기
-      const response = await axios.post('http://223.130.138.174:4040/api/v1/mypage/deleteuser', {
+      const response = await axios.post('http://3.36.27.202:4040/api/v1/mypage/deleteuser', {
         userId: userId
       }, {
         headers: {

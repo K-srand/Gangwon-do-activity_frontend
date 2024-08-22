@@ -42,7 +42,7 @@ pipeline {
                 script {
                     sh 'docker stop frontend-app || true'
                     sh 'docker rm frontend-app || true'
-                    sh 'docker run -d -p 3030:80 --name frontend-app ' + env.DOCKER_IMAGE
+                    sh 'docker run -d -p 3000:80 --name frontend-app ' + env.DOCKER_IMAGE
                     echo "Docker container started successfully"
                 }
             }

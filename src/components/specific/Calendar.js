@@ -9,7 +9,7 @@ const Calendar = () => {
   useEffect(() => {
     const fetchWeatherData = async () => {
       try {
-        const response = await fetch('http://223.130.138.174:4040/api/v1/weather/data'); // 백엔드 서버 URL과 포트를 명시
+        const response = await fetch('http://3.36.27.202:4040/api/v1/weather/data'); // 백엔드 서버 URL과 포트를 명시
         const data = await response.json();
         if (Array.isArray(data)) {
           setWeatherData(data);

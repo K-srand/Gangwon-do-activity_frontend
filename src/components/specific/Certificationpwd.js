@@ -26,7 +26,7 @@ function CertificationPwd({ closeModal, setIsEmailVerified }) {
     e.preventDefault();
 
     try {
-      const response = await axios.post('http://223.130.138.174:4040/api/v1/auth/check-certification', {
+      const response = await axios.post('http://3.36.27.202:4040/api/v1/auth/check-certification', {
         userId,
         email,
         certificationNumber

@@ -32,7 +32,7 @@ function Modify() {
     // API 요청을 통해 사용자 데이터를 가져옴
     const fetchUserData = async () => {
       try {
-        const response = await axios.get('http://223.130.138.174:4040/api/v1/mypage/userinfo', {
+        const response = await axios.get('http://3.36.27.202:4040/api/v1/mypage/userinfo', {
           headers: {
             Authorization: `Bearer ${token}`
           }
@@ -69,7 +69,7 @@ function Modify() {
   const handlePasswordCheck = async () => {
     const token = localStorage.getItem('token');
     try {
-      const response = await axios.post('http://223.130.138.174:4040/api/v1/mypage/checkpassword', {
+      const response = await axios.post('http://3.36.27.202:4040/api/v1/mypage/checkpassword', {
         userPassword: formData.userPassword
       }, {
         headers: {
@@ -101,7 +101,7 @@ function Modify() {
       return;
     }
     try {
-      const response = await axios.post('http://223.130.138.174:4040/api/v1/auth/check-nickname', {
+      const response = await axios.post('http://3.36.27.202:4040/api/v1/auth/check-nickname', {
         userNick: formData.userNick
       }, {
         headers: {
@@ -130,7 +130,7 @@ function Modify() {
       return;
     }
     try {
-      const response = await axios.patch('http://223.130.138.174:4040/api/v1/mypage/modify', {
+      const response = await axios.patch('http://3.36.27.202:4040/api/v1/mypage/modify', {
         userId: formData.userId,
         userPassword: formData.userNewPassword,
         userNick: formData.userNick
