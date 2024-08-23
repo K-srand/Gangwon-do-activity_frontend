@@ -1,14 +1,11 @@
 # Frontend Dockerfile
 FROM node:14-alpine as build
 
-# 사용자 디렉토리 설정
 WORKDIR /app
 
-# npm 캐시 디렉토리를 사용자 디렉토리로 설정
-RUN npm config set cache /app/.npm
-
 COPY package.json ./
-RUN npm install
+
+RUN npm install --no-cache
 
 COPY . ./
 RUN npm run build
