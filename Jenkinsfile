@@ -19,27 +19,27 @@ pipeline {
 
         stage('Install Dependencies') {
             steps {
-                dir('frontend') { // frontend 디렉토리로 이동
-                    sh 'npm install'
-                }
+               
+                sh 'npm install'
+                
             }
         }
 
         stage('Build') {
             steps {
-                dir('frontend') { // frontend 디렉토리로 이동
-                    sh 'npm run build'
-                }
+             
+                sh 'npm run build'
+                
             }
         }
 
         stage('Build Docker Image') {
             steps {
-                dir('frontend') { // frontend 디렉토리로 이동
-                    script {
-                        docker.build('frontend-app', '-f Dockerfile .')
-                    }
+
+                script {
+                    docker.build('frontend-app', '-f Dockerfile .')
                 }
+
             }
         }
 
