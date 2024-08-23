@@ -1,5 +1,10 @@
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'node:14-alpine' // Node.js 환경을 제공하는 Docker 이미지
+            args '-v /var/run/docker.sock:/var/run/docker.sock' // Docker 소켓 공유
+        }
+    }
 
     environment {
         GITHUB_ACCESS_TOKEN = credentials('github-access-token')
