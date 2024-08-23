@@ -1,5 +1,10 @@
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'node:14-alpine' // Node.js 환경을 제공하는 Docker 이미지
+            args '-v /var/run/docker.sock:/var/run/docker.sock' // Docker 소켓 공유
+        }
+    }
 
     environment {
         GITHUB_ACCESS_TOKEN = credentials('github-access-token')
@@ -14,9 +19,7 @@ pipeline {
 
         stage('Install Dependencies') {
             steps {
-                dir('frontend') { 
-                    // npm 캐시 디렉토리를 사용자 홈 디렉토리로 변경
-                    sh 'npm config set cache ~/.npm'
+                dir('frontend') { // frontend 디렉토리로 이동
                     sh 'npm install'
                 }
             }
@@ -24,7 +27,7 @@ pipeline {
 
         stage('Build') {
             steps {
-                dir('frontend') {
+                dir('frontend') { // frontend 디렉토리로 이동
                     sh 'npm run build'
                 }
             }
@@ -32,9 +35,9 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                dir('frontend') {
+                dir('frontend') { // frontend 디렉토리로 이동
                     script {
-                        sh 'docker build -t frontend-app:latest -f Dockerfile .'
+                        docker.build('frontend-app', '-f Dockerfile .')
                     }
                 }
             }
@@ -47,7 +50,7 @@ pipeline {
                     sh 'docker stop frontend-app || true && docker rm frontend-app || true'
 
                     // 새로운 컨테이너를 실행
-                    sh 'docker run -d --name frontend-app -p 3000:3000 frontend-app:latest'
+                    sh 'docker run -d --name frontend-app -p 3000:3000 frontend-app'
                 }
             }
         }
