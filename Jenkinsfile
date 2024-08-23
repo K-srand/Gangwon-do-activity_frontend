@@ -1,49 +1,51 @@
 pipeline {
     agent any
+
     environment {
-        DOCKER_IMAGE = 'frontend-app:latest'
-        NODE_HOME = '/usr/bin'  // Node.js와 npm의 경로를 확인하고 수정
-        PATH = "${NODE_HOME}:${env.PATH}"
+        GITHUB_ACCESS_TOKEN = credentials('github-access-token')
     }
+
     stages {
-        stage('Checkout') {
+        stage('Clone Repository') {
             steps {
-                echo 'Checking out code...'
-                git branch: 'main', url: 'https://github.com/K-srand/Gangwon-do-activity_frontend.git'
+                git branch: 'main', url: 'https://github.com/K-srand/Gangwon-do-activity_frontend.git', credentialsId: 'github-access-token'
             }
         }
+
         stage('Install Dependencies') {
             steps {
-                echo 'Installing dependencies...'
-                sh 'npm install'
-            }
-        }
-        stage('Build') {
-            steps {
-                echo 'Building the project...'
-                sh '''
-                unset CI
-                npm run build
-                '''
-            }
-        }
-        stage('Docker Build') {
-            steps {
-                echo 'Building Docker image...'
-                script {
-                    dockerImage = docker.build(env.DOCKER_IMAGE)
-                    echo "Docker image built successfully: ${dockerImage.id}"
+                dir('frontend') { // frontend 디렉토리로 이동
+                    sh 'npm install'
                 }
             }
         }
+
+        stage('Build') {
+            steps {
+                dir('frontend') { // frontend 디렉토리로 이동
+                    sh 'npm run build'
+                }
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                dir('frontend') { // frontend 디렉토리로 이동
+                    script {
+                        docker.build('frontend-app', '-f Dockerfile .')
+                    }
+                }
+            }
+        }
+
         stage('Deploy') {
             steps {
-                echo 'Deploying the application...'
                 script {
-                    sh 'docker stop frontend-app || true'
-                    sh 'docker rm frontend-app || true'
-                    sh 'docker run -d -p 3000:80 --name frontend-app ' + env.DOCKER_IMAGE
-                    echo "Docker container started successfully"
+                    // 이미 실행 중인 컨테이너를 중지하고 삭제
+                    sh 'docker stop frontend-app || true && docker rm frontend-app || true'
+
+                    // 새로운 컨테이너를 실행
+                    sh 'docker run -d --name frontend-app -p 3000:3000 frontend-app'
                 }
             }
         }
