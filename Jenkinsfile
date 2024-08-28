@@ -1,24 +1,30 @@
 pipeline {
-    agent {
-        docker {
-            image 'node:14-alpine' // Node.js 환경을 제공하는 Docker 이미지
-            args '-v /var/run/docker.sock:/var/run/docker.sock -u root' // 루트 사용자로 실행
-        }
-    }
-    
-    environment {
-        NODE_OPTIONS = '--max-old-space-size=4096' // 메모리 옵션 추가
-        PATH = "/usr/bin:/usr/local/bin:$PATH" // Docker 경로 추가
-    }
+    agent none
 
     stages {
         stage('Clone Repository') {
+            agent {
+                docker {
+                    image 'node:14-alpine' // Node.js 환경을 제공하는 Docker 이미지
+                    args '-u root' // 루트 사용자로 실행
+                }
+            }
             steps {
                 git branch: 'main', url: 'https://github.com/K-srand/Gangwon-do-activity_frontend.git'
             }
         }
 
-        stage('Install Dependencies') {
+        stage('Install Dependencies and Build') {
+            agent {
+                docker {
+                    image 'node:14-alpine' // Node.js 환경을 제공하는 Docker 이미지
+                    args '-u root' // 루트 사용자로 실행
+                }
+            }
+            environment {
+                NODE_OPTIONS = '--max-old-space-size=4096' // 메모리 옵션 추가
+                PATH = "/usr/bin:/usr/local/bin:$PATH" // Docker 경로 추가
+            }
             steps {
                 // npm 캐시 경로를 Jenkins 홈 디렉토리로 설정
                 sh 'npm config set cache /var/lib/jenkins/.npm --global'
@@ -26,17 +32,13 @@ pipeline {
                 sh 'npm config set prefix /var/lib/jenkins/.npm-global --global'
                 // 의존성 설치
                 sh 'npm install'
-            }
-        }
-
-        stage('Build') {
-            steps {
                 // CI 환경 변수 설정을 해제하여 경고 무시
                 sh 'CI=false npm run build'
             }
         }
 
         stage('Build Docker Image') {
+            agent any // Jenkins 호스트 또는 Docker를 지원하는 별도의 에이전트를 사용
             steps {
                 script {
                     echo '도커 버전 확인 및 빌드'
@@ -48,6 +50,7 @@ pipeline {
         }
 
         stage('Docker Push') {
+            agent any // Jenkins 호스트 또는 Docker를 지원하는 별도의 에이전트를 사용
             steps {
                 echo 'Docker Hub에 로그인 중...'
                 withCredentials([
@@ -62,6 +65,7 @@ pipeline {
         }
 
         stage('Deploy') {
+            agent any // Jenkins 호스트 또는 Docker를 지원하는 별도의 에이전트를 사용
             steps {
                 script {
                     sh 'docker stop frontend-app || true && docker rm frontend-app || true'
