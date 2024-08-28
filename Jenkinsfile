@@ -38,7 +38,9 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    docker.build('frontend-app', '-f /var/lib/jenkins/jobs/frontend-pipeline/workspace/Dockerfile .')
+                    echo '도커 버전 확인 및 빌드'
+                    sh 'docker --version'
+                    docker.build('frontend-app', '-f Dockerfile .')
                 }
             }
         }
