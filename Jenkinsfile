@@ -41,8 +41,23 @@ pipeline {
                 script {
                     echo '도커 버전 확인 및 빌드'
                     sh 'docker --version'
-                    docker.build('frontend-app', '-f Dockerfile .')
+                    echo "Docker 이미지를 빌드 중..."
+                    sh 'docker build -t ksuji/frontend-app:latest -f Dockerfile .'
                 }
+            }
+        }
+
+        stage('Docker Push') {
+            steps {
+                echo 'Docker Hub에 로그인 중...'
+                withCredentials([
+                    string(credentialsId: 'docker-hub-username', variable: 'DOCKER_HUB_USERNAME'),
+                    string(credentialsId: 'docker-hub-password', variable: 'DOCKER_HUB_PASSWORD')
+                ]) {
+                    sh 'echo $DOCKER_HUB_PASSWORD | docker login -u $DOCKER_HUB_USERNAME --password-stdin'
+                }
+                echo "Docker 이미지를 푸시 중..."
+                sh 'docker push ksuji/frontend-app:latest'
             }
         }
 
@@ -50,7 +65,7 @@ pipeline {
             steps {
                 script {
                     sh 'docker stop frontend-app || true && docker rm frontend-app || true'
-                    sh 'docker run -d --name frontend-app -p 3000:3000 frontend-app'
+                    sh 'docker run -d --name frontend-app -p 3000:3000 ksuji/frontend-app:latest'
                 }
             }
         }
