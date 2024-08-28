@@ -1,7 +1,7 @@
 pipeline {
     agent {
         docker {
-            image 'docker:19.03.12-dind' // Docker in Docker 이미지
+            image 'node:14-alpine' // Node.js 14 버전이 포함된 경량 이미지 사용
             args '-v /var/run/docker.sock:/var/run/docker.sock --privileged' // 권한 및 Docker 소켓 공유
         }
     }
