@@ -19,7 +19,7 @@ pipeline {
 
         stage('Install Dependencies') {
             steps {
-                sh 'npm config set cache /var/lib/jenkins/.npm'
+                sh 'npm config set cache /var/lib/jenkins/.npm --global'
                 sh 'npm install'
             }
         }
