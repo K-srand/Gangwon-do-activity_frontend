@@ -7,14 +7,13 @@ pipeline {
     }
 
     environment {
-        GITHUB_ACCESS_TOKEN = credentials('github-access-token')
         NODE_OPTIONS = '--max-old-space-size=2048' // 메모리 옵션 추가
     }
 
     stages {
         stage('Clone Repository') {
             steps {
-                git branch: 'main', url: 'https://github.com/K-srand/Gangwon-do-activity_frontend.git', credentialsId: 'github-access-token'
+                git branch: 'main', url: 'https://github.com/K-srand/Gangwon-do-activity_frontend.git'
             }
         }
 
