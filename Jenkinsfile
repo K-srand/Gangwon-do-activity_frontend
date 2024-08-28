@@ -2,7 +2,7 @@ pipeline {
     agent {
         docker {
             image 'node:14-alpine' // Node.js 환경을 제공하는 Docker 이미지
-            args '-v /var/run/docker.sock:/var/run/docker.sock -v $HOME/.npm:/root/.npm' // 캐시 디렉토리 마운트
+            args '-v /var/run/docker.sock:/var/run/docker.sock -u root' // 루트 사용자로 실행
         }
     }
 
