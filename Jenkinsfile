@@ -1,10 +1,12 @@
 pipeline {
-    agent {
-        docker {
-            image 'node:14-alpine' // Node.js 환경을 제공하는 Docker 이미지
-            args '-v /var/run/docker.sock:/var/run/docker.sock -u root' // 루트 사용자로 실행
-        }
-    }
+    // agent {
+    //     docker {
+    //         image 'node:14-alpine' // Node.js 환경을 제공하는 Docker 이미지
+    //         args '-v /var/run/docker.sock:/var/run/docker.sock -u root' // 루트 사용자로 실행
+    //     }
+    // }
+
+    agent any
 
     environment {
         NODE_OPTIONS = '--max-old-space-size=4096' // 메모리 옵션 추가
