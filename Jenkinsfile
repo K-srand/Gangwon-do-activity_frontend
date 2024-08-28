@@ -7,7 +7,7 @@ pipeline {
     }
 
     environment {
-        NODE_OPTIONS = '--max-old-space-size=2048' // 메모리 옵션 추가
+        NODE_OPTIONS = '--max-old-space-size=4096' // 메모리 옵션 추가
     }
 
     stages {
