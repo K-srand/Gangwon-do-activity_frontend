@@ -1,14 +1,14 @@
 pipeline {
     agent {
         docker {
-            image 'node:14-alpine' // Node.js 14 버전이 포함된 경량 이미지 사용
-            args '-v /var/run/docker.sock:/var/run/docker.sock --privileged' // 권한 및 Docker 소켓 공유
+            image 'node:14-alpine' // Node.js 환경을 제공하는 Docker 이미지
+            args '-v /var/run/docker.sock:/var/run/docker.sock -u root' // 루트 사용자로 실행
         }
     }
-
+    
     environment {
-        NODE_OPTIONS = '--max-old-space-size=4096'
-        DOCKER_BUILDKIT = 1 // BuildKit을 사용하여 더 빠르게 빌드
+        NODE_OPTIONS = '--max-old-space-size=4096' // 메모리 옵션 추가
+        PATH = "/usr/bin:/usr/local/bin:$PATH" // Docker 경로 추가
     }
 
     stages {
