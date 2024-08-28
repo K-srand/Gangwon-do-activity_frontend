@@ -38,7 +38,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    sh 'docker build -t ksuji/frontend-app -f Dockerfile .'
+                    docker.build('frontend-app', '-f /var/lib/jenkins/jobs/frontend-pipeline/workspace/Dockerfile .')
                 }
             }
         }
