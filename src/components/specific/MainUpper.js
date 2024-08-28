@@ -57,7 +57,7 @@ function MainUpper({ token }) {
     const loadNaverMapScript = async () => {
       if (!window.naver) {
         try {
-          const response = await axios.get('http://3.36.27.202:4040/api/v1/getmap');
+          const response = await axios.get('http://172.31.3.146:4040/api/v1/getmap');
           const script = document.createElement('script');
           script.type = 'text/javascript';
           script.src = response.data;
