@@ -8,6 +8,7 @@ pipeline {
 
     environment {
         NODE_OPTIONS = '--max-old-space-size=4096' // 메모리 옵션 추가
+        PATH = "/usr/bin:/usr/local/bin:$PATH" // Docker 경로 추가
     }
 
     stages {

@@ -3,10 +3,10 @@ FROM node:14-alpine as build
 
 WORKDIR /app
 
-# Copy package.json and package-lock.json if available
-COPY package.json ./
+# Copy only package.json and package-lock.json first to leverage Docker's cache
+COPY package.json package-lock.json ./
 
-# Install dependencies
+# Install dependencies only if package.json or package-lock.json changes
 RUN npm install --no-cache
 
 # Copy the rest of the application code
