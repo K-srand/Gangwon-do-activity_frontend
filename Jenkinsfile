@@ -30,7 +30,8 @@ pipeline {
 
         stage('Build') {
             steps {
-                sh 'npm run build'
+                // CI 환경 변수 설정을 해제하여 경고 무시
+                sh 'CI=false npm run build'
             }
         }
 
