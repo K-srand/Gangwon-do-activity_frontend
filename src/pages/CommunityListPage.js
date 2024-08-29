@@ -1,22 +1,25 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Navbar from '../components/common/Navbar.js'; // Navbar 경로에 맞게 수정
-import Footer from '../components/common/Footer'; // Footer 경로에 맞게 수정
-import Community from '../components/specific/Community'; // Community 경로에 맞게 수정
+import Navbar from '../components/common/Navbar.js';
+import Footer from '../components/common/Footer';
+import Community from '../components/specific/Community';
 
 function CommunityPage() {
   const token = localStorage.getItem('token');
   const navigate = useNavigate();
+  const [redirecting, setRedirecting] = useState(false); // 리디렉션 상태 추가
 
   useEffect(() => {
-    if (!token) {
+    if (!token && !redirecting) {
         alert("로그인 후 이용가능합니다!");
+        setRedirecting(true); // 리디렉션이 시작되었음을 표시
         navigate('/logindetail'); // 로그인 페이지 경로로 리디렉션
-    } 
-}, [token, navigate]);
+    }
+  }, [token, navigate, redirecting]);
+
   return (
     <div>
-      {/* <Navbar /> */}
+      <Navbar />
       <main>
         <Community token={token} />
       </main>
