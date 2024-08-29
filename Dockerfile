@@ -7,7 +7,7 @@ WORKDIR /app
 COPY package.json package-lock.json ./
 
 # Install dependencies only if package.json or package-lock.json changes
-RUN npm install --no-cache
+RUN npm install
 
 # Copy the rest of the application code
 COPY . ./
@@ -17,6 +17,9 @@ RUN npm run build
 
 # Step 2: Serve the built app with Nginx
 FROM nginx:alpine
+
+# Copy custom Nginx configuration file
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 # Copy the built files from the previous stage
 COPY --from=build /app/build /usr/share/nginx/html
