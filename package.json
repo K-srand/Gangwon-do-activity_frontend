@@ -24,7 +24,7 @@
     "reactstrap": "^9.2.2",
     "request": "^2.88.2",
     "web-vitals": "^2.1.4",
-    "proxy": "http://172.31.3.146:4040"
+    "proxy": "http://3.36.27.202:4040"
   },
   "scripts": {
     "start": "react-scripts start",
