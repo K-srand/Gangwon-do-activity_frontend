@@ -112,51 +112,27 @@ function Register() {
       alert('이메일을 입력해주세요.');
       return;
     }
-    // try {
-    //   const response = await axios.post('http://3.36.27.202:4040/api/v1/auth/email-certification', {
-    //     email: form.userEmail
-    //   }, {
-    //     headers: {
-    //       'Content-Type': 'application/json'
-    //     },
-    //     withCredentials: true
-    //   });
-
-    //   if (response.data.code === 'SU') {
-    //     alert('인증번호가 발송되었습니다.');
-    //     sessionStorage.setItem('email', form.userEmail);
-    //     setModalIsOpen(true); // 모달 열기
-    //   } else {
-    //     alert('이메일 인증 요청에 실패하였습니다: ' + (response.data.message || '알 수 없는 오류'));
-    //   }
-    // } catch (error) {
-    //   console.error('Error during email certification request:', error);
-    //   alert('이메일 인증 요청 중 오류가 발생했습니다.');
-    // }
     try {
-      const response = await fetch('http://3.36.27.202:4040/api/v1/auth/email-certification', {
-        method: 'POST',
-        credentials: 'include',  // 쿠키를 포함하여 전송
+      const response = await axios.post('http://3.36.27.202:4040/api/v1/auth/email-certification', {
+        email: form.userEmail
+      }, {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ email: form.userEmail })
+        withCredentials: true
       });
-    
-      const result = await response.json();
-    
-      if (response.ok && result.code === 'SU') {
+
+      if (response.data.code === 'SU') {
         alert('인증번호가 발송되었습니다.');
         sessionStorage.setItem('email', form.userEmail);
         setModalIsOpen(true); // 모달 열기
       } else {
-        alert('이메일 인증 요청에 실패하였습니다: ' + (result.message || '알 수 없는 오류'));
+        alert('이메일 인증 요청에 실패하였습니다: ' + (response.data.message || '알 수 없는 오류'));
       }
     } catch (error) {
       console.error('Error during email certification request:', error);
       alert('이메일 인증 요청 중 오류가 발생했습니다.');
     }
-    
   };
 
   const handleSubmit = async (e) => {
