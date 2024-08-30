@@ -22,61 +22,37 @@ function Certification({ closeModal, setIsEmailVerified }) {
   const handleCheck = async (e) => {
     e.preventDefault();
 
-    // try {
-    //   const response = await axios.post('http://3.36.27.202:4040/api/v1/auth/check-certification', {
-    //     email,
-    //     certificationNumber
-    //   }, {
-    //     headers: {
-    //       'Content-Type': 'application/json'
-    //     },
-    //     withCredentials: true
-    //   });
-
-    //   if (response.data.code === 'SU') {
-    //     alert('이메일 인증에 성공하였습니다.');
-    //     setIsEmailVerified(true); // 이메일 인증 성공 상태 업데이트
-    //     closeModal();
-    //   } else {
-    //     alert('이메일 인증에 실패하였습니다: ' + (response.data.message || '알 수 없는 오류'));
-    //   }
-    // } catch (error) {
-    //   console.error('Error during email verification:', error);
-    //   if (error.response) {
-    //     const result = error.response.data;
-    //     if (result.code === 'NE') {
-    //       alert('인증번호가 맞지 않습니다.');
-    //     } else {
-    //       alert('이메일 인증 요청에 실패하였습니다: ' + (result.message || '알 수 없는 오류'));
-    //     }
-    //   } else {
-    //     alert('이메일 인증 요청 중 오류가 발생했습니다.');
-    //   }
-    // }
     try {
-      const response = await fetch('http://3.36.27.202:4040/api/v1/auth/check-certification', {
-        method: 'POST',
-        credentials: 'include',  // 쿠키를 포함하여 전송
+      const response = await axios.post('http://3.36.27.202:4040/api/v1/auth/check-certification', {
+        email,
+        certificationNumber
+      }, {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ email, certificationNumber })
+        withCredentials: true
       });
-    
-      const result = await response.json();
-    
-      if (response.ok && result.code === 'SU') {
+
+      if (response.data.code === 'SU') {
         alert('이메일 인증에 성공하였습니다.');
         setIsEmailVerified(true); // 이메일 인증 성공 상태 업데이트
         closeModal();
       } else {
-        alert('이메일 인증에 실패하였습니다: ' + (result.message || '알 수 없는 오류'));
+        alert('이메일 인증에 실패하였습니다: ' + (response.data.message || '알 수 없는 오류'));
       }
     } catch (error) {
       console.error('Error during email verification:', error);
-      alert('이메일 인증 요청 중 오류가 발생했습니다.');
+      if (error.response) {
+        const result = error.response.data;
+        if (result.code === 'NE') {
+          alert('인증번호가 맞지 않습니다.');
+        } else {
+          alert('이메일 인증 요청에 실패하였습니다: ' + (result.message || '알 수 없는 오류'));
+        }
+      } else {
+        alert('이메일 인증 요청 중 오류가 발생했습니다.');
+      }
     }
-    
   };
 
   return (
