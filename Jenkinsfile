@@ -65,7 +65,7 @@ pipeline {
             steps {
                 script {
                     sh 'docker stop frontend-app || true && docker rm frontend-app || true'
-                    sh 'docker run -d --name frontend-app -p 80:80 ksuji/frontend-app:latest'
+                    sh 'docker run -d --name frontend-app -p 800:80 ksuji/frontend-app:latest'
                 }
             }
         }
