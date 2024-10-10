@@ -207,7 +207,7 @@ const MyPage = () => {
 
   const handleDelete = async (placeNo) => {
     try {
-      const response = await axios.delete(`http://3.36.27.202:4040/api/v1/mypage/delete/${placeNo}`, {
+      const response = await axios.delete(`https://3.36.27.202:4040/api/v1/mypage/delete/${placeNo}`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
 
@@ -224,7 +224,7 @@ const MyPage = () => {
 
   const courseDelete = async (myCourseNo) => {
     try {
-      const response = await axios.delete(`http://3.36.27.202:4040/api/v1/mypage/deletemycourse/${myCourseNo}`, {
+      const response = await axios.delete(`https://3.36.27.202:4040/api/v1/mypage/deletemycourse/${myCourseNo}`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
 
@@ -278,7 +278,7 @@ const MyPage = () => {
 
   const getRank = async () => {
     try {
-      const response = await axios.get(`http://3.36.27.202:4040/api/v1/mypage/exp`, {
+      const response = await axios.get(`https://3.36.27.202:4040/api/v1/mypage/exp`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       const expUser = response.data;
@@ -337,19 +337,19 @@ const MyPage = () => {
     
       <PaginatedList 
         title="내가 쓴 글"
-        fetchUrl="http://3.36.27.202:4040/api/v1/mypage/getmyboardlist"
+        fetchUrl="https://3.36.27.202:4040/api/v1/mypage/getmyboardlist"
         renderItem={renderMyPostItem}
         itemsPerPage={5}
       />
       <PaginatedList3 
         title="내가 찜한 곳"
-        fetchUrl="http://3.36.27.202:4040/api/v1/mypage/getmyfavoritelist"
+        fetchUrl="https://3.36.27.202:4040/api/v1/mypage/getmyfavoritelist"
         renderItem={renderFavoriteItem}
         itemsPerPage={4}
       />
       <PaginatedList2 
         title="나만의 코스"
-        fetchUrl="http://3.36.27.202:4040/api/v1/mypage/mycourse"
+        fetchUrl="https://3.36.27.202:4040/api/v1/mypage/mycourse"
         renderItem={renderMyCourseItem}
         itemsPerPage={1}
       />

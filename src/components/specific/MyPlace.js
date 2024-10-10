@@ -7,7 +7,7 @@ const MyPlace = () => {
     const [selectedImages, setSelectedImages] = useState([]);
 
     const category = (value) => {
-        axios.post('http://3.36.27.202:4040/api/v1/getmycourse/getplacecat', {
+        axios.post('https://3.36.27.202:4040/api/v1/getmycourse/getplacecat', {
             placeCat: value
         })
         .then(response => {

@@ -19,7 +19,7 @@ const CreateMyCourse = ({ token }) => {
     const pathData = useRef([]);
 
     useEffect(() => {
-        axios.get('http://3.36.27.202:4040/api/v1/user', {
+        axios.get('https://3.36.27.202:4040/api/v1/user', {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
@@ -34,7 +34,7 @@ const CreateMyCourse = ({ token }) => {
     }, [token]);
 
     const category = (value) => {
-        axios.post('http://3.36.27.202:4040/api/v1/getmycourse/getplacecat', {
+        axios.post('https://3.36.27.202:4040/api/v1/getmycourse/getplacecat', {
             userId: userId,
             placeCat: value
         })
@@ -92,7 +92,7 @@ const CreateMyCourse = ({ token }) => {
             mapRef.current = map;
         };
 
-        axios.get('http://3.36.27.202:4040/api/v1/getmap')
+        axios.get('https://3.36.27.202:4040/api/v1/getmap')
             .then(response => {
                 const script = document.createElement('script');
                 script.type = 'text/javascript';
@@ -163,7 +163,7 @@ const CreateMyCourse = ({ token }) => {
             const end = images[i + 1];
 
             durationPromises.push(
-                axios.post('http://3.36.27.202:4040/api/v1/getdrive', {
+                axios.post('https://3.36.27.202:4040/api/v1/getdrive', {
                     startLat: start.mapy,
                     startLng: start.mapx,
                     endLat: end.mapy,
@@ -223,7 +223,7 @@ const CreateMyCourse = ({ token }) => {
 
         console.log('Course Data:', courseData);
 
-        axios.post('http://3.36.27.202:4040/api/v1/getmycourse/getcourse', {
+        axios.post('https://3.36.27.202:4040/api/v1/getmycourse/getcourse', {
             userId: userId,
             courseData: courseData
         })

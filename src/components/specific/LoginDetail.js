@@ -22,7 +22,7 @@ const LoginDetail = () => {
 
     const handleLogin = (e) => {
         e.preventDefault();
-        axios.post('http://3.36.27.202:4040/api/v1/auth/sign-in', {
+        axios.post('https://3.36.27.202:4040/api/v1/auth/sign-in', {
             userId: userId,
             userPassword: userPassword
         })

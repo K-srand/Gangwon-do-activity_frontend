@@ -32,7 +32,7 @@ function Report() {
     useEffect(() => {
         const fetchReportedData = async () => {
             try {
-                const response = await axios.get(`http://3.36.27.202:4040/api/v1/report/?page=${currentPage - 1}&size=15`);
+                const response = await axios.get(`https://3.36.27.202:4040/api/v1/report/?page=${currentPage - 1}&size=15`);
                 const pageData = response.data;
                 setReportedData(pageData.content);
                 setTotalPages(pageData.totalPages);
@@ -49,7 +49,7 @@ function Report() {
         if (window.confirm('삭제하시겠습니까?')) {
             try {
                 await Promise.all(selectedReports.map(reportedContentNo => 
-                    axios.delete(`http://3.36.27.202:4040/api/v1/report/delete/${reportedContentNo}`)
+                    axios.delete(`https://3.36.27.202:4040/api/v1/report/delete/${reportedContentNo}`)
                 ));
                 setReportedData(reportedData.filter(report => !selectedReports.includes(report.reportedContentNo)));
                 setSelectedReports([]);
@@ -87,7 +87,7 @@ function Report() {
         if (window.confirm('해당 콘텐츠를 제재하시겠습니까?')) {
             try {
                 await Promise.all(selectedReports.map(reportedContentNo => {
-                    return axios.patch('http://3.36.27.202:4040/api/v1/admin/sanctioncontent', reportedContentNo, {
+                    return axios.patch('https://3.36.27.202:4040/api/v1/admin/sanctioncontent', reportedContentNo, {
                         headers: {
                             'Content-Type': 'application/json'
                         }
@@ -107,7 +107,7 @@ function Report() {
         if (window.confirm('해당 콘텐츠를 제재 해제하시겠습니까?')) {
             try {
                 await Promise.all(selectedReports.map(reportedContentNo => {
-                    return axios.patch('http://3.36.27.202:4040/api/v1/admin/desanctioncontent', reportedContentNo, {
+                    return axios.patch('https://3.36.27.202:4040/api/v1/admin/desanctioncontent', reportedContentNo, {
                         headers: {
                             'Content-Type': 'application/json'
                         }

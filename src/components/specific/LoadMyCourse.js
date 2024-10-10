@@ -13,7 +13,7 @@ function LoadMyCourse({ closeModal, onCourseSelect }) {
   const [totalPages, setTotalPages] = useState(0);
 
   useEffect(() => {
-    axios.get('http://3.36.27.202:4040/api/v1/user', {
+    axios.get('https://3.36.27.202:4040/api/v1/user', {
       headers: {
         'Authorization': `Bearer ${token}`
       }
@@ -31,7 +31,7 @@ function LoadMyCourse({ closeModal, onCourseSelect }) {
     const fetchCourses = async () => {
       if (!userId) return; 
       try {
-        const response = await axios.post('http://3.36.27.202:4040/api/v1/board/mycourse', {
+        const response = await axios.post('https://3.36.27.202:4040/api/v1/board/mycourse', {
           userId: userId
         }, {
           params: {
