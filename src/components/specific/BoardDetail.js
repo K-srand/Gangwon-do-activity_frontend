@@ -62,7 +62,7 @@ function BoardDetail() {
     const fetchComments = async () => {
         const token = localStorage.getItem('token');
         try {
-            const response = await axios.get(`https://3.36.27.202:4040/api/v1/board/commentList/${boardNo}?page=${currentPage - 1}&size=5`, {
+            const response = await axios.get(`https://gangwonactivity.site/api/v1/board/commentList/${boardNo}?page=${currentPage - 1}&size=5`, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -90,7 +90,7 @@ function BoardDetail() {
 
     const handleLogin = (e) => {
         e.preventDefault();
-        axios.post('https://3.36.27.202:4040/api/v1/auth/sign-in', {
+        axios.post('https://gangwonactivity.site/api/v1/auth/sign-in', {
             userId: userId,
             userPassword: userPassword
         })
@@ -107,7 +107,7 @@ function BoardDetail() {
 
     const getUser = () => {
         const token = localStorage.getItem('token');
-        axios.get('https://3.36.27.202:4040/api/v1/user', {
+        axios.get('https://gangwonactivity.site/api/v1/user', {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
@@ -125,7 +125,7 @@ function BoardDetail() {
     const getBoardDetail = () => {
         const token = localStorage.getItem('token');
     
-        axios.get(`https://3.36.27.202:4040/api/v1/board/${boardNo}`, {
+        axios.get(`https://gangwonactivity.site/api/v1/board/${boardNo}`, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
@@ -162,7 +162,7 @@ function BoardDetail() {
 
     const getImgUrl = () => {
         const token = localStorage.getItem('token');
-        axios.get(`https://3.36.27.202:4040/api/v1/board/image/${boardNo}`, {
+        axios.get(`https://gangwonactivity.site/api/v1/board/image/${boardNo}`, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
@@ -202,7 +202,7 @@ function BoardDetail() {
         }
 
         const token = localStorage.getItem('token');
-        axios.patch(`https://3.36.27.202:4040/api/v1/board/delete/${boardNo}`, {}, {
+        axios.patch(`https://gangwonactivity.site/api/v1/board/delete/${boardNo}`, {}, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
@@ -222,7 +222,7 @@ function BoardDetail() {
 
     const handleCommentSubmit = () => {
         const token = localStorage.getItem('token');
-        axios.post(`https://3.36.27.202:4040/api/v1/board/comment/${boardNo}`, {
+        axios.post(`https://gangwonactivity.site/api/v1/board/comment/${boardNo}`, {
             content: newComment
         }, {
             headers: {
@@ -254,7 +254,7 @@ function BoardDetail() {
 
         const token = localStorage.getItem('token');
         try {
-            const response = await axios.post(`https://3.36.27.202:4040/api/v1/report/comment/${commentNo}`, {}, {
+            const response = await axios.post(`https://gangwonactivity.site/api/v1/report/comment/${commentNo}`, {}, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -279,7 +279,7 @@ function BoardDetail() {
 
         if (isLiked) {
             // 좋아요 취소
-            axios.post(`https://3.36.27.202:4040/api/v1/board/like/${boardNo}`, {}, {
+            axios.post(`https://gangwonactivity.site/api/v1/board/like/${boardNo}`, {}, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -295,7 +295,7 @@ function BoardDetail() {
             });
         } else {
             // 좋아요
-            axios.post(`https://3.36.27.202:4040/api/v1/board/like/${boardNo}`, {}, {
+            axios.post(`https://gangwonactivity.site/api/v1/board/like/${boardNo}`, {}, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -318,7 +318,7 @@ function BoardDetail() {
 
         if (isDisliked) {
             // 싫어요 취소
-            axios.post(`https://3.36.27.202:4040/api/v1/board/dislike/${boardNo}`, {}, {
+            axios.post(`https://gangwonactivity.site/api/v1/board/dislike/${boardNo}`, {}, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -334,7 +334,7 @@ function BoardDetail() {
             });
         } else {
             // 싫어요
-            axios.post(`https://3.36.27.202:4040/api/v1/board/dislike/${boardNo}`, {}, {
+            axios.post(`https://gangwonactivity.site/api/v1/board/dislike/${boardNo}`, {}, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -366,7 +366,7 @@ function BoardDetail() {
 
         const token = localStorage.getItem('token');
         try {
-            const response = await axios.post(`https://3.36.27.202:4040/api/v1/report/board/${boardNo}`, {}, {
+            const response = await axios.post(`https://gangwonactivity.site/api/v1/report/board/${boardNo}`, {}, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -420,7 +420,7 @@ function BoardDetail() {
     const increExp1 = async () => {
         try{
         const token = localStorage.getItem('token'); // 토큰 가져오기
-        await axios.get('https://3.36.27.202:4040/api/v1/board/increment1/',{
+        await axios.get('https://gangwonactivity.site/api/v1/board/increment1/',{
         headers:{
             Authorization: `Bearer ${token}`
         }

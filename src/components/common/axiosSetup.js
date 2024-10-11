@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 const axiosInstance = axios.create({
-    baseURL: 'https://3.36.27.202:4040/api/v1',
+    baseURL: 'https://gangwonactivity.site/api/v1',
 });
 
 axiosInstance.interceptors.request.use(

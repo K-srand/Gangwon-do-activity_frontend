@@ -34,7 +34,7 @@ const FindPwd = () => {
             return;
         }
         try {
-            const response = await axios.post('https://3.36.27.202:4040/api/v1/auth/email-certification', {
+            const response = await axios.post('https://gangwonactivity.site/api/v1/auth/email-certification', {
                 email: form.userEmail
             }, {
                 headers: {
@@ -77,7 +77,7 @@ const FindPwd = () => {
         }
 
         try {
-            const response = await axios.post('https://3.36.27.202:4040/api/v1/auth/findPwd-certification', {
+            const response = await axios.post('https://gangwonactivity.site/api/v1/auth/findPwd-certification', {
                 userId: form.userId,
                 email: form.userEmail,
                 certificationNumber: certificationNumber

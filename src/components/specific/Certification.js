@@ -23,7 +23,7 @@ function Certification({ closeModal, setIsEmailVerified }) {
     e.preventDefault();
 
     try {
-      const response = await axios.post('https://3.36.27.202:4040/api/v1/auth/check-certification', {
+      const response = await axios.post('https://gangwonactivity.site/api/v1/auth/check-certification', {
         email,
         certificationNumber
       }, {

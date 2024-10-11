@@ -63,7 +63,7 @@ function PostBoard(){
 
         try {
             const token = localStorage.getItem('token'); // 토큰 가져오기
-            const response = await axios.post('https://3.36.27.202:4040/file/upload', formData, {
+            const response = await axios.post('https://gangwonactivity.site/file/upload', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     Authorization: `Bearer ${token}`
@@ -84,7 +84,7 @@ function PostBoard(){
     const increExp = async () => {
         try{
         const token = localStorage.getItem('token'); // 토큰 가져오기
-        await axios.get('https://3.36.27.202:4040/api/v1/board/increment3/',{
+        await axios.get('https://gangwonactivity.site/api/v1/board/increment3/',{
         headers:{
             Authorization: `Bearer ${token}`
         }
@@ -103,7 +103,7 @@ function PostBoard(){
     
             console.log(selectedCourseNo);
     
-            const response = await axios.post('https://3.36.27.202:4040/api/v1/board', {
+            const response = await axios.post('https://gangwonactivity.site/api/v1/board', {
                 title: boardTitle,
                 content: content,
                 boardImageList: fileUrls, // 이미지 URL 전송

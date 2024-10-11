@@ -22,7 +22,7 @@ function MainUpper({ token }) {
 
   // 로그인 여부 확인
   useEffect(() => {
-    axios.get('https://3.36.27.202:4040/api/v1/user', {
+    axios.get('https://gangwonactivity.site/api/v1/user', {
       headers: {
         'Authorization': `Bearer ${token}`
       }
@@ -38,7 +38,7 @@ function MainUpper({ token }) {
 
   useEffect(() => {
     // 추천 10개 액티비티 호출
-    axios.get('https://3.36.27.202:4040/api/v1/getjson/getplace')
+    axios.get('https://gangwonactivity.site/api/v1/getjson/getplace')
       .then(response => {
         console.log('Fetched Data:', response.data);
         setLocations(response.data);
@@ -57,7 +57,7 @@ function MainUpper({ token }) {
     const loadNaverMapScript = async () => {
       if (!window.naver) {
         try {
-          const response = await axios.get('https://3.36.27.202:4040/api/v1/getmap');
+          const response = await axios.get('https://gangwonactivity.site/api/v1/getmap');
           const script = document.createElement('script');
           script.type = 'text/javascript';
           script.src = response.data;
@@ -96,7 +96,7 @@ function MainUpper({ token }) {
 
         // 플레이스 타이틀 호출
         naver.maps.Event.addListener(marker, 'click', () => {
-          axios.post('https://3.36.27.202:4040/api/v1/getjson/getplacetitle', {
+          axios.post('https://gangwonactivity.site/api/v1/getjson/getplacetitle', {
             placeTitle: location.placeTitle,
             placeMapx: location.mapx,
             placeMapy: location.mapy
@@ -111,7 +111,7 @@ function MainUpper({ token }) {
       });
 
       // 강원도 행정구역 데이터 레이어 호출
-      axios.get('https://3.36.27.202:4040/resources/json/gangwondo.json')
+      axios.get('https://gangwonactivity.site/resources/json/gangwondo.json')
         .then(response => {
           const geojson = response.data;
           map.data.addGeoJson(geojson);
@@ -134,7 +134,7 @@ function MainUpper({ token }) {
 
   // 선택한 위치 중심으로 카테고리별 추천 장소 출력
   const category = (value) => {
-    axios.post('https://3.36.27.202:4040/api/v1/getjson/getplacecat', {
+    axios.post('https://gangwonactivity.site/api/v1/getjson/getplacecat', {
       placeCat: value
     })
       .then(response => {
@@ -167,7 +167,7 @@ function MainUpper({ token }) {
   // 찜 버튼
   const favoriteplace = (item) => {
     if (userId) {
-      axios.post('https://3.36.27.202:4040/api/v1/getmyfavorite', {
+      axios.post('https://gangwonactivity.site/api/v1/getmyfavorite', {
         placeNo: item.id,
         userId: userId
       })
@@ -195,7 +195,7 @@ function MainUpper({ token }) {
   // 첫 번째 요청을 보내는 비동기 함수를 정의합니다.
   const fetchFirstData = async () => {
       try {
-          const firstResponse = await axios.post('https://3.36.27.202:4040/api/v1/recommend', {});
+          const firstResponse = await axios.post('https://gangwonactivity.site/api/v1/recommend', {});
           const courseNo = firstResponse.data.slice(0, 3).map(item => item.myCourseNo);
           const nickname = firstResponse.data.slice(0, 3).map(item => item.userNick);
           const noBoard = firstResponse.data.slice(0, 3).map(item => item.boardNo);
@@ -218,7 +218,7 @@ function MainUpper({ token }) {
 
           for (let i = 0; i < myCourseNo.length; i++) {
               const courseNo = myCourseNo[i];
-              const secondResponse = await axios.get(`https://3.36.27.202:4040/api/v1/recommend/${courseNo}`);
+              const secondResponse = await axios.get(`https://gangwonactivity.site/api/v1/recommend/${courseNo}`);
               const courseDetails = secondResponse.data.slice(0, 4).map(imageObj => ({
                   placeTitle: imageObj.placeTitle,
                   firstImage2: imageObj.firstImage2,

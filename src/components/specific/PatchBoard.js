@@ -19,7 +19,7 @@ function EditPostBoard() {
     useEffect(() => {
         // 기존 글 데이터 가져오기
         const token = localStorage.getItem('token');
-        axios.get(`https://3.36.27.202:4040/api/v1/board/${boardNo}`, {
+        axios.get(`https://gangwonactivity.site/api/v1/board/${boardNo}`, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
@@ -48,7 +48,7 @@ function EditPostBoard() {
 
     const getImgUrl = () => {
         const token = localStorage.getItem('token');
-        axios.get(`https://3.36.27.202:4040/api/v1/board/image/${boardNo}`, {
+        axios.get(`https://gangwonactivity.site/api/v1/board/image/${boardNo}`, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
@@ -89,7 +89,7 @@ function EditPostBoard() {
 
         try {
             const token = localStorage.getItem('token'); // 토큰 가져오기
-            const response = await axios.post('https://3.36.27.202:4040/file/upload', formData, {
+            const response = await axios.post('https://gangwonactivity.site/file/upload', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     Authorization: `Bearer ${token}`
@@ -113,7 +113,7 @@ function EditPostBoard() {
             }
             await axios({
                 method: 'delete',
-                url: 'https://3.36.27.202:4040/file/delete',
+                url: 'https://gangwonactivity.site/file/delete',
                 headers: {
                     Authorization: `Bearer ${token}`, // 백틱(`) 사용
                     'Content-Type': 'application/json'
@@ -148,7 +148,7 @@ function EditPostBoard() {
     const handleSubmit = () => {
         const token = localStorage.getItem('token');
 
-        axios.patch(`https://3.36.27.202:4040/api/v1/board/patch/${boardNo}`, {
+        axios.patch(`https://gangwonactivity.site/api/v1/board/patch/${boardNo}`, {
             title: boardTitle,
             content: content,
             boardImageList: fileUrls // 새 이미지 URL만 전송
@@ -183,7 +183,7 @@ function EditPostBoard() {
     const handleCourseSelect = (courseInfo) => {
         console.log('선택된 코스 정보:', courseInfo);
        
-        axios.patch(`https://3.36.27.202:4040/api/v1/board/updatemycourse/${boardNo}`, {
+        axios.patch(`https://gangwonactivity.site/api/v1/board/updatemycourse/${boardNo}`, {
             myCourseNo: courseInfo[0].myCourseNo
         })
 
@@ -198,7 +198,7 @@ function EditPostBoard() {
 
     const courseDelete = () => {
         const token = localStorage.getItem('token');
-        axios.patch(`https://3.36.27.202:4040/api/v1/board/deletemycourse/${boardNo}`, {
+        axios.patch(`https://gangwonactivity.site/api/v1/board/deletemycourse/${boardNo}`, {
             boardNo: boardNo
         }, {
             headers: {
