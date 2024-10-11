@@ -18,10 +18,6 @@ RUN npm run build
 # Step 2: Serve the built app with Nginx
 FROM nginx:alpine
 
-# Copy SSL configuration files
-COPY /etc/letsencrypt/options-ssl-nginx.conf /etc/letsencrypt/options-ssl-nginx.conf
-COPY /etc/letsencrypt/ssl-dhparams.pem /etc/letsencrypt/ssl-dhparams.pem
-
 # Copy custom Nginx configuration file
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 

@@ -49,7 +49,7 @@ pipeline {
             agent any
             steps {
                 echo 'Docker Hub에 로그인 중...'
-                withCredentials([
+                withCredentials([ 
                     string(credentialsId: 'docker-hub-username', variable: 'DOCKER_HUB_USERNAME'),
                     string(credentialsId: 'docker-hub-password', variable: 'DOCKER_HUB_PASSWORD')
                 ]) {
@@ -65,8 +65,10 @@ pipeline {
             steps {
                 script {
                     try {
+                        // 기존 컨테이너가 실행 중이면 중지 및 제거
                         sh 'docker stop frontend-app || true && docker rm frontend-app || true'
-                        sh 'docker run -d --name frontend-app -p 443:443 ksuji/frontend-app:latest'
+                        // 프론트엔드 애플리케이션을 배포
+                        sh 'docker run -d --name frontend-app -p 80:80 ksuji/frontend-app:latest'
                     } catch (Exception e) {
                         echo "Deployment failed: ${e.message}"
                     }
