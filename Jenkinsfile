@@ -31,6 +31,12 @@ pipeline {
                 sh 'npm install'
                 sh 'CI=false npm run build'
             }
+            post {
+                success {
+                    // 빌드 결과물 아티팩트 저장
+                    archiveArtifacts artifacts: 'build/**/*', fingerprint: true
+                }
+            }
         }
 
         stage('Build Docker Image') {
