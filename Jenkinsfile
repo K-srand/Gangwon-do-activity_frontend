@@ -64,8 +64,12 @@ pipeline {
             agent any
             steps {
                 script {
-                    sh 'docker stop frontend-app || true && docker rm frontend-app || true'
-                    sh 'docker run -d --name frontend-app -p 80:80 ksuji/frontend-app:latest'
+                    try {
+                        sh 'docker stop frontend-app || true && docker rm frontend-app || true'
+                        sh 'docker run -d --name frontend-app -p 80:80 ksuji/frontend-app:latest'
+                    } catch (Exception e) {
+                        echo "Deployment failed: ${e.message}"
+                    }
                 }
             }
         }
