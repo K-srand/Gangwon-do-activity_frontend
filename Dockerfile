@@ -24,7 +24,7 @@ COPY nginx.conf /etc/nginx/conf.d/default.conf
 # Copy the built files from the previous stage
 COPY --from=build /app/build /usr/share/nginx/html
 
-# Expose port 80
+# Expose port 80 443
 EXPOSE 80 443
 
 # Start Nginx
