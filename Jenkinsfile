@@ -46,7 +46,7 @@ pipeline {
                     echo '도커 버전 확인 및 빌드'
                     sh 'docker --version'
                     echo "Docker 이미지를 빌드 중..."
-                    sh 'docker build -t ksuji/frontend-app:latest -f Dockerfile .'
+                    sh 'docker-compose build'  // Docker Compose로 이미지 빌드
                 }
             }
         }
@@ -71,20 +71,10 @@ pipeline {
             steps {
                 script {
                     try {
-                        // 기존 컨테이너가 실행 중이면 중지 및 제거
-                        sh 'docker stop frontend-app || true && docker rm frontend-app || true'
-                        // 프론트엔드 애플리케이션을 배포
-                        sh '''
-                            docker run -d \
-                            --name frontend-app \
-                            -p 80:80 -p 443:443 \
-                            -v /etc/letsencrypt/live/gangwonactivity.site/fullchain.pem:/etc/nginx/ssl/fullchain.pem \
-                            -v /etc/letsencrypt/live/gangwonactivity.site/privkey.pem:/etc/nginx/ssl/privkey.pem \
-                            -v /etc/letsencrypt/ssl-dhparams.pem:/etc/nginx/ssl/ssl-dhparams.pem \
-                            -v /etc/letsencrypt/options-ssl-nginx.conf:/etc/nginx/ssl/options-ssl-nginx.conf \
-                            ksuji/frontend-app:latest
-
-                        '''
+                        // 기존 서비스가 실행 중이면 중지 및 제거
+                        sh 'docker-compose down || true'
+                        // Docker Compose를 사용하여 애플리케이션 배포
+                        sh 'docker-compose up -d'
                     } catch (Exception e) {
                         echo "Deployment failed: ${e.message}"
                     }

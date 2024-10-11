@@ -6,12 +6,6 @@ WORKDIR /app
 # Copy only package.json and package-lock.json first to leverage Docker's cache
 COPY package.json package-lock.json ./
 
-# Copy SSL
-COPY /etc/letsencrypt/live/gangwonactivity.site/fullchain.pem /tmp/fullchain.pem
-COPY /etc/letsencrypt/live/gangwonactivity.site/privkey.pem /tmp/privkey.pem
-COPY /etc/letsencrypt/ssl-dhparams.pem /tmp/ssl-dhparams.pem
-COPY /etc/letsencrypt/options-ssl-nginx.conf /tmp/options-ssl-nginx.conf
-
 # Install dependencies only if package.json or package-lock.json changes
 RUN npm install
 
@@ -30,7 +24,7 @@ COPY nginx.conf /etc/nginx/conf.d/default.conf
 # Copy the built files from the previous stage
 COPY --from=build /app/build /usr/share/nginx/html
 
-# Expose port 80 443
+# Expose port 80 and 443
 EXPOSE 80 443
 
 # Start Nginx
