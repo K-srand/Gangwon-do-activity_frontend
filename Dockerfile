@@ -7,8 +7,8 @@ WORKDIR /app
 COPY package.json package-lock.json ./
 
 # Copy SSL
-COPY /etc/letsencrypt/archive/gangwonactivity.site/fullchain1.pem frontend-app:/tmp/fullchain.pem
-COPY /etc/letsencrypt/archive/gangwonactivity.site/privkey1.pem frontend-app:/tmp/privkey.pem
+COPY /etc/letsencrypt/live/gangwonactivity.site/fullchain.pem /tmp/fullchain.pem
+COPY /etc/letsencrypt/live/gangwonactivity.site/privkey.pem /tmp/privkey.pem
 
 # Install dependencies only if package.json or package-lock.json changes
 RUN npm install
