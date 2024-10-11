@@ -13,3 +13,4 @@ services:
       - /etc/letsencrypt/live/gangwonactivity.site/privkey.pem:/etc/nginx/ssl/privkey.pem
       - /etc/letsencrypt/ssl-dhparams.pem:/etc/nginx/ssl/ssl-dhparams.pem
       - /etc/letsencrypt/options-ssl-nginx.conf:/etc/nginx/ssl/options-ssl-nginx.conf
+      
