@@ -80,7 +80,10 @@ pipeline {
                             -p 80:80 -p 443:443 \
                             -v /etc/letsencrypt/live/gangwonactivity.site/fullchain.pem:/etc/nginx/ssl/fullchain.pem \
                             -v /etc/letsencrypt/live/gangwonactivity.site/privkey.pem:/etc/nginx/ssl/privkey.pem \
+                            -v /etc/letsencrypt/ssl-dhparams.pem:/etc/nginx/ssl/ssl-dhparams.pem \
+                            -v /etc/letsencrypt/options-ssl-nginx.conf:/etc/nginx/ssl/options-ssl-nginx.conf \
                             ksuji/frontend-app:latest
+
                         '''
                     } catch (Exception e) {
                         echo "Deployment failed: ${e.message}"

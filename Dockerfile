@@ -9,6 +9,8 @@ COPY package.json package-lock.json ./
 # Copy SSL
 COPY /etc/letsencrypt/live/gangwonactivity.site/fullchain.pem /tmp/fullchain.pem
 COPY /etc/letsencrypt/live/gangwonactivity.site/privkey.pem /tmp/privkey.pem
+COPY /etc/letsencrypt/ssl-dhparams.pem /tmp/ssl-dhparams.pem
+COPY /etc/letsencrypt/options-ssl-nginx.conf /tmp/options-ssl-nginx.conf
 
 # Install dependencies only if package.json or package-lock.json changes
 RUN npm install
