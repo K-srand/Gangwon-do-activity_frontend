@@ -8,15 +8,13 @@ const LoginDetail = () => {
     const [userId, setUserId] = useState('');
     const [userPassword, setUserPassword] = useState('');
     const navigate = useNavigate();
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
 
     useEffect(() => {
         const token = localStorage.getItem('token');
-        const storedUserId = localStorage.getItem('userId');
+        const storedUserId = localStorage.getItem('userId'); // userId도 함께 확인
 
         if (token && storedUserId) {
-            setIsAuthenticated(true);
-            navigate('/');
+          navigate('/');
         }
     }, [navigate]);
 
@@ -33,28 +31,27 @@ const LoginDetail = () => {
 
             localStorage.setItem('token', token);
             localStorage.setItem('userId', userIdFromResponse);
-            localStorage.setItem('userRole', userRole);
+            localStorage.setItem('userRole',userRole);
             console.log('Logged in successfully:', res);
 
-            setIsAuthenticated(true);
-
-            if (userRole === 'ROLE_ADMIN') {
+            if(userRole === 'ROLE_ADMIN'){
                 navigate('/Admin');
             } else {
                 navigate('/');
             }
-
+            
             window.location.reload();
         })
         .catch(function(error) {
             alert("로그인 정보가 틀렸습니다");
             console.error("There was an error!", error);
         });
-    };
+    }
 
     return (
         <div>
             <div className='login-modal-main'>
+                
                 <div className='login-modal-main-logo'>
                     <img src={logo} alt="Logo"></img>
                 </div>
@@ -84,7 +81,7 @@ const LoginDetail = () => {
                         />
 
                         <div className='login-modal-main-login-accept'>
-                            <button type="submit">로그인</button>
+                            <button className="login-detail-button" type="submit">로그인</button>
                         </div>
                     </form>
                 </div>

@@ -1,47 +1,49 @@
-.login-modal-main{
+/* 기본 .login-modal-main 스타일 */
+.login-modal-main {
     background-color: white;
-    padding : 10px;
-    width : 15%;
+    padding: 10px;
+    width: 40%;  /* 기본적으로 화면 크기에 따라 40%로 설정 */
     max-width: 1440px;
     min-height: 10%;
     height: 600px;
-    margin:  0 auto;
-    box-shadow: 0.2px 2px 10px 0.5px #0097FF ; 
+    margin: 0 auto;
+    box-shadow: 0.2px 2px 10px 0.5px #0097FF;
     border: #b1c7f0;
     border-radius: 15px;
-    gap : 24px;
+    gap: 24px;
     align-items: center;
-    position : absolute;
-    top : 25%;
-    left : 45%;
+    position: absolute;
+    top: 25%;
+    left: 50%;
+    transform: translateX(-50%); /* 중앙 정렬 */
 }
 
-.login-modal-main-logo{
-    height : 100px;
+/* 기본 로고 스타일 */
+.login-modal-main-logo {
+    height: 100px;
     background-color: rgb(231, 231, 231);
     width: 134px;
-    margin:  auto;
+    margin: auto;
     display: flex;
     border-radius: 5px;
-
 }
-.login-modal-main-logo .img{
+
+.login-modal-main-logo .img {
     height: 100%;
-    width : 100%;
-}
-.login-modal-main-login-textbox{
-height: 80px;
-line-height: 1.5;
-background-color: #D5E6F5;
-margin : 20px;
-border-radius: 5px;
-position: relative;
-
+    width: 100%;
 }
 
+/* 로그인 텍스트 박스 스타일 */
+.login-modal-main-login-textbox {
+    height: 80px;
+    line-height: 1.5;
+    background-color: #D5E6F5;
+    margin: 20px;
+    border-radius: 5px;
+    position: relative;
+}
 
-.login-modal-main-login-textbox .bold
-{
+.login-modal-main-login-textbox .bold {
     font-family: 'BMHANNAPro', sans-serif;
     font-size: 18px;
     position: absolute;
@@ -50,9 +52,7 @@ position: relative;
     margin: -30px 0 0 -40px;
 }
 
-
-
-.login-modal-main-login-textbox .detail{
+.login-modal-main-login-textbox .detail {
     position: absolute;
     font-family: 'BMHANNAAir', sans-serif;
     color: #0097FF;
@@ -63,14 +63,14 @@ position: relative;
     margin: 0px 0 0 -70px;
 }
 
-
+/* 폼 스타일 */
 form {
-    width: 40%;
-
+    width: 80%;  /* 화면에 맞게 너비를 조정 */
 }
 
+/* 레이블 스타일 */
 label {
-    width: 40%;
+    width: 100%;  /* 전체 너비로 설정 */
     display: block;
     margin-bottom: 10px;
     font-weight: bold;
@@ -80,20 +80,9 @@ label {
     font-size: 18px;
 }
 
-input[type="text"] {
-    width: 80%;
-    padding: 10px;
-    margin-bottom: 20px;
-    font-family: 'BMHANNAAir', sans-serif;
-    color: #000000;
-    border: none;
-    border-bottom: 1px solid #ccc;
-    box-sizing: border-box;
-    font-size: 15px;
-}
-
-input[type="password"] {
-    width: 80%;
+/* 텍스트 및 패스워드 입력 필드 */
+input[type="text"], input[type="password"] {
+    width: 85%;  /* 입력 필드가 화면 크기에 맞게 확장 */
     padding: 10px;
     margin-bottom: 20px;
     color: #000000;
@@ -103,17 +92,15 @@ input[type="password"] {
     font-size: 15px;
 }
 
-
-
-
+/* 포커스된 입력 필드 스타일 */
 input[type="text"]:focus, input[type="password"]:focus {
-    
     outline: none;
     border-bottom: 1px solid #000;
     color: #000000;
 }
 
-button {
+/* 로그인 버튼 스타일 */
+.login-detail-button {
     width: 50%;
     padding: 15px;
     background-color: white;
@@ -126,24 +113,22 @@ button {
     border-radius: 10px;
 }
 
-button:hover {
-    background-color: #f0f0f0;  
+.login-detail-button:hover {
+    background-color: #f0f0f0;
 }
 
-
-
-.login-modal-main-find{
+/* 링크 스타일 */
+.login-modal-main-find {
     justify-content: center;
     align-items: center;
-    gap : 0px;
+    gap: 0px;
 }
 
-
 .links {
-    margin-top: 10px; /* 링크 상단 여백 조정 */
+    margin-top: 10px;
     display: flex;
-    justify-content: center; 
-    gap: 20px; 
+    justify-content: center;
+    gap: 20px;
     width: 70%;
     margin: 10px auto;
 }
@@ -156,4 +141,52 @@ button:hover {
 
 .links a:hover {
     text-decoration: underline;
+}
+
+/* 모바일 및 작은 화면을 위한 반응형 */
+@media (max-width: 768px) {
+    .login-modal-main {
+        width: 80%;  /* 모바일 화면에서 더 넓은 비율 */
+        height: auto;  /* 높이를 자동으로 조정 */
+        top: 20%;
+        margin: 0 10px;  /* 모바일 화면에서 여백을 조금 더 좁게 설정 */
+    }
+
+    form {
+        width: 100%;  /* 폼 요소들이 화면을 꽉 채우도록 조정 */
+    }
+
+    label {
+        font-size: 16px;  /* 작은 화면에서 폰트 크기를 줄임 */
+    }
+
+    .login-modal-main-logo {
+        width: 120px;  /* 작은 화면에서 로고 크기 조정 */
+    }
+
+    .login-detail-button {
+        width: 100%;  /* 버튼을 화면 전체 너비로 확장 */
+        font-size: 16px;  /* 버튼 글자 크기 축소 */
+    }
+}
+
+/* 모바일 화면에서 더 작은 화면을 위한 스타일 */
+@media (max-width: 480px) {
+    .login-modal-main {
+        width: 90%;  /* 더 작은 화면에서 더 넓게 확장 */
+        height: auto;
+        top: 15%;
+    }
+
+    .login-modal-main-logo {
+        width: 100px;  /* 로고 크기 추가 축소 */
+    }
+
+    .login-detail-button {
+        font-size: 14px;  /* 버튼 글자 크기 축소 */
+    }
+
+    label {
+        font-size: 14px;  /* 레이블 폰트 크기 축소 */
+    }
 }
