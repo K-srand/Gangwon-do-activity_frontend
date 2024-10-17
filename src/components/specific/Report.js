@@ -35,7 +35,7 @@ function Report() {
     useEffect(() => {
         const fetchReportedData = async () => {
             try {
-                const response = await axios.get(API_DOMAIN + "/report/?page=${currentPage - 1}&size=15");
+                const response = await axios.get(API_DOMAIN + '/report/?page=${currentPage - 1}&size=15');
                 const pageData = response.data;
                 setReportedData(pageData.content);
                 setTotalPages(pageData.totalPages);
@@ -52,7 +52,7 @@ function Report() {
         if (window.confirm('삭제하시겠습니까?')) {
             try {
                 await Promise.all(selectedReports.map(reportedContentNo => 
-                    axios.delete(API_DOMAIN + "/report/delete/${reportedContentNo}")
+                    axios.delete(API_DOMAIN + '/report/delete/${reportedContentNo}')
                 ));
                 setReportedData(reportedData.filter(report => !selectedReports.includes(report.reportedContentNo)));
                 setSelectedReports([]);

@@ -54,7 +54,7 @@ const LoginDetail = () => {
     const oauth2 = () => {
         try {
             // URL을 직접 설정하여 리디렉션
-            window.location.href = API_DOMAIN + '/auth/oauth2/kakao';
+            window.location.href = API_DOMAIN + '/oauth2/kakao';
         } catch (error) {
             console.error('Error during redirection:', error);
         }

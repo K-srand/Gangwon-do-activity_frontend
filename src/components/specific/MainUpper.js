@@ -1,8 +1,6 @@
 import React, { useRef, useEffect, useState, useCallback } from 'react';
 import axios from "axios";
 import '../../assets/styles/MainPage.css';
-import leftArrow from '../../assets/images/MainLeftArrow.png';
-import rightArrow from '../../assets/images/MainRightArrow.png';
 import favorite from '../../assets/images/Favorite.png';
 import defaultImage from '../../assets/images/Icon_No_Image.png';
 import main from '../../assets/images/main.png';
@@ -124,18 +122,23 @@ function MainUpper({ token }) {
       });
 
       // 강원도 행정구역 데이터 레이어 호출
-      axios.get(DOMAIN + '/resources/json/gangwondo.json')
-        .then(response => {
-          const geojson = response.data;
-          map.data.addGeoJson(geojson);
-          map.data.setStyle({
-            fillColor: '#FFAF00',
-            fillOpacity: 0.4,
-            strokeColor: '#FFAF00',
-            strokeWeight: 2
-          });
-        })
-        .catch(error => console.error('Error fetching GeoJSON:', error));
+      axios.get(DOMAIN + '/resources/json/gangwondo.json', {
+        headers: {
+          'Cache-Control': 'no-cache',
+          'Pragma': 'no-cache'
+        }
+      })
+      .then(response => {
+        const geojson = response.data;
+        map.data.addGeoJson(geojson);
+        map.data.setStyle({
+          fillColor: '#FFAF00',
+          fillOpacity: 0.4,
+          strokeColor: '#FFAF00',
+          strokeWeight: 2
+        });
+      })
+      .catch(error => console.error('Error fetching GeoJSON:', error));
     }
   }, [locations, mapInitialized]);
 
@@ -213,7 +216,7 @@ function MainUpper({ token }) {
 
           for (let i = 0; i < myCourseNo.length; i++) {
               const courseNo = myCourseNo[i];
-              const secondResponse = await axios.get(API_DOMAIN + "/recommend/${courseNo}");
+              const secondResponse = await axios.get(API_DOMAIN + '/recommend/${courseNo}');
               const courseDetails = secondResponse.data.slice(0, 4).map(imageObj => ({
                   placeTitle: imageObj.placeTitle,
                   firstImage2: imageObj.firstImage2,

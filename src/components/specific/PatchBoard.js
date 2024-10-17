@@ -22,7 +22,7 @@ function EditPostBoard() {
     useEffect(() => {
         // 기존 글 데이터 가져오기
         const token = localStorage.getItem('token');
-        axios.get(API_DOMAIN + "/board/${boardNo}", {
+        axios.get(API_DOMAIN + '/board/${boardNo}', {
             headers: {
                 Authorization: `Bearer ${token}`
             }
@@ -51,7 +51,7 @@ function EditPostBoard() {
 
     const getImgUrl = () => {
         const token = localStorage.getItem('token');
-        axios.get(API_DOMAIN + "/image/${boardNo}", {
+        axios.get(API_DOMAIN + '/image/${boardNo}', {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
@@ -151,7 +151,7 @@ function EditPostBoard() {
     const handleSubmit = () => {
         const token = localStorage.getItem('token');
 
-        axios.patch(API_DOMAIN + "/patch/${boardNo}", {
+        axios.patch(API_DOMAIN + '/patch/${boardNo}', {
             title: boardTitle,
             content: content,
             boardImageList: fileUrls // 새 이미지 URL만 전송
@@ -186,7 +186,7 @@ function EditPostBoard() {
     const handleCourseSelect = (courseInfo) => {
         console.log('선택된 코스 정보:', courseInfo);
        
-        axios.patch(API_DOMAIN + "/updatemycourse/${boardNo}", {
+        axios.patch(API_DOMAIN + '/updatemycourse/${boardNo}', {
             myCourseNo: courseInfo[0].myCourseNo
         })
 
@@ -201,7 +201,7 @@ function EditPostBoard() {
 
     const courseDelete = () => {
         const token = localStorage.getItem('token');
-        axios.patch(API_DOMAIN + "/deletemycourse/${boardNo}", {
+        axios.patch(API_DOMAIN + '/deletemycourse/${boardNo}', {
             boardNo: boardNo
         }, {
             headers: {
