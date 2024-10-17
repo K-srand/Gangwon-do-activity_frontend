@@ -209,7 +209,7 @@ const MyPage = () => {
 
   const handleDelete = async (placeNo) => {
     try {
-      const response = await axios.delete(API_DOMAIN + '/mypage/delete/${placeNo}', {
+      const response = await axios.delete(API_DOMAIN + `/mypage/delete/${placeNo}`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
 
@@ -226,7 +226,7 @@ const MyPage = () => {
 
   const courseDelete = async (myCourseNo) => {
     try {
-      const response = await axios.delete(API_DOMAIN + '/mypage/deletemycourse/${myCourseNo}', {
+      const response = await axios.delete(API_DOMAIN + `/mypage/deletemycourse/${myCourseNo}`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
 

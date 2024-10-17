@@ -36,7 +36,7 @@ function Community() {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const response = await axios.get(API_DOMAIN + '/?page=${currentPage -1}&size=6');
+        const response = await axios.get(API_DOMAIN + `/?page=${currentPage -1}&size=6`);
 
         const pageData = response.data; // 페이지 정보 추출
         setTotalPages(pageData.totalPages);

@@ -32,7 +32,7 @@ function AllUserList() {
 
     useEffect(() => {
         // API 호출하여 사용자 데이터 가져오기
-        fetch(API_DOMAIN + '/getuserlist?page=${currentPage - 1}&size=15')
+        fetch(API_DOMAIN + `/getuserlist?page=${currentPage - 1}&size=15`)
             .then(response => response.json())
             .then(data => {
                 if (data && data.content) {

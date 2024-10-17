@@ -38,7 +38,7 @@ function Recommend(){
 
             for (let i = 0; i < myCourseNo.length; i++) {
                 const courseNo = myCourseNo[i];
-                const secondResponse = await axios.get(API_DOMAIN + '/${courseNo}');
+                const secondResponse = await axios.get(API_DOMAIN + `/${courseNo}`);
                 const courseDetails = secondResponse.data.slice(0, 4).map(imageObj => ({
                     placeTitle: imageObj.placeTitle,
                     firstImage2: imageObj.firstImage2,

@@ -89,6 +89,7 @@ function MainUpper({ token }) {
     if (locations.length > 0 && window.naver && mapInitialized) {
       const { naver } = window;
 
+      // 초기 위치 설정
       const initialLocation = new naver.maps.LatLng(37.8304115, 128.2260705);
       const options = {
         center: initialLocation,
@@ -96,6 +97,7 @@ function MainUpper({ token }) {
       };
       const map = new naver.maps.Map(mapContainer.current, options);
 
+      // 마커 추가
       locations.forEach(location => {
         const markerPosition = new naver.maps.LatLng(location.mapy, location.mapx);
         const marker = new naver.maps.Marker({
@@ -104,21 +106,20 @@ function MainUpper({ token }) {
           title: location.placeTitle
         });
         
-        // 플레이스 타이틀 호출
+        // 마커 클릭 이벤트 추가
         naver.maps.Event.addListener(marker, 'click', () => {
           axios.post(API_DOMAIN + '/getjson/getplacetitle', {
             placeTitle: location.placeTitle,
             placeMapx: location.mapx,
             placeMapy: location.mapy
           })
-            .then(response => {
-              console.log(response.data);
-            })
-            .catch(error => {
-              console.error('There was an error!', error);
-            });
+          .then(response => {
+            console.log(response.data);
+          })
+          .catch(error => {
+            console.error('There was an error!', error);
+          });
         });
-
       });
 
       // 강원도 행정구역 데이터 레이어 호출
@@ -130,17 +131,30 @@ function MainUpper({ token }) {
       })
       .then(response => {
         const geojson = response.data;
-        map.data.addGeoJson(geojson);
-        map.data.setStyle({
-          fillColor: '#FFAF00',
-          fillOpacity: 0.4,
-          strokeColor: '#FFAF00',
-          strokeWeight: 2
-        });
+
+        // GeoJSON 데이터를 맵에 추가
+        if (geojson) {
+          map.data.addGeoJson(geojson);
+
+          // 스타일 설정
+          map.data.setStyle({
+            fillColor: '#FFAF00',
+            fillOpacity: 0.4,
+            strokeColor: '#FFAF00',
+            strokeWeight: 2
+          });
+
+          console.log('GeoJSON successfully loaded and added to the map.');
+        } else {
+          console.error('GeoJSON data is empty or undefined.');
+        }
       })
-      .catch(error => console.error('Error fetching GeoJSON:', error));
+      .catch(error => {
+        console.error('Error fetching GeoJSON:', error);
+      });
     }
   }, [locations, mapInitialized]);
+
 
   useEffect(() => {
     if (mapInitialized && locations.length > 0) {
@@ -216,7 +230,7 @@ function MainUpper({ token }) {
 
           for (let i = 0; i < myCourseNo.length; i++) {
               const courseNo = myCourseNo[i];
-              const secondResponse = await axios.get(API_DOMAIN + '/recommend/${courseNo}');
+              const secondResponse = await axios.get(API_DOMAIN + `/recommend/${courseNo}`);
               const courseDetails = secondResponse.data.slice(0, 4).map(imageObj => ({
                   placeTitle: imageObj.placeTitle,
                   firstImage2: imageObj.firstImage2,

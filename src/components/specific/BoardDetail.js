@@ -65,7 +65,7 @@ function BoardDetail() {
     const fetchComments = async () => {
         const token = localStorage.getItem('token');
         try {
-            const response = await axios.get(API_DOMAIN + '/board/commentList/${boardNo}?page=${currentPage - 1}&size=5', {
+            const response = await axios.get(API_DOMAIN + `/board/commentList/${boardNo}?page=${currentPage - 1}&size=5`, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -128,7 +128,7 @@ function BoardDetail() {
     const getBoardDetail = () => {
         const token = localStorage.getItem('token');
     
-        axios.get(API_DOMAIN + '/board/${boardNo}', {
+        axios.get(API_DOMAIN + `/board/${boardNo}`, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
@@ -165,7 +165,7 @@ function BoardDetail() {
 
     const getImgUrl = () => {
         const token = localStorage.getItem('token');
-        axios.get(API_DOMAIN + '/board/image/${boardNo}', {
+        axios.get(API_DOMAIN + `/board/image/${boardNo}`, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
@@ -205,7 +205,7 @@ function BoardDetail() {
         }
 
         const token = localStorage.getItem('token');
-        axios.patch(API_DOMAIN + '/board/delete/${boardNo}', {}, {
+        axios.patch(API_DOMAIN + `/board/delete/${boardNo}`, {}, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
@@ -225,7 +225,7 @@ function BoardDetail() {
 
     const handleCommentSubmit = () => {
         const token = localStorage.getItem('token');
-        axios.post(API_DOMAIN + '/board/comment/${boardNo}', {
+        axios.post(API_DOMAIN + `/board/comment/${boardNo}`, {
             content: newComment
         }, {
             headers: {
@@ -257,7 +257,7 @@ function BoardDetail() {
 
         const token = localStorage.getItem('token');
         try {
-            const response = await axios.post(API_DOMAIN + '/report/comment/${commentNo}', {}, {
+            const response = await axios.post(API_DOMAIN + `/report/comment/${commentNo}`, {}, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -282,7 +282,7 @@ function BoardDetail() {
 
         if (isLiked) {
             // 좋아요 취소
-            axios.post(API_DOMAIN + '/board/like/${boardNo}', {}, {
+            axios.post(API_DOMAIN + `/board/like/${boardNo}`, {}, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -298,7 +298,7 @@ function BoardDetail() {
             });
         } else {
             // 좋아요
-            axios.post(API_DOMAIN + '/board/like/${boardNo}', {}, {
+            axios.post(API_DOMAIN + `/board/like/${boardNo}`, {}, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -321,7 +321,7 @@ function BoardDetail() {
 
         if (isDisliked) {
             // 싫어요 취소
-            axios.post(API_DOMAIN + '/board/dislike/${boardNo}', {}, {
+            axios.post(API_DOMAIN + `/board/dislike/${boardNo}`, {}, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -337,7 +337,7 @@ function BoardDetail() {
             });
         } else {
             // 싫어요
-            axios.post(API_DOMAIN + '/board/dislike/${boardNo}', {}, {
+            axios.post(API_DOMAIN + `/board/dislike/${boardNo}`, {}, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -369,7 +369,7 @@ function BoardDetail() {
 
         const token = localStorage.getItem('token');
         try {
-            const response = await axios.post(API_DOMAIN + '/report/board/${boardNo}', {}, {
+            const response = await axios.post(API_DOMAIN + `/report/board/${boardNo}`, {}, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }

@@ -35,7 +35,7 @@ function Report() {
     useEffect(() => {
         const fetchReportedData = async () => {
             try {
-                const response = await axios.get(API_DOMAIN + '/report/?page=${currentPage - 1}&size=15');
+                const response = await axios.get(API_DOMAIN + `/report/?page=${currentPage - 1}&size=15`);
                 const pageData = response.data;
                 setReportedData(pageData.content);
                 setTotalPages(pageData.totalPages);
