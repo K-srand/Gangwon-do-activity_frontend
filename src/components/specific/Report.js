@@ -14,6 +14,9 @@ function Report() {
     const [totalPages, setTotalPages] = useState(0);
     const [currentPage, setCurrentPage] = useState(page);
 
+    const DOMAIN = 'https://gangwonactivity.site';
+    const API_DOMAIN = DOMAIN + '/api/v1';
+
     useEffect(() => {
         const token = localStorage.getItem('token');
         const userRole = localStorage.getItem('userRole');
@@ -32,7 +35,7 @@ function Report() {
     useEffect(() => {
         const fetchReportedData = async () => {
             try {
-                const response = await axios.get(`https://gangwonactivity.site/api/v1/report/?page=${currentPage - 1}&size=15`);
+                const response = await axios.get(API_DOMAIN + "/report/?page=${currentPage - 1}&size=15");
                 const pageData = response.data;
                 setReportedData(pageData.content);
                 setTotalPages(pageData.totalPages);
@@ -49,7 +52,7 @@ function Report() {
         if (window.confirm('삭제하시겠습니까?')) {
             try {
                 await Promise.all(selectedReports.map(reportedContentNo => 
-                    axios.delete(`https://gangwonactivity.site/api/v1/report/delete/${reportedContentNo}`)
+                    axios.delete(API_DOMAIN + "/report/delete/${reportedContentNo}")
                 ));
                 setReportedData(reportedData.filter(report => !selectedReports.includes(report.reportedContentNo)));
                 setSelectedReports([]);
@@ -87,7 +90,7 @@ function Report() {
         if (window.confirm('해당 콘텐츠를 제재하시겠습니까?')) {
             try {
                 await Promise.all(selectedReports.map(reportedContentNo => {
-                    return axios.patch('https://gangwonactivity.site/api/v1/admin/sanctioncontent', reportedContentNo, {
+                    return axios.patch(API_DOMAIN + '/admin/sanctioncontent', reportedContentNo, {
                         headers: {
                             'Content-Type': 'application/json'
                         }
@@ -107,7 +110,7 @@ function Report() {
         if (window.confirm('해당 콘텐츠를 제재 해제하시겠습니까?')) {
             try {
                 await Promise.all(selectedReports.map(reportedContentNo => {
-                    return axios.patch('https://gangwonactivity.site/api/v1/admin/desanctioncontent', reportedContentNo, {
+                    return axios.patch(API_DOMAIN + '/admin/desanctioncontent', reportedContentNo, {
                         headers: {
                             'Content-Type': 'application/json'
                         }

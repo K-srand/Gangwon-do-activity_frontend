@@ -6,6 +6,8 @@ import logo from '../../assets/images/MainLogo.png'; // 로고 import 추가
 function Withdraw() {
   const [userId, setUserId] = useState('');
   const navigate = useNavigate();
+  const DOMAIN = 'https://gangwonactivity.site';
+  const API_DOMAIN = DOMAIN + '/api/v1';
 
   const handleInputChange = (e) => {
     setUserId(e.target.value);
@@ -16,7 +18,7 @@ function Withdraw() {
 
     try {
       const token = localStorage.getItem('token'); // 로컬 저장소에서 토큰 가져오기
-      const response = await axios.post('https://gangwonactivity.site/api/v1/mypage/deleteuser', {
+      const response = await axios.post(API_DOMAIN + '/mypage/deleteuser', {
         userId: userId
       }, {
         headers: {

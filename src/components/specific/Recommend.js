@@ -9,11 +9,13 @@ function Recommend(){
     const [myCourse, setMyCourse] = useState([]);
     const [userNick, setUserNick] = useState([]);
     const [boardNo, setBoardNo] = useState([]);
+    const DOMAIN = 'https://gangwonactivity.site';
+    const API_DOMAIN = DOMAIN + '/api/v1/recommend';
 
     // 첫 번째 요청을 보내는 비동기 함수를 정의합니다.
     const fetchFirstData = async () => {
         try {
-            const firstResponse = await axios.post('https://gangwonactivity.site/api/v1/recommend', {});
+            const firstResponse = await axios.post(API_DOMAIN, {});
             const courseNo = firstResponse.data.slice(0, 3).map(item => item.myCourseNo);
             const nickname = firstResponse.data.slice(0, 3).map(item => item.userNick);
             const noBoard = firstResponse.data.slice(0, 3).map(item => item.boardNo);
@@ -36,7 +38,7 @@ function Recommend(){
 
             for (let i = 0; i < myCourseNo.length; i++) {
                 const courseNo = myCourseNo[i];
-                const secondResponse = await axios.get(`https://gangwonactivity.site/api/v1/recommend/${courseNo}`);
+                const secondResponse = await axios.get(API_DOMAIN + "/${courseNo}");
                 const courseDetails = secondResponse.data.slice(0, 4).map(imageObj => ({
                     placeTitle: imageObj.placeTitle,
                     firstImage2: imageObj.firstImage2,

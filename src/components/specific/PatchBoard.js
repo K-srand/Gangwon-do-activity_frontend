@@ -16,10 +16,13 @@ function EditPostBoard() {
     const [myCourse, setMyCourse] = useState([]);
     const [removeAddress, setRemoveAddress] = useState("");
 
+    const DOMAIN = 'https://gangwonactivity.site';
+    const API_DOMAIN = DOMAIN + '/api/v1/board';
+
     useEffect(() => {
         // 기존 글 데이터 가져오기
         const token = localStorage.getItem('token');
-        axios.get(`https://gangwonactivity.site/api/v1/board/${boardNo}`, {
+        axios.get(API_DOMAIN + "/board/${boardNo}", {
             headers: {
                 Authorization: `Bearer ${token}`
             }
@@ -48,7 +51,7 @@ function EditPostBoard() {
 
     const getImgUrl = () => {
         const token = localStorage.getItem('token');
-        axios.get(`https://gangwonactivity.site/api/v1/board/image/${boardNo}`, {
+        axios.get(API_DOMAIN + "/image/${boardNo}", {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
@@ -89,7 +92,7 @@ function EditPostBoard() {
 
         try {
             const token = localStorage.getItem('token'); // 토큰 가져오기
-            const response = await axios.post('https://gangwonactivity.site/file/upload', formData, {
+            const response = await axios.post(DOMAIN + '/file/upload', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     Authorization: `Bearer ${token}`
@@ -113,7 +116,7 @@ function EditPostBoard() {
             }
             await axios({
                 method: 'delete',
-                url: 'https://gangwonactivity.site/file/delete',
+                url: DOMAIN + '/file/delete',
                 headers: {
                     Authorization: `Bearer ${token}`, // 백틱(`) 사용
                     'Content-Type': 'application/json'
@@ -148,7 +151,7 @@ function EditPostBoard() {
     const handleSubmit = () => {
         const token = localStorage.getItem('token');
 
-        axios.patch(`https://gangwonactivity.site/api/v1/board/patch/${boardNo}`, {
+        axios.patch(API_DOMAIN + "/patch/${boardNo}", {
             title: boardTitle,
             content: content,
             boardImageList: fileUrls // 새 이미지 URL만 전송
@@ -183,7 +186,7 @@ function EditPostBoard() {
     const handleCourseSelect = (courseInfo) => {
         console.log('선택된 코스 정보:', courseInfo);
        
-        axios.patch(`https://gangwonactivity.site/api/v1/board/updatemycourse/${boardNo}`, {
+        axios.patch(API_DOMAIN + "/updatemycourse/${boardNo}", {
             myCourseNo: courseInfo[0].myCourseNo
         })
 
@@ -198,7 +201,7 @@ function EditPostBoard() {
 
     const courseDelete = () => {
         const token = localStorage.getItem('token');
-        axios.patch(`https://gangwonactivity.site/api/v1/board/deletemycourse/${boardNo}`, {
+        axios.patch(API_DOMAIN + "/deletemycourse/${boardNo}", {
             boardNo: boardNo
         }, {
             headers: {

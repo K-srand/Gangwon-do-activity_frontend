@@ -17,10 +17,12 @@ const CreateMyCourse = ({ token }) => {
     const markersRef = useRef([]);
     const [userId, setUserId] = useState(null);
     const pathData = useRef([]);
+    const DOMAIN = 'https://gangwonactivity.site';
+    const API_DOMAIN = DOMAIN + '/api/v1';
 
     //로그인 확인
     useEffect(() => {
-        axios.get('https://gangwonactivity.site/api/v1/user', {
+        axios.get(API_DOMAIN + '/user', {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
@@ -36,7 +38,7 @@ const CreateMyCourse = ({ token }) => {
 
     //전체 찜 리스트 출력
     useEffect(() => {
-        axios.post('https://gangwonactivity.site/api/v1/getmycourse/getplacetotal', {
+        axios.post(API_DOMAIN + '/getmycourse/getplacetotal', {
             userId: userId
         })
         .then(response => {
@@ -47,11 +49,11 @@ const CreateMyCourse = ({ token }) => {
             console.error('오류가 발생했습니다!', error);
             alert('찜 리스트를 가져오는 데 오류가 발생했습니다.');
         });
-    }, []);
+    }, [userId]);
 
     //카테고리별 찜 리스트 출력
     const category = (value) => {
-        axios.post('https://gangwonactivity.site/api/v1/getmycourse/getplacecat', {
+        axios.post(API_DOMAIN + '/getmycourse/getplacecat', {
             userId: userId,
             placeCat: value
         })
@@ -133,7 +135,7 @@ const CreateMyCourse = ({ token }) => {
             mapRef.current = map;
         };
 
-        axios.get('https://gangwonactivity.site/api/v1/getmap')
+        axios.get(API_DOMAIN + '/getmap')
             .then(response => {
                 const script = document.createElement('script');
                 script.type = 'text/javascript';
@@ -207,7 +209,7 @@ const CreateMyCourse = ({ token }) => {
             const end = images[i + 1];
 
             durationPromises.push(
-                axios.post('https://gangwonactivity.site/api/v1/getdrive', {
+                axios.post(API_DOMAIN + '/getdrive', {
                     startLat: start.mapy,
                     startLng: start.mapx,
                     endLat: end.mapy,
@@ -271,7 +273,7 @@ const CreateMyCourse = ({ token }) => {
 
         console.log('Course Data:', courseData);
 
-        axios.post('https://gangwonactivity.site/api/v1/getmycourse/getcourse', {
+        axios.post(API_DOMAIN + '/getmycourse/getcourse', {
             userId: userId,
             courseData: courseData
         })
@@ -402,8 +404,8 @@ const CreateMyCourse = ({ token }) => {
                 </div>
 
                 <div className='CreateMyCourseConfirm'>
-                    <button onClick={saveSelectedImages}>저장</button>
-                    <button onClick={clearSelectedImages}>취소</button>
+                    <button type="button" className="btn btn-primary" onClick={saveSelectedImages}>저장</button>
+                    <button type="button" className="btn btn-primary" onClick={clearSelectedImages}>취소</button>
                 </div>
             </div>
 

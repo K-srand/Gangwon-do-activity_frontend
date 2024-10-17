@@ -12,6 +12,8 @@ function AllUserList() {
     const [selectedUsers, setSelectedUsers] = useState([]);
     const [totalPages, setTotalPages] = useState(0); // 전체 페이지 수
     const [currentPage, setCurrentPage] = useState(page); // 현재 페이지 설정
+    const DOMAIN = 'https://gangwonactivity.site';
+    const API_DOMAIN = DOMAIN + '/api/v1/admin';
 
     useEffect(() => {
         const token = localStorage.getItem('token');
@@ -30,7 +32,7 @@ function AllUserList() {
 
     useEffect(() => {
         // API 호출하여 사용자 데이터 가져오기
-        fetch(`https://gangwonactivity.site/api/v1/admin/getuserlist?page=${currentPage - 1}&size=15`)
+        fetch(API_DOMAIN + "/getuserlist?page=${currentPage - 1}&size=15")
             .then(response => response.json())
             .then(data => {
                 if (data && data.content) {
@@ -64,7 +66,7 @@ function AllUserList() {
         if (window.confirm('해당 유저를 제재하시겠습니까?')) {
             try {
                 await Promise.all(selectedUsers.map(userNo =>
-                    fetch('https://gangwonactivity.site/api/v1/admin/sanction', {
+                    fetch(API_DOMAIN + '/sanction', {
                         method: 'PATCH',
                         headers: {
                             'Content-Type': 'application/json',
@@ -87,7 +89,7 @@ function AllUserList() {
             try {
                 await Promise.all(selectedUsers.map(userNo => {
                     const user = userList.find(user => user.userNo === userNo);
-                    return fetch('https://gangwonactivity.site/api/v1/admin/reuser', {
+                    return fetch(API_DOMAIN + '/reuser', {
                         method: 'PATCH',
                         headers: {
                             'Content-Type': 'application/json',
@@ -109,7 +111,7 @@ function AllUserList() {
         if (window.confirm('선택된 유저를 제재 해제하시겠습니까?')) {
             try {
                 await Promise.all(selectedUsers.map(userNo =>
-                    fetch('https://gangwonactivity.site/api/v1/admin/desanction', {
+                    fetch(API_DOMAIN + '/desanction', {
                         method: 'PATCH',
                         headers: {
                             'Content-Type': 'application/json',

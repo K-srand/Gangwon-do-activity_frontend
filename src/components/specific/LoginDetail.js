@@ -3,11 +3,14 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import '../../assets/styles/LoginDetail.css';
 import logo from '../../assets/images/MainLogo.png';
+import kakaoicon from '../../assets/images/kakao.png';
 
 const LoginDetail = () => {
     const [userId, setUserId] = useState('');
     const [userPassword, setUserPassword] = useState('');
     const navigate = useNavigate();
+    const DOMAIN = 'https://gangwonactivity.site';
+    const API_DOMAIN = DOMAIN + '/api/v1/auth';
 
     useEffect(() => {
         const token = localStorage.getItem('token');
@@ -20,7 +23,7 @@ const LoginDetail = () => {
 
     const handleLogin = (e) => {
         e.preventDefault();
-        axios.post('https://gangwonactivity.site/api/v1/auth/sign-in', {
+        axios.post(API_DOMAIN + '/sign-in', {
             userId: userId,
             userPassword: userPassword
         })
@@ -47,6 +50,15 @@ const LoginDetail = () => {
             console.error("There was an error!", error);
         });
     }
+
+    const oauth2 = () => {
+        try {
+            // URL을 직접 설정하여 리디렉션
+            window.location.href = API_DOMAIN + '/auth/oauth2/kakao';
+        } catch (error) {
+            console.error('Error during redirection:', error);
+        }
+    };
 
     return (
         <div>
@@ -83,6 +95,7 @@ const LoginDetail = () => {
                         <div className='login-modal-main-login-accept'>
                             <button className="login-detail-button" type="submit">로그인</button>
                         </div>
+                        
                     </form>
                 </div>
 
@@ -91,6 +104,10 @@ const LoginDetail = () => {
                         <a href="/findid">아이디 찾기 </a>
                         <a href="/findpassword">비밀번호 찾기</a>
                     </div>
+                </div>
+
+                <div className="index">
+                    <img className='kakaoicon' src={kakaoicon} alt='kakaoicon' onClick={oauth2}></img>
                 </div>
             </div>
         </div>

@@ -25,6 +25,9 @@ function Modify() {
   const [isPasswordConfirmed, setIsPasswordConfirmed] = useState(false); // 비밀번호 확인 상태 추가
   const [isNickChecked, setIsNickChecked] = useState(false); // 닉네임 체크 여부 상태 추가, 초기값 false로 설정
 
+  const DOMAIN = 'https://gangwonactivity.site';
+  const API_DOMAIN = DOMAIN + '/api/v1';
+
   useEffect(() => {
     // LocalStorage에서 토큰 가져오기
     const token = localStorage.getItem('token');
@@ -32,7 +35,7 @@ function Modify() {
     // API 요청을 통해 사용자 데이터를 가져옴
     const fetchUserData = async () => {
       try {
-        const response = await axios.get('https://gangwonactivity.site/api/v1/mypage/userinfo', {
+        const response = await axios.get(API_DOMAIN + '/mypage/userinfo', {
           headers: {
             Authorization: `Bearer ${token}`
           }
@@ -69,7 +72,7 @@ function Modify() {
   const handlePasswordCheck = async () => {
     const token = localStorage.getItem('token');
     try {
-      const response = await axios.post('https://gangwonactivity.site/api/v1/mypage/checkpassword', {
+      const response = await axios.post(API_DOMAIN + '/mypage/checkpassword', {
         userPassword: formData.userPassword
       }, {
         headers: {
@@ -101,7 +104,7 @@ function Modify() {
       return;
     }
     try {
-      const response = await axios.post('https://gangwonactivity.site/api/v1/auth/check-nickname', {
+      const response = await axios.post(API_DOMAIN + '/auth/check-nickname', {
         userNick: formData.userNick
       }, {
         headers: {
@@ -130,7 +133,7 @@ function Modify() {
       return;
     }
     try {
-      const response = await axios.patch('https://gangwonactivity.site/api/v1/mypage/modify', {
+      const response = await axios.patch(API_DOMAIN + '/mypage/modify', {
         userId: formData.userId,
         userPassword: formData.userNewPassword,
         userNick: formData.userNick

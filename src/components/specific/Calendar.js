@@ -5,11 +5,13 @@ import '../../assets/styles/Weather.css';
 const Calendar = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [weatherData, setWeatherData] = useState([]);
+  const DOMAIN = 'https://gangwonactivity.site';
+  const API_DOMAIN = DOMAIN + '/api/v1';
 
   useEffect(() => {
     const fetchWeatherData = async () => {
       try {
-        const response = await fetch('https://gangwonactivity.site/api/v1/weather/data'); // 백엔드 서버 URL과 포트를 명시
+        const response = await fetch(API_DOMAIN + '/weather/data'); // 백엔드 서버 URL과 포트를 명시
         const data = await response.json();
         if (Array.isArray(data)) {
           setWeatherData(data);

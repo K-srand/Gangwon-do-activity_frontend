@@ -82,8 +82,9 @@
     align-items: center;
     justify-content: center;
     padding: 50px;
-    left: 13%;
+    left: 17%;
     margin: 30px;
+    margin-top: 50px;
 }
 
 .CreateMyCourseImageList img {
@@ -219,7 +220,7 @@
     position: relative;
     display: flex;
     align-items: center;
-    left: 30%;
+    left: 25%;
     margin-top: 100px;
 }
 
@@ -255,9 +256,9 @@
     background: white;
     border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    height: 150px;
+    height: 270px;
     width: 840px;
-    padding: 60px;
+    padding: 30px;
 }
 
 .CourseItem {
@@ -290,6 +291,7 @@
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
     transition: transform 0.3s ease, box-shadow 0.3s ease; 
     overflow: hidden;
+    margin-top: 50px;
 }
 
 .FavoritePlaceListImageContainer:hover {

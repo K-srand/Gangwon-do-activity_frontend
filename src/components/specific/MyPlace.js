@@ -5,9 +5,11 @@ import axios from 'axios';
 const MyPlace = () => {
     const [images, setImages] = useState([]);
     const [selectedImages, setSelectedImages] = useState([]);
+    const DOMAIN = 'https://gangwonactivity.site';
+    const API_DOMAIN = DOMAIN + '/api/v1';
 
     const category = (value) => {
-        axios.post('https://gangwonactivity.site/api/v1/getmycourse/getplacecat', {
+        axios.post(API_DOMAIN + '/getmycourse/getplacecat', {
             placeCat: value
         })
         .then(response => {

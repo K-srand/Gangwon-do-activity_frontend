@@ -19,6 +19,9 @@ const PaginatedList = ({ title, fetchUrl, renderItem, itemsPerPage }) => {
   const [totalPages, setTotalPages] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
 
+  const DOMAIN = 'https://gangwonactivity.site';
+  const API_DOMAIN = DOMAIN + '/api/v1';
+
   useEffect(() => {
     fetchData(currentPage);
   }, [currentPage]);
@@ -207,7 +210,7 @@ const MyPage = () => {
 
   const handleDelete = async (placeNo) => {
     try {
-      const response = await axios.delete(`https://gangwonactivity.site/api/v1/mypage/delete/${placeNo}`, {
+      const response = await axios.delete(API_DOMAIN + "/mypage/delete/${placeNo}", {
         headers: { 'Authorization': `Bearer ${token}` }
       });
 
@@ -224,7 +227,7 @@ const MyPage = () => {
 
   const courseDelete = async (myCourseNo) => {
     try {
-      const response = await axios.delete(`https://gangwonactivity.site/api/v1/mypage/deletemycourse/${myCourseNo}`, {
+      const response = await axios.delete(API_DOMAIN + "/mypage/deletemycourse/${myCourseNo}", {
         headers: { 'Authorization': `Bearer ${token}` }
       });
 
@@ -278,7 +281,7 @@ const MyPage = () => {
 
   const getRank = async () => {
     try {
-      const response = await axios.get(`https://gangwonactivity.site/api/v1/mypage/exp`, {
+      const response = await axios.get(API_DOMAIN + "/mypage/exp", {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       const expUser = response.data;
@@ -337,19 +340,19 @@ const MyPage = () => {
     
       <PaginatedList 
         title="내가 쓴 글"
-        fetchUrl="https://gangwonactivity.site/api/v1/mypage/getmyboardlist"
+        fetchUrl= {API_DOMAIN + "/mypage/getmyboardlist"}
         renderItem={renderMyPostItem}
         itemsPerPage={5}
       />
       <PaginatedList3 
         title="내가 찜한 곳"
-        fetchUrl="https://gangwonactivity.site/api/v1/mypage/getmyfavoritelist"
+        fetchUrl={API_DOMAIN + "/mypage/getmyfavoritelist"}
         renderItem={renderFavoriteItem}
         itemsPerPage={4}
       />
       <PaginatedList2 
         title="나만의 코스"
-        fetchUrl="https://gangwonactivity.site/api/v1/mypage/mycourse"
+        fetchUrl={API_DOMAIN + "/mypage/mycourse"}
         renderItem={renderMyCourseItem}
         itemsPerPage={1}
       />

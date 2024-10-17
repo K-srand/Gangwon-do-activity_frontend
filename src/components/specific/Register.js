@@ -25,6 +25,9 @@ function Register() {
 
   const navigate = useNavigate();
 
+  const DOMAIN = 'https://gangwonactivity.site';
+  const API_DOMAIN = DOMAIN + '/api/v1/auth';
+
   useEffect(() => {
     const token = localStorage.getItem('token');
     const storedUserId = localStorage.getItem('userId'); // userId도 함께 확인
@@ -57,7 +60,7 @@ function Register() {
       return;
     }
     try {
-      const response = await fetch('https://gangwonactivity.site/api/v1/auth/check-id', {
+      const response = await fetch(API_DOMAIN + '/check-id', {
         method: 'POST',
         credentials: 'include',
         headers: {
@@ -88,7 +91,7 @@ function Register() {
       return;
     }
     try {
-      const response = await fetch('https://gangwonactivity.site/api/v1/auth/check-nickname', {
+      const response = await fetch(API_DOMAIN + '/check-nickname', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -113,7 +116,7 @@ function Register() {
       return;
     }
     try {
-      const response = await axios.post('https://gangwonactivity.site/api/v1/auth/email-certification', {
+      const response = await axios.post(API_DOMAIN + '/email-certification', {
         email: form.userEmail
       }, {
         headers: {
@@ -172,7 +175,7 @@ function Register() {
     }
 
     try {
-      const response = await fetch('https://gangwonactivity.site/api/v1/auth/sign-up', {
+      const response = await fetch(API_DOMAIN + '/sign-up', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

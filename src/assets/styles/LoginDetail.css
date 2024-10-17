@@ -143,6 +143,11 @@ input[type="text"]:focus, input[type="password"]:focus {
     text-decoration: underline;
 }
 
+.kakaoicon {
+    width: 30px;
+    height: 30px;
+}
+
 /* 모바일 및 작은 화면을 위한 반응형 */
 @media (max-width: 768px) {
     .login-modal-main {

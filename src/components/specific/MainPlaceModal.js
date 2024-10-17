@@ -9,10 +9,12 @@ function MainPlaceModal({ token, closeModal, selectedPlaceInfo }) {
     const [mapInitialized, setMapInitialized] = useState(false);
     const [items, setItems] = useState([]);
     const [userId, setUserId] = useState(null);
+    const DOMAIN = 'https://gangwonactivity.site';
+    const API_DOMAIN = DOMAIN + '/api/v1';
 
     // 로그인 여부 확인
     useEffect(() => {
-      axios.get('https://gangwonactivity.site/api/v1/user', {
+      axios.get(API_DOMAIN + '/user', {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -36,7 +38,7 @@ function MainPlaceModal({ token, closeModal, selectedPlaceInfo }) {
       const loadNaverMapScript = async () => {
         if (!window.naver) {
           try {
-            const response = await axios.get('https://gangwonactivity.site/api/v1/getmap');
+            const response = await axios.get(API_DOMAIN + '/getmap');
             console.log("Naver map script URL:", response.data);  // 스크립트 URL 확인
             
             const script = document.createElement('script');
@@ -98,7 +100,7 @@ function MainPlaceModal({ token, closeModal, selectedPlaceInfo }) {
       map.fitBounds(bounds);
   
       // 강원도 행정구역 데이터 레이어 호출
-      axios.get('https://gangwonactivity.site/resources/json/gangwondo.json')
+      axios.get(DOMAIN + '/resources/json/gangwondo.json')
         .then(response => {
           const geojson = response.data;
           map.data.addGeoJson(geojson);
@@ -123,7 +125,7 @@ function MainPlaceModal({ token, closeModal, selectedPlaceInfo }) {
 
     // 카테고리별 추천 장소 출력
     const category = (value) => {
-        axios.post('https://gangwonactivity.site/api/v1/getjson/getplacecat', {
+        axios.post(API_DOMAIN + '/getjson/getplacecat', {
             placeCat: value
         })
         .then(response => {
@@ -143,7 +145,7 @@ function MainPlaceModal({ token, closeModal, selectedPlaceInfo }) {
     // 찜 버튼
   const favoriteplace = (item) => {
     if (userId) {
-      axios.post('https://gangwonactivity.site/api/v1/getmyfavorite', {
+      axios.post(API_DOMAIN + '/getmyfavorite', {
         placeNo: item.id,
         userId: userId
       })

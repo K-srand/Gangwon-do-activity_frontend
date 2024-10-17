@@ -18,6 +18,9 @@ function PostBoard(){
     const [images, setImages] = useState([]);
     // const [existingImages, setExistingImages] = useState([]);
 
+    const DOMAIN = 'https://gangwonactivity.site';
+    const API_DOMAIN = DOMAIN + '/api/v1/board';
+
     const handleImageChange = (event) => {
         const files = Array.from(event.target.files);
         const newImages = files.map(file => URL.createObjectURL(file));
@@ -63,7 +66,7 @@ function PostBoard(){
 
         try {
             const token = localStorage.getItem('token'); // 토큰 가져오기
-            const response = await axios.post('https://gangwonactivity.site/file/upload', formData, {
+            const response = await axios.post(DOMAIN + '/file/upload', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     Authorization: `Bearer ${token}`
@@ -84,7 +87,7 @@ function PostBoard(){
     const increExp = async () => {
         try{
         const token = localStorage.getItem('token'); // 토큰 가져오기
-        await axios.get('https://gangwonactivity.site/api/v1/board/increment3/',{
+        await axios.get(API_DOMAIN + '/increment3/',{
         headers:{
             Authorization: `Bearer ${token}`
         }
@@ -103,7 +106,7 @@ function PostBoard(){
     
             console.log(selectedCourseNo);
     
-            const response = await axios.post('https://gangwonactivity.site/api/v1/board', {
+            const response = await axios.post(API_DOMAIN, {
                 title: boardTitle,
                 content: content,
                 boardImageList: fileUrls, // 이미지 URL 전송

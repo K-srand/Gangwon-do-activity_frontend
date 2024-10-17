@@ -11,9 +11,11 @@ function LoadMyCourse({ closeModal, onCourseSelect }) {
   const token = localStorage.getItem('token');
   const [userId, setUserId] = useState(null);
   const [totalPages, setTotalPages] = useState(0);
+  const DOMAIN = 'https://gangwonactivity.site';
+  const API_DOMAIN = DOMAIN + '/api/v1';
 
   useEffect(() => {
-    axios.get('https://gangwonactivity.site/api/v1/user', {
+    axios.get(API_DOMAIN + '/user', {
       headers: {
         'Authorization': `Bearer ${token}`
       }
@@ -31,7 +33,7 @@ function LoadMyCourse({ closeModal, onCourseSelect }) {
     const fetchCourses = async () => {
       if (!userId) return; 
       try {
-        const response = await axios.post('https://gangwonactivity.site/api/v1/board/mycourse', {
+        const response = await axios.post(API_DOMAIN + '/board/mycourse', {
           userId: userId
         }, {
           params: {

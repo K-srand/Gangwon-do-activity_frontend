@@ -6,6 +6,8 @@ import logo from '../../assets/images/MainLogo.png'; // logo import 추가
 function Certification({ closeModal, setIsEmailVerified }) {
   const [certificationNumber, setCertificationNumber] = useState('');
   const email = sessionStorage.getItem('email');
+  const DOMAIN = 'https://gangwonactivity.site';
+  const API_DOMAIN = DOMAIN + '/api/v1/auth';
   console.log(email);
 
   useEffect(() => {
@@ -23,7 +25,7 @@ function Certification({ closeModal, setIsEmailVerified }) {
     e.preventDefault();
 
     try {
-      const response = await axios.post('https://gangwonactivity.site/api/v1/auth/check-certification', {
+      const response = await axios.post(API_DOMAIN + '/check-certification', {
         email,
         certificationNumber
       }, {

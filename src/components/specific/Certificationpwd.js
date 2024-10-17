@@ -10,6 +10,8 @@ function CertificationPwd({ closeModal, setIsEmailVerified }) {
   const userId = sessionStorage.getItem('userId');
   console.log(email);
   const navigate = useNavigate();
+  const DOMAIN = 'https://gangwonactivity.site';
+  const API_DOMAIN = DOMAIN + '/api/v1/auth';
 
   useEffect(() => {
     if (!email) {
@@ -26,7 +28,7 @@ function CertificationPwd({ closeModal, setIsEmailVerified }) {
     e.preventDefault();
 
     try {
-      const response = await axios.post('https://gangwonactivity.site/api/v1/auth/check-certification', {
+      const response = await axios.post(API_DOMAIN + '/check-certification', {
         userId,
         email,
         certificationNumber

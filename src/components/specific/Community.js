@@ -26,6 +26,9 @@ function Community() {
   const [postCount,setPostCount] = useState(0);
   const [userExp, setUserExp] = useState([]);
 
+  const DOMAIN = 'https://gangwonactivity.site';
+  const API_DOMAIN = DOMAIN + '/api/v1/board';
+
   useEffect(() => {
     setCurrentPage(page);
   }, [page]);
@@ -33,7 +36,7 @@ function Community() {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const response = await axios.get(`https://gangwonactivity.site/api/v1/board/?page=${currentPage -1}&size=6`);
+        const response = await axios.get(API_DOMAIN + "/?page=${currentPage -1}&size=6");
 
         const pageData = response.data; // 페이지 정보 추출
         setTotalPages(pageData.totalPages);
@@ -68,7 +71,7 @@ function Community() {
 
     const fetchBestPosts = async () => { // 주간 베스트 게시글을 가져오는 함수 추가
       try {
-        const response = await axios.get('https://gangwonactivity.site/api/v1/board/best');
+        const response = await axios.get(API_DOMAIN + '/best');
         const fetchedBestPosts = response.data.map(post => ({
           id: post.boardNo,
           author: post.userNick,
@@ -94,7 +97,7 @@ function Community() {
 
   const fetchNoticePosts = async () => { // 공지글 가져오는 함수
     try {
-      const response = await axios.get('https://gangwonactivity.site/api/v1/board/notice');
+      const response = await axios.get(API_DOMAIN + '/notice');
       const fetchedNoticePosts = response.data.map(post => ({
         id: post.boardNo,
         author: post.userNick,

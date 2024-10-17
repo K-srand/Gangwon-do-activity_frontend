@@ -11,6 +11,8 @@ const FindId = () => {
     const [form, setForm] = useState({ userName: '', userEmail: '' });
     const navigate = useNavigate();
     const certificationNumber = sessionStorage.getItem('certificationNumber');
+    const DOMAIN = 'https://gangwonactivity.site';
+    const API_DOMAIN = DOMAIN + '/api/v1/auth';
 
     useEffect(() => {
         const token = localStorage.getItem('token');
@@ -36,7 +38,7 @@ const FindId = () => {
             return;
         }
         try {
-            const response = await axios.post('https://gangwonactivity.site/api/v1/auth/email-certification', {
+            const response = await axios.post(API_DOMAIN + '/email-certification', {
                 email: form.userEmail
             }, {
                 headers: {
@@ -79,7 +81,7 @@ const FindId = () => {
         }
 
         try {
-            const response = await axios.post('https://gangwonactivity.site/api/v1/auth/findId-certification', {
+            const response = await axios.post(API_DOMAIN + '/findId-certification', {
                 userName: form.userName,
                 email: form.userEmail,
                 certificationNumber: certificationNumber
