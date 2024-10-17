@@ -19,9 +19,6 @@ const PaginatedList = ({ title, fetchUrl, renderItem, itemsPerPage }) => {
   const [totalPages, setTotalPages] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
 
-  const DOMAIN = 'https://gangwonactivity.site';
-  const API_DOMAIN = DOMAIN + '/api/v1';
-
   useEffect(() => {
     fetchData(currentPage);
   }, [currentPage]);
@@ -207,6 +204,8 @@ const MyPage = () => {
   const [rankName, setRankName] = useState("");
   const token = localStorage.getItem('token');
   const navigate = useNavigate();
+  const DOMAIN = 'https://gangwonactivity.site';
+  const API_DOMAIN = DOMAIN + '/api/v1';
 
   const handleDelete = async (placeNo) => {
     try {
