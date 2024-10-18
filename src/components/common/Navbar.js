@@ -8,6 +8,23 @@ const Navbar = () => {
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userRole, setUserRole] = useState('');
+  const DOMAIN = 'https://gangwonactivity.site';
+  const API_DOMAIN = DOMAIN + '/api/v1';
+
+  useEffect (() => {
+    axios.get(API_DOMAIN + '/user', {
+        headers: {
+            'Authorization': `Bearer ${token}` // 요청 헤더에 토큰 추가
+        }
+    })
+    .then(function(res){
+        console.log('User data:', res.data.id);
+        setUserId(res.data.id);
+    })
+    .catch(function(error) {
+        console.error("There was an error!", error);
+    });
+  }, [token]);
 
   const logout = useCallback(() => {
     localStorage.removeItem('token');
