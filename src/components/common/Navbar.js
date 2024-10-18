@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import logo from '../../assets/images/MainLogo.png';
 import { useNavigate } from 'react-router-dom';
+import { useCookies } from 'react-cookie';
 
 const AUTO_LOGOUT_TIME = 3600000; // 60분을 밀리초로 표현한 값
 
@@ -8,32 +9,18 @@ const Navbar = () => {
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userRole, setUserRole] = useState('');
-  const DOMAIN = 'https://gangwonactivity.site';
-  const API_DOMAIN = DOMAIN + '/api/v1';
-
-  useEffect (() => {
-    axios.get(API_DOMAIN + '/user', {
-        headers: {
-            'Authorization': `Bearer ${token}` // 요청 헤더에 토큰 추가
-        }
-    })
-    .then(function(res){
-        console.log('User data:', res.data.id);
-        setUserId(res.data.id);
-    })
-    .catch(function(error) {
-        console.error("There was an error!", error);
-    });
-  }, [token]);
+  const [cookies, setCookie, removeCookie] = useCookies();
 
   const logout = useCallback(() => {
     localStorage.removeItem('token');
     localStorage.removeItem('userId');
     localStorage.removeItem('userRole');
+    removeCookie('accessToken');
     setIsLoggedIn(false);
     setUserRole('');
     navigate('/');
-  }, [navigate]);
+    window.location.reload();
+  }, [navigate, removeCookie]);
 
   useEffect(() => {
     const token = localStorage.getItem('token');
