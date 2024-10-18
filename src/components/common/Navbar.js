@@ -9,17 +9,6 @@ const Navbar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userRole, setUserRole] = useState('');
 
-  useEffect(() => {
-    if (!token) setIsLoggedIn(false);;
-
-    axios.get(API_DOMAIN + '/user', {
-        headers: {
-            'Authorization': `Bearer ${token}` 
-        }
-    })
-
-  }, [token]);
-
   const logout = useCallback(() => {
     localStorage.removeItem('token');
     localStorage.removeItem('userId');
