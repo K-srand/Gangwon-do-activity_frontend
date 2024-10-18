@@ -31,11 +31,13 @@ export default function OAuthLogin() {
 
     // 토큰 및 userId 저장 로직
     useEffect(() => {
+        // 모든 값이 존재할 때만 실행
         if (!token || !expirationTime || !userId) return;
 
         const now = new Date().getTime(); 
         const expires = new Date(now + Number(expirationTime) * 1000); 
 
+        // 쿠키와 로컬스토리지에 저장
         setCookie('accessToken', token, { expires, path: '/' });
         localStorage.setItem('token', token);
         localStorage.setItem('userId', userId); 
@@ -43,9 +45,10 @@ export default function OAuthLogin() {
 
         console.log('Logged in successfully');
 
+        // 네비게이트 후 새로고침
         navigate('/'); 
         window.location.reload(); 
-    }, [token, expirationTime, userId]);
+    }, [token, expirationTime, userId, setCookie, navigate]);
 
     return <div>OAuth Login in progress...</div>;
 }

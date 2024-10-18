@@ -19,7 +19,6 @@ function CommunityPage() {
 
   return (
     <div>
-      <Navbar />
       <main>
         <Community token={token} />
       </main>

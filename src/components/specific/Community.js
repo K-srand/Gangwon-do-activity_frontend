@@ -147,7 +147,6 @@ function Community() {
       </div>
       <div className="body">
         <h1 className="title">글 목록</h1>
-        <h3 className="right">작성일</h3>
       </div>
       <div className="post-list">
         {noticePost.map(post => {

@@ -85,7 +85,8 @@ function MainUpper({ token }) {
   }, []);
 
   // 마커 표시&맵 초기화
-  const initializeMap = useCallback(() => {
+  const initializeMap = useCallback((e) => {
+    e.preventDefault();
     if (locations.length > 0 && window.naver && mapInitialized) {
       const { naver } = window;
 
