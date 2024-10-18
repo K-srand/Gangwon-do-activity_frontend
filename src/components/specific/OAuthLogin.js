@@ -38,7 +38,8 @@ export default function OAuthLogin() {
         const expires = new Date(now + Number(expirationTime) * 1000); 
 
         // 쿠키와 로컬스토리지에 저장
-        setCookie('accessToken', token, { expires, path: '/' });
+        setCookie('accessToken', token, { expires, path: '/', secure: true });
+
         localStorage.setItem('token', token);
         localStorage.setItem('userId', userId); 
         localStorage.setItem('userRole', 'ROLE_USER');
