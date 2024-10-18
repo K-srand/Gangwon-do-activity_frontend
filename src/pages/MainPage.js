@@ -12,8 +12,11 @@ function MainPage() {
 
   const [userId, setUserId] = useState(null);
 
+  const DOMAIN = 'https://gangwonactivity.site';
+  const API_DOMAIN = DOMAIN + '/api/v1';
+
   useEffect (() => {
-      axios.get('http://3.36.27.202:4040/api/v1/user', {
+      axios.get(API_DOMAIN + '/user', {
           headers: {
               'Authorization': `Bearer ${token}` // 요청 헤더에 토큰 추가
           }
@@ -30,7 +33,6 @@ function MainPage() {
 
   return (
     <div>
-      {/* <Navbar /> */}
       <main>
         <MainUpper token={token} />
         <WeatherPage/>
