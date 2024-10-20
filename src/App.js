@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Routes, useNavigate, useLocation } from
 import LoginDetail from './components/specific/LoginDetail';
 import Register from './components/specific/Register';
 import Certification from './components/specific/Certification';
-import BoardDetail from './components/specific/BoardDetail';
+// import BoardDetail from './components/specific/BoardDetail';
 import Navbar from './components/common/Navbar'; // 추가
 import Modal from './components/specific/Modal'; // 추가
 import Login from './components/specific/Login'; // 추가
