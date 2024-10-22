@@ -36,6 +36,7 @@ import PostBoard from './pages/PostBoardPage';
 import PatchBoard from './pages/PatchBoardPage'
 import LoadMyCourse from './components/specific/LoadMyCourse';
 import RecommendPage from './pages/RecommendPage';
+import OAuthLogin from './components/specific/OAuthLogin';
 
 
 function App() {
@@ -88,6 +89,7 @@ function App() {
         <Route path="/withdraw" element={<Withdraw/>}/>
         <Route path="/AllUserList" element={<AllUserListPage/>}/>
         <Route path="/Admin" element={<AdminPage/>}/>
+        <Route path="/auth/oauth-response/:token/:expirationTime" element={<OAuthLogin />} />
         
       </Routes>
       <Modal isOpen={isModalOpen} onClose={closeModal}>

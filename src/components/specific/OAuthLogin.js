@@ -5,7 +5,7 @@ import axios from "axios";
 
 export default function OAuthLogin() {
     const [userId, setUserId] = useState('');
-    const { token, expirationTime } = useParams();
+    const { token, expirationTime } = useParams(); // URL에서 token과 expirationTime을 가져옴
     const [cookie, setCookie] = useCookies();
     const navigate = useNavigate();
     const DOMAIN = 'https://gangwonactivity.site';
@@ -17,12 +17,12 @@ export default function OAuthLogin() {
 
         axios.get(API_DOMAIN + '/user', {
             headers: {
-                'Authorization': `Bearer ${token}` 
+                'Authorization': `Bearer ${token}`  // Bearer 토큰 방식으로 요청
             }
         })
         .then(function(res) {
             console.log('User data:', res.data.id);
-            setUserId(res.data.id);
+            setUserId(res.data.id);  // 사용자 ID 설정
         })
         .catch(function(error) {
             console.error("There was an error!", error);
@@ -35,7 +35,7 @@ export default function OAuthLogin() {
         if (!token || !expirationTime || !userId) return;
 
         const now = new Date().getTime(); 
-        const expires = new Date(now + Number(expirationTime) * 1000); 
+        const expires = new Date(now + Number(expirationTime) * 1000); // 만료 시간 계산
 
         // 쿠키와 로컬스토리지에 저장
         setCookie('accessToken', token, { expires, path: '/', secure: true });
@@ -48,7 +48,7 @@ export default function OAuthLogin() {
 
         // 네비게이트 후 새로고침
         navigate('/'); 
-        window.location.reload(); 
+
     }, [token, expirationTime, userId, setCookie, navigate]);
 
     return <div>OAuth Login in progress...</div>;
