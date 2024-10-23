@@ -13,52 +13,43 @@ export default function OAuthLogin() {
     const API_DOMAIN = `${DOMAIN}/api/v1`;
     
     // URL에서 쿼리 파라미터를 가져오는 함수
-    const getQueryParams = () => {
-        const params = new URLSearchParams(location.search);
+    const getPathParams = () => {
+        const pathParts = location.pathname.split('/');
         return {
-            token: params.get('token'),
-            expirationTime: params.get('expirationTime')
+            token: pathParts[3],
+            expirationTime: pathParts[4]
         };
     };
 
-    // 사용자 정보를 가져오는 useEffect
     useEffect(() => {
-        const { token, expirationTime } = getQueryParams();
-
-        console.log('token: ', token);
-        console.log('expirationTime: ', expirationTime);
-
+        const { token, expirationTime } = getPathParams();  // 경로에서 token과 expirationTime 추출
+    
         if (!token) return;
-
-        // axios.get(`${API_DOMAIN}/user`, {
-        //     headers: {
-        //         'Authorization': `Bearer ${token}`
-        //     }
-        // })
-        // .then(function(res) {
-        //     console.log('User data:', res.data.id);
-        //     setUserId(res.data.id); 
+    
+        axios.get(`${API_DOMAIN}/user`, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
+        .then(function(res) {
+            setUserId(res.data.id); 
             
-        //     const now = new Date().getTime();
-        //     const expires = new Date(now + Number(expirationTime) * 1000); 
+            const now = new Date().getTime();
+            const expires = new Date(now + Number(expirationTime) * 1000); 
             
-        //     setCookie('accessToken', token, { expires, path: '/', secure: true });
-        //     localStorage.setItem('token', token);
-        //     localStorage.setItem('userId', res.data.id); 
-        //     localStorage.setItem('userRole', 'ROLE_USER');
-
-        //     console.log('Logged in successfully');
-
-        //     navigate('/', { replace: true });  
-
-        // })
-        // .catch(function(error) {
-        //     console.error("There was an error fetching user data!", error);
-        //     navigate('/login', { replace: true });
-        // });
-
-        // window.location.reload();
-    }, [API_DOMAIN]);
+            setCookie('accessToken', token, { expires, path: '/', secure: true });
+            localStorage.setItem('token', token);
+            localStorage.setItem('userId', res.data.id); 
+            localStorage.setItem('userRole', 'ROLE_USER');
+    
+            navigate('/', { replace: true });  // 로그인 후 메인 페이지로 이동
+    
+        })
+        .catch(function(error) {
+            console.error("There was an error fetching user data!", error);
+            navigate('/logindetail', { replace: true });  // 오류 시 로그인 페이지로 리디렉션
+        });
+    }, [API_DOMAIN, navigate]);
 
     return <div>OAuth Login in progress...</div>;
 }
