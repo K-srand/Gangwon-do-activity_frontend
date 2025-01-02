@@ -59,7 +59,7 @@ function MainUpper({ token }) {
         setItemlist(fetchedItems);
       })
       .catch(error => console.error('Error fetching locations:', error));
-  }, []);
+  }, [API_DOMAIN]);
 
 
 
@@ -83,7 +83,7 @@ function MainUpper({ token }) {
     };
 
     loadNaverMapScript();
-  }, []);
+  }, [API_DOMAIN]);
 
   // 마커 표시&맵 초기화
   const initializeMap = useCallback(() => {
@@ -125,39 +125,37 @@ function MainUpper({ token }) {
       });
 
       // 강원도 행정구역 데이터 레이어 호출
-      axios.get(DOMAIN + `/resources/json/gangwondo.json`, {
-        headers: {
-          'Cache-Control': 'no-cache',
-          'Pragma': 'no-cache'
-        }
-      })
-          .then(response => {
-            const geojson = response.data;
-
-            // GeoJSON 데이터를 맵에 추가
-            if (geojson) {
-              newMap.data.addGeoJson(geojson);
-
-              // 스타일 설정
-              newMap.data.setStyle(feature => {
-                  return {
-                      fillColor: '#FFAF00',
-                      fillOpacity: 0.4,
-                      strokeColor: '#FFAF00',
-                      strokeWeight: 2
-                  };
-              });
-              console.log(geojson);
-              console.log('GeoJSON successfully loaded and added to the map.');
-            } else {
-              console.error('GeoJSON data is empty or undefined.');
+        axios.get(DOMAIN + `/resources/json/gangwondo.json`, {
+            headers: {
+                'Cache-Control': 'no-cache',
+                'Pragma': 'no-cache'
             }
-          })
-          .catch(error => {
-            console.error('Error fetching GeoJSON:', error);
-          });
+        })
+            .then(response => {
+                const geojson = response.data;
+
+                // GeoJSON 데이터를 맵에 추가
+                if (geojson) {
+                    newMap.data.addGeoJson(geojson);
+
+                    // 스타일 설정
+                    newMap.data.setStyle({
+                        fillColor: '#FFAF00',
+                        fillOpacity: 0.4,
+                        strokeColor: '#FFAF00',
+                        strokeWeight: 2
+                    });
+
+                    console.log('GeoJSON successfully loaded and added to the map.');
+                } else {
+                    console.error('GeoJSON data is empty or undefined.');
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching GeoJSON:', error);
+            });
     }
-  }, [locations, mapInitialized]);
+  }, [API_DOMAIN, locations, mapInitialized]);
 
   // 맵 초기화 호출
   useEffect(() => {
