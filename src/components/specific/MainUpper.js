@@ -139,13 +139,15 @@ function MainUpper({ token }) {
               newMap.data.addGeoJson(geojson);
 
               // 스타일 설정
-              newMap.data.setStyle({
-                fillColor: '#FFAF00',
-                fillOpacity: 0.4,
-                strokeColor: '#FFAF00',
-                strokeWeight: 2
+              newMap.data.setStyle(feature => {
+                  return {
+                      fillColor: '#FFAF00',
+                      fillOpacity: 0.4,
+                      strokeColor: '#FFAF00',
+                      strokeWeight: 2
+                  };
               });
-
+              console.log(geojson);
               console.log('GeoJSON successfully loaded and added to the map.');
             } else {
               console.error('GeoJSON data is empty or undefined.');
