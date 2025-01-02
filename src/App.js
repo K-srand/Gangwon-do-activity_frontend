@@ -78,7 +78,7 @@ function App() {
         <Route path="/post" element={<PostBoard/>}/>
         <Route path="/patch/:boardNo" element={<PatchBoard/>}/>
         <Route path="/introduce" element={<IntroducePage/>}/>
-        <Route path = "/mypage" element = {<MyPage/>}/>
+        <Route path="/mypage" element = {<MyPage/>}/>
         <Route path="/loadmycourse" element={<LoadMyCourse/>}/>
         <Route path="/Report" element={<ReportPage/>} />
         <Route path="/ErrorPage" element={<ErrorPage />} />

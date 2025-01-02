@@ -8,6 +8,7 @@ import MainPlaceModal from '../specific/MainPlaceModal';
 
 function MainUpper({ token }) {
   const mapContainer = useRef(null);
+  const [map, setMap] = useState(null);  // 맵 객체 상태 관리
   const [locations, setLocations] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [items, setItems] = useState([]);
@@ -61,7 +62,7 @@ function MainUpper({ token }) {
   }, []);
 
 
-  
+
   // 네이버 맵 API 호출
   useEffect(() => {
     const loadNaverMapScript = async () => {
@@ -95,17 +96,18 @@ function MainUpper({ token }) {
         center: initialLocation,
         zoom: 8,
       };
-      const map = new naver.maps.Map(mapContainer.current, options);
+      const newMap = new naver.maps.Map(mapContainer.current, options);  // 맵 객체 초기화
+      setMap(newMap);  // 맵 상태 업데이트
 
       // 마커 추가
       locations.forEach(location => {
         const markerPosition = new naver.maps.LatLng(location.mapy, location.mapx);
         const marker = new naver.maps.Marker({
           position: markerPosition,
-          map,
+          map: newMap,
           title: location.placeTitle
         });
-        
+
         // 마커 클릭 이벤트 추가
         naver.maps.Event.addListener(marker, 'click', () => {
           axios.post(API_DOMAIN + '/getjson/getplacetitle', {
@@ -113,58 +115,55 @@ function MainUpper({ token }) {
             placeMapx: location.mapx,
             placeMapy: location.mapy
           })
-          .then(response => {
-            console.log(response.data);
-          })
-          .catch(error => {
-            console.error('There was an error!', error);
-          });
+              .then(response => {
+                console.log(response.data);
+              })
+              .catch(error => {
+                console.error('There was an error!', error);
+              });
         });
       });
 
       // 강원도 행정구역 데이터 레이어 호출
-      axios.get(DOMAIN + '/resources/json/gangwondo.json', {
+      axios.get(DOMAIN + `/resources/json/gangwondo.json`, {
         headers: {
           'Cache-Control': 'no-cache',
           'Pragma': 'no-cache'
         }
       })
-      .then(response => {
-        const geojson = response.data;
+          .then(response => {
+            const geojson = response.data;
 
-        // GeoJSON 데이터를 맵에 추가
-        if (geojson) {
-          map.data.addGeoJson(geojson);
+            // GeoJSON 데이터를 맵에 추가
+            if (geojson) {
+              newMap.data.addGeoJson(geojson);
 
-          // 스타일 설정
-          map.data.setStyle({
-            fillColor: '#FFAF00',
-            fillOpacity: 0.4,
-            strokeColor: '#FFAF00',
-            strokeWeight: 2
+              // 스타일 설정
+              newMap.data.setStyle({
+                fillColor: '#FFAF00',
+                fillOpacity: 0.4,
+                strokeColor: '#FFAF00',
+                strokeWeight: 2
+              });
+
+              console.log('GeoJSON successfully loaded and added to the map.');
+            } else {
+              console.error('GeoJSON data is empty or undefined.');
+            }
+          })
+          .catch(error => {
+            console.error('Error fetching GeoJSON:', error);
           });
-
-          console.log('GeoJSON successfully loaded and added to the map.');
-        } else {
-          console.error('GeoJSON data is empty or undefined.');
-        }
-      })
-      .catch(error => {
-        console.error('Error fetching GeoJSON:', error);
-      });
     }
   }, [locations, mapInitialized]);
 
-
+  // 맵 초기화 호출
   useEffect(() => {
     if (mapInitialized && locations.length > 0) {
       initializeMap();
     }
   }, [mapInitialized, locations, initializeMap]);
   
-
-  
-
   // 장소 리스트 슬라이드
   const nextItems = () => {
     if (currentIndex + 4 < items.length) {
@@ -310,7 +309,7 @@ function MainUpper({ token }) {
               <img className="favoriteplace" src={favorite} alt="favorite" onClick={() => favoriteplace(item)} />
               <h5 className="card-title">{item.title}</h5>
               <div className="card-body">
-                <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <p className="card-text">{item.addr1}{item.addr2}{item.rate}</p>
               </div>
             </div>
           </div>
