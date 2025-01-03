@@ -8,7 +8,6 @@ import MainPlaceModal from '../specific/MainPlaceModal';
 
 function MainUpper({ token }) {
   const mapContainer = useRef(null);
-  const [map, setMap] = useState(null);  // 맵 객체 상태 관리
   const [locations, setLocations] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [items, setItems] = useState([]);
@@ -59,7 +58,7 @@ function MainUpper({ token }) {
         setItemlist(fetchedItems);
       })
       .catch(error => console.error('Error fetching locations:', error));
-  }, [API_DOMAIN]);
+  }, []);
 
 
 
@@ -83,7 +82,7 @@ function MainUpper({ token }) {
     };
 
     loadNaverMapScript();
-  }, [API_DOMAIN]);
+  }, []);
 
   // 마커 표시&맵 초기화
   const initializeMap = useCallback(() => {
@@ -96,15 +95,14 @@ function MainUpper({ token }) {
         center: initialLocation,
         zoom: 8,
       };
-      const newMap = new naver.maps.Map(mapContainer.current, options);  // 맵 객체 초기화
-      setMap(newMap);  // 맵 상태 업데이트
+      const map = new naver.maps.Map(mapContainer.current, options);
 
       // 마커 추가
       locations.forEach(location => {
         const markerPosition = new naver.maps.LatLng(location.mapy, location.mapx);
         const marker = new naver.maps.Marker({
           position: markerPosition,
-          map: newMap,
+          map,
           title: location.placeTitle
         });
 
@@ -115,55 +113,58 @@ function MainUpper({ token }) {
             placeMapx: location.mapx,
             placeMapy: location.mapy
           })
-              .then(response => {
-                console.log(response.data);
-              })
-              .catch(error => {
-                console.error('There was an error!', error);
-              });
+          .then(response => {
+            console.log(response.data);
+          })
+          .catch(error => {
+            console.error('There was an error!', error);
+          });
         });
       });
 
       // 강원도 행정구역 데이터 레이어 호출
-        axios.get(DOMAIN + `/resources/json/gangwondo.json`, {
-            headers: {
-                'Cache-Control': 'no-cache',
-                'Pragma': 'no-cache'
-            }
-        })
-            .then(response => {
-                const geojson = response.data;
+      axios.get(DOMAIN + `/resources/json/gangwondo.json`, {
+        headers: {
+          'Cache-Control': 'no-cache',
+          'Pragma': 'no-cache'
+        }
+      })
+      .then(response => {
+        const geojson = response.data;
 
-                // GeoJSON 데이터를 맵에 추가
-                if (geojson) {
-                    newMap.data.addGeoJson(geojson);
+        // GeoJSON 데이터를 맵에 추가
+        if (geojson) {
+          map.data.addGeoJson(geojson);
 
-                    // 스타일 설정
-                    newMap.data.setStyle({
-                        fillColor: '#FFAF00',
-                        fillOpacity: 0.4,
-                        strokeColor: '#FFAF00',
-                        strokeWeight: 2
-                    });
+          // 스타일 설정
+          map.data.setStyle({
+            fillColor: '#FFAF00',
+            fillOpacity: 0.4,
+            strokeColor: '#FFAF00',
+            strokeWeight: 2
+          });
 
-                    console.log('GeoJSON successfully loaded and added to the map.');
-                } else {
-                    console.error('GeoJSON data is empty or undefined.');
-                }
-            })
-            .catch(error => {
-                console.error('Error fetching GeoJSON:', error);
-            });
+          console.log('GeoJSON successfully loaded and added to the map.');
+        } else {
+          console.error('GeoJSON data is empty or undefined.');
+        }
+      })
+      .catch(error => {
+        console.error('Error fetching GeoJSON:', error);
+      });
     }
-  }, [API_DOMAIN, locations, mapInitialized]);
+  }, [locations, mapInitialized]);
 
-  // 맵 초기화 호출
+
   useEffect(() => {
     if (mapInitialized && locations.length > 0) {
       initializeMap();
     }
   }, [mapInitialized, locations, initializeMap]);
-  
+
+
+
+
   // 장소 리스트 슬라이드
   const nextItems = () => {
     if (currentIndex + 4 < items.length) {
@@ -203,7 +204,7 @@ function MainUpper({ token }) {
     }
   };
 
-  
+
   //사용자 추천 코스
   // 첫 번째 요청을 보내는 비동기 함수를 정의합니다.
   const fetchFirstData = async () => {
@@ -251,7 +252,7 @@ function MainUpper({ token }) {
   useEffect(() => {
     fetchSecondData();
   }, [myCourseNo]);
-  
+
   const recommend = () => {
     window.location.href = `/recommend`;
   }
@@ -284,18 +285,18 @@ function MainUpper({ token }) {
         <img src={main} className="img-fluid" alt="main" />
       </div>
       {/* 맵 api */}
-   
+
       <div className="card">
         <div ref={mapContainer} className="naverMainMap"></div>
       </div>
-   
+
 
     {/* 2행 5열 이미지 표시 */}
     <div className="card">
     <div className='recommendplace'>
         <h2>강추에서 추천하는 장소!</h2>
       </div>
-      
+
       <div className="image-grid-container">
         {fetchedItemlist.slice(0, 10).map((item) => (
           <div className="card" key={item.id}>
@@ -309,7 +310,7 @@ function MainUpper({ token }) {
               <img className="favoriteplace" src={favorite} alt="favorite" onClick={() => favoriteplace(item)} />
               <h5 className="card-title">{item.title}</h5>
               <div className="card-body">
-                <p className="card-text">{item.addr1}{item.addr2}{item.rate}</p>
+                <p className="card-text">{item.addr1}{item.addr2}</p>
               </div>
             </div>
           </div>
